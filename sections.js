@@ -24,3 +24,15 @@ export function residentPlan(ranked,existing,{limit=48,byteLimit=20_000_000,keep
  for(const r of candidates){const id=r.slot.id;if(desired.has(id))continue;const n=bytesOf(id);if(desired.size>=limit||bytes+n>byteLimit)continue;desired.add(id);bytes+=n;}
  return desired;
 }
+
+// Only replace residents when a fully decoded incoming asset needs space.
+// Use physical distance, not gaze, and require meaningful improvement.
+export function evictionPlan(resident,ranked,incomingId,incomingBytes,{limit,gpuLimit,byteLimit,bytesOf=()=>0,protectRadius=12,margin=8}){
+ const incoming=ranked.find(r=>r.slot.id===incomingId);if(!incoming||incomingBytes>gpuLimit||bytesOf(incomingId)>byteLimit)return null;
+ let count=resident.size,decoded=0,compressed=0;for(const [id,r] of resident){decoded+=r.bytes;compressed+=bytesOf(id);}
+ const fits=()=>count+1<=limit&&decoded+incomingBytes<=gpuLimit&&compressed+bytesOf(incomingId)<=byteLimit;
+ if(fits())return [];
+ const victims=ranked.filter(r=>resident.has(r.slot.id)&&r.d>protectRadius&&r.d>incoming.d+margin).sort((a,b)=>b.d-a.d);
+ const plan=[];for(const r of victims){const id=r.slot.id;plan.push(id);count--;decoded-=resident.get(id).bytes;compressed-=bytesOf(id);if(fits())return plan;}
+ return null;
+}
