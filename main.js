@@ -1,6 +1,7 @@
 import * as T from 'three';
 import {zones,WIDTH,DEPTH,SPAWN,colors,catalog,byCategory,byId,money,stockState,rng,archive,planFixtures} from './world.js';
 const $=id=>document.getElementById(id);
+import {installProductModels} from './assets.js';
 const random=rng(32701), scene=new T.Scene(), camera=new T.PerspectiveCamera(73,innerWidth/innerHeight,.06,160);
 scene.background=new T.Color('#bfc8cf');scene.fog=new T.Fog('#bfc8cf',75,155);
 const renderer=new T.WebGLRenderer({antialias:true,powerPreference:'high-performance'});
@@ -51,6 +52,7 @@ function crate(x,y,z,w,h,d,open=false){
 }
 function pallet(x,z,w,d){for(let i=0;i<5;i++)B(x-w/2+w*(i+.5)/5,.115,z,w*.17,.075,d,wood);for(let i=0;i<3;i++)B(x,.045,z-d/2+d*(i+.5)/3,w,.09,d*.15,darkKraft);}
 const stockGroups=new Map(),stockMeshes=new Map();
+const modelSlots=[];
 function makeStock(p,x,z,w,d,seed){
  const slot={p,x,z,w,d,seed};if(!stockGroups.has(p.id))stockGroups.set(p.id,[]);stockGroups.get(p.id).push(slot);
 }
@@ -102,14 +104,14 @@ function rack(f){
   B(x,yy,z,.055,len,.055,steel,0,f.alongX?0:a,f.alongX?a:0);
  }
  for(let face=0;face<faces;face++){
-  const side=faces===1?(f.zone.z<2?1:-1):(face===0?-1:1),v=side*d*.27, p=products[(f.index*faces+face)%products.length];
+  const side=faces===1?(f.zone.face==='right'?1:f.zone.face==='left'?-1:f.zone.z<2?1:-1):(face===0?-1:1),v=side*d*.27, p=products[(f.index*faces+face)%products.length];
   let [x,z]=local(f,0,v),pw=w*.84, pd=d*(faces===1?.79:.42);
   makeStock(p,x,z,f.alongX?pw:pd,f.alongX?pd:pw,1000+f.index*19+face);
   // The second level is the customer-facing hero product shelf.
   const count=Math.max(2,Math.min(5,Math.floor(w/.65)));
   for(let i=0;i<count;i++){
    let u=(i-(count-1)/2)*w*.77/count;let [a,b]=local(f,u,v);let ww=w*.68/count,hh=.82+random()*.27,dd=Math.min(pd*.79,.65);
-   packageItem(p,a,1.80,b,ww,hh,dd,f.alongX?0:Math.PI/2);
+   packageItem(p,a,1.80,b,ww,hh,dd,f.alongX?0:Math.PI/2);if(i===0&&p.id==='home-1')modelSlots.push({id:p.id,x:a,y:2.85,z:b,w:.28,h:.47,d:.28});
   }
   let [a,b]=local(f,0,side*(d/2+.02));
   B(a,1.67,b,f.alongX?Math.min(w*.45,1.1):.035,.38,f.alongX?.035:Math.min(w*.45,1.1),priceMat(p));
@@ -135,6 +137,7 @@ function display(f){
  else if(p.shape==='mattress'){B(x,.33,z,w*.85,.3,d*.8,'#697784');B(x,.67,z,w*.85,.36,d*.8,'#e4e3dc');}
  else if(p.shape==='tv'){B(x,.48,z,w*.88,.95,d*.8,'#515b61');B(x,1.55,z,w*.78,1.17,.12,'#20252b');B(x,1.55,z+.071,w*.73,1.08,.01,canvasMat(256,128,(c,w,h)=>{let g=c.createLinearGradient(0,0,w,h);g.addColorStop(0,'#173c72');g.addColorStop(.5,'#51a5b9');g.addColorStop(1,'#f5b96c');c.fillStyle=g;c.fillRect(0,0,w,h);c.fillStyle='#fff';c.font='bold 24px sans-serif';c.fillText('V / ULTRA HD',12,72);},false));}
  else {pallet(x,z,w*.86,d*.86);B(x,.54,z,w*.86,.74,d*.8,'#b4a08b');B(x,.94,z,w*.9,.09,d*.85,'#e3ddd3');let cols=Math.max(2,Math.floor(w/.8)),rows=Math.max(1,Math.floor(d/.8));for(let i=0;i<cols;i++)for(let j=0;j<rows;j++)packageItem(p,x+(i-(cols-1)/2)*w*.75/cols,1.0,z+(j-(rows-1)/2)*d*.7/rows,w*.63/cols,.44,d*.6/rows);}
+ if(p.id==='produce-1')modelSlots.push({id:p.id,x,y:1.49,z,w:.32,h:.22,d:.26});
  B(x,1.45,z+d*.43,.07,1.25,.07,gray);B(x,1.85,z+d*.43,.9,.45,.065,priceMat(p));proxy(p,x,1.15,z,w*.9,1.8,d*.9,f.zone,f);
 }
 function cold(f){
@@ -151,15 +154,20 @@ function counter(f){let x=f.x+f.w/2,z=f.z+f.d/2;B(x,.54,z,f.w,1.08,f.d,'#b1b6b5'
 function service(f){B(f.x+f.w/2,1.6,f.z+f.d/2,f.w,3.2,f.d,'#a7b0b4');}
 function shell(){
  let concrete=canvasMat(256,256,(c,w,h)=>{c.fillStyle='#a5a7a4';c.fillRect(0,0,w,h);let r=rng(9);for(let i=0;i<8000;i++){let v=100+Math.floor(r()*100);c.fillStyle='rgba('+v+','+v+','+v+',.13)';c.fillRect(r()*w,r()*h,1+r()*3,1+r()*2);}c.strokeStyle='#777b7733';c.strokeRect(1,1,w-2,h-2);});concrete.map.wrapS=concrete.map.wrapT=T.RepeatWrapping;concrete.map.repeat.set(34,22);
+ concrete.roughness=.42;
  let ground=new T.Mesh(new T.PlaneGeometry(WIDTH,DEPTH),concrete);ground.rotation.x=-Math.PI/2;ground.position.set(WIDTH/2,0,DEPTH/2);scene.add(ground);
  B(WIDTH/2,4.7,0,WIDTH,9.4,.26,'#d2d5d1');B(0,4.7,DEPTH/2,.26,9.4,DEPTH,'#d2d5d1');B(WIDTH,4.7,DEPTH/2,.26,9.4,DEPTH,'#d2d5d1');B(54,4.7,DEPTH,108,9.4,.26,'#d2d5d1');B(119,4.7,DEPTH,8,9.4,.26,'#d2d5d1');
  B(WIDTH/2,9.6,DEPTH/2,WIDTH,.25,DEPTH,'#c2c9ca');
- for(let x=2;x<WIDTH;x+=7.5){B(x,4.5,.35,.18,9,.27,gray);B(x,4.5,DEPTH-.35,.18,9,.27,gray);B(x,8.8,DEPTH/2,.19,.42,DEPTH,gray);for(let z=3;z<DEPTH;z+=8){B(x,8.2,z,.2,.18,3.5,gray);B(x,8.03,z,.35,.12,2.8,lightMat);}}
+ // White open-web roof trusses, with diagonal members in each panel.
+ for(let x=4;x<WIDTH;x+=7.5){
+  for(let z=3;z<DEPTH-3;z+=3){B(x,8.64,z,.11,.10,3.0,'#e7e9e7');B(x,9.28,z,.11,.10,3.0,'#e7e9e7');B(x,8.96,z,.075,Math.hypot(3,.64),.075,'#e7e9e7',0,0,Math.atan2(3,.64)*(Math.round(z/3)%2?1:-1));}
+ }
+ for(let x=2;x<WIDTH;x+=7.5){B(x,4.5,.35,.18,9,.27,gray);B(x,4.5,DEPTH-.35,.18,9,.27,gray);B(x,9.30,DEPTH/2,.14,.12,DEPTH,'#e7e9e7');for(let z=3;z<DEPTH;z+=8){B(x,8.2,z,.2,.18,3.5,gray);B(x,8.03,z,.35,.12,2.8,lightMat);C(x,7.92,z,.57,.23,.57,'#e5e7e5');C(x,7.79,z,.41,.04,.41,lightMat);}}
  for(let z=3;z<DEPTH;z+=6){B(.35,4.5,z,.24,9,.16,gray);B(WIDTH-.35,4.5,z,.24,9,.16,gray);B(WIDTH/2,9.05,z,WIDTH,.16,.12,gray);}
  for(let x=0.6;x<WIDTH;x+=2.1){B(x,2.8,.2,.035,5.5,.035,'#adb4b2');B(x,2.8,DEPTH-.2,.035,5.5,.035,'#adb4b2');}
  for(let x=4;x<WIDTH;x+=12)B(x,.008,DEPTH-1.3,6,.012,.10,'#d1b35a');
- const welcome=signMat('VIRTUACO','WAREHOUSE 01 / WELCOME','#a52830');B(113.5,5.8,DEPTH-.3,8,2.0,.10,welcome);
- B(113,3.0,DEPTH-1.0,5,.35,.28,steel);
+ const welcome=signMat('VIRTUACO','WAREHOUSE 01 / WELCOME','#a52830');B(112,5.8,.32,8,2.0,.10,welcome);
+ B(112,3.0,1.0,5,.35,.28,steel);
 }
 shell();
 for(const f of fixtures){colliders.push(f);B(f.x+f.w/2,.008,f.z+f.d/2,f.w+.12,.012,f.d+.12,contactMat);if(f.type==='rack')rack(f);else if(f.type==='display')display(f);else if(f.type==='cold')cold(f);else if(f.type==='service')service(f);else counter(f);}
@@ -170,6 +178,7 @@ for(const q of zones){
 }
 for(const {geo,mat,matrices} of batches.values()){let mesh=new T.InstancedMesh(geo,mat,matrices.length);matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));mesh.instanceMatrix.needsUpdate=true;scene.add(mesh);}
 batches.clear();
+installProductModels(scene,modelSlots).catch(console.warn);
 for(const id of stockGroups.keys())rebuildProductStock(id);
 let pos=new T.Vector3(SPAWN.x,1.68,SPAWN.z),yaw=SPAWN.yaw,pitch=0,started=false,open=false,mode='',selected=null,hit=null,keys=new Set(),drag=null,toastTimer;
 const radius=.36;
@@ -217,9 +226,9 @@ function productRow(p,fn){let row=el('button','product-row'),sw=el('span','swatc
 function showSearch(){let body=showPanel('Find a product','CATALOG / '+catalog.length+' DEMO PRODUCTS','search'),input=el('input','search-input');input.placeholder='Search products or departments';input.setAttribute('aria-label','Search products or departments');let results=el('div','results');function render(){let query=input.value.trim().toLowerCase();results.replaceChildren();let items=catalog.filter(p=>(p.name+' '+p.category+' '+p.size+' '+(productLocations.get(p.id)||[]).map(v=>v.zone.name).join(' ')).toLowerCase().includes(query));if(!items.length)results.append(info('No matching products.'));for(const p of items){let loc=productLocations.get(p.id)?.[0];let row=productRow(p,()=>showProduct(p,loc?.zone));results.append(row);if(loc){let b=button('Go to '+loc.zone.name+' →',()=>jump(loc.x,loc.z,loc.x,loc.z),'text-button');results.append(b);}}}input.oninput=render;append(body,input,results);render();input.focus();}
 function showBasket(){let body=showPanel('Your basket','DEMO SHOPPING / NO CHECKOUT','basket');let ids=Object.keys(basket);if(!ids.length)body.append(info('Your basket is empty. Find a product and add it while exploring.'));let total=0;for(let id of ids){let p=byId[id],n=basket[id];total+=p.price*n;let row=productRow(p,()=>showProduct(p));let controls=el('div','qty');append(controls,button('−',()=>{if(--basket[id]<=0)delete basket[id];saveBasket();showBasket();}),el('span','',String(n)),button('+',()=>{addBasket(p);showBasket();}),button('Remove',()=>{delete basket[id];saveBasket();showBasket();},'text-button'));append(body,row,controls);}append(body,el('hr'),el('div','price',money(total)),info('Estimated demo total before tax. Items are not available for purchase. Basket is saved on this device.'),button('Empty basket',()=>{basket={};saveBasket();showBasket();}));}
 function drawMap(canvas,full=false){let c=canvas.getContext('2d'),w=canvas.width,h=canvas.height,sx=w/WIDTH,sz=h/DEPTH;c.fillStyle='#172733';c.fillRect(0,0,w,h);for(let q of zones){c.fillStyle=colors[q.kind]+'bb';c.fillRect(q.x*sx,q.z*sz,q.w*sx,q.d*sz);c.strokeStyle='#111c25';c.lineWidth=full?2:1;c.strokeRect(q.x*sx,q.z*sz,q.w*sx,q.d*sz);if(full&&q.w*sx>56&&q.d*sz>23){c.fillStyle='#fff';c.font='bold 11px sans-serif';let ls=lines(c,q.name,q.w*sx-6).slice(0,2);ls.forEach((s,i)=>c.fillText(s,q.x*sx+3,q.z*sz+12+12*i));}}
- if(full){c.fillStyle='#fff';c.font='bold 12px sans-serif';c.fillText('← N',5,h-7);}
+ if(full){c.fillStyle='#fff';c.font='bold 12px sans-serif';c.fillText('ENTRANCE',w-85,12);}
  c.fillStyle='#ffffff';c.beginPath();c.arc(pos.x*sx,pos.z*sz,full?5:3,0,Math.PI*2);c.fill();c.strokeStyle='#fff';c.lineWidth=2;c.beginPath();c.moveTo(pos.x*sx,pos.z*sz);c.lineTo(pos.x*sx-Math.sin(yaw)*11,pos.z*sz-Math.cos(yaw)*11);c.stroke();}
-function showMap(){let body=showPanel('Warehouse map','FLOOR PLAN / SELECT A DESTINATION','map'),can=el('canvas','full-map');can.width=738;can.height=462;drawMap(can,true);can.setAttribute('aria-label','Warehouse map: click to teleport to an aisle');can.onclick=e=>{let r=can.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*WIDTH,z=(e.clientY-r.top)/r.height*DEPTH;jump(x,z,x,z);};append(body,can,info('Select the map or a department to move to its nearest walkable aisle. North is left, as in the supplied floor plan.'),button('Return to entrance',()=>jump(SPAWN.x,SPAWN.z,SPAWN.x-10,SPAWN.z)));let list=el('div','department-list');for(const q of zones)list.append(button(q.name,()=>jump(q.x+q.w/2,q.z+q.d/2,q.x+q.w/2,q.z+q.d/2),'department'));body.append(list);}
+function showMap(){let body=showPanel('Warehouse map','FLOOR PLAN / SELECT A DESTINATION','map'),can=el('canvas','full-map');can.width=738;can.height=462;drawMap(can,true);can.setAttribute('aria-label','Warehouse map: click to teleport to an aisle');can.onclick=e=>{let r=can.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*WIDTH,z=(e.clientY-r.top)/r.height*DEPTH;jump(x,z,x,z);};append(body,can,info('Select the map or a department to move to its nearest walkable aisle. The entrance is at the upper right, matching the Coomera reference.'),button('Return to entrance',()=>jump(SPAWN.x,SPAWN.z,SPAWN.x-10,SPAWN.z)));let list=el('div','department-list');for(const q of zones)list.append(button(q.name,()=>jump(q.x+q.w/2,q.z+q.d/2,q.x+q.w/2,q.z+q.d/2),'department'));body.append(list);}
 function showHelp(){let b=showPanel('Make yourself at home','CONTROLS / ABOUT','help');append(b,info('Desktop: WASD or arrows to move, mouse to look, Shift to walk faster. Click or press E to inspect an item. Escape releases the mouse.'),info('Touch: drag the warehouse view to look; use the direction buttons to move, and Inspect to open the targeted product.'),info('M opens the map, F finds products, B opens the basket, H opens this help. Product inventory can be adjusted in the detail panel.'),info('VirtuaCo is an independent fictional warehouse simulator, not affiliated with Costco. All packaging, prices and inventory are illustrative. No accounts, payments or tracking.'),button('Back to entrance',()=>jump(SPAWN.x,SPAWN.z,SPAWN.x-10,SPAWN.z)));}
 $('mapBtn').onclick=showMap;$('searchBtn').onclick=showSearch;$('cartBtn').onclick=showBasket;$('helpBtn').onclick=showHelp;$('mini').onclick=showMap;
 let prev=performance.now(),lastScan=0,lastMap=0;
