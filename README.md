@@ -32,7 +32,7 @@ Touch devices have a directional pad, drag-to-look and Inspect button. Browser c
 
 ## Warehouse design
 
-The supplied hand-drawn reference floor plan is represented by 54 departments and 316 fixtures in a 123 × 77 meter fictional building. The entrance is at the lower right and north points left on the map. The central seasonal area, checkout, electronics, furniture, produce, bakery, meat, pharmacy, restrooms, food court and service counters preserve the reference's relative arrangement.
+The supplied hand-drawn reference floor plan is represented by 82 departments and 371 fixtures in a 132 × 77 meter fictional building. The entrance is at the upper right, matching the updated Coomera reference. All 40 numbered aisles (100–115 and 300–323) are represented. The central seasonal area, checkout, electronics, furniture, produce, bakery, meat, pharmacy, restrooms, food court and service counters preserve the reference's relative arrangement.
 
 Pallet racks are procedural modules:
 - Green steel upright frames, punched holes, base plates, diagonal braces and orange horizontal beams.
@@ -40,11 +40,11 @@ Pallet racks are procedural modules:
 - **Second level:** customer-facing hero products and white price placards. These are interactive.
 - **Upper levels:** deterministic assorted surplus cartons, legacy-style products and fictional archive finds. These are decorative rather than shoppable.
 
-Cold cases, flat display tables, furniture, electronics and service counters have their own geometry. The warehouse uses instanced rendering for repeated parts, generated textures, an industrial shell and simple warehouse lighting. All package art is original procedural placeholder artwork, not photographic retailer merchandise.
+Cold cases, flat display tables, furniture, electronics and service counters have their own geometry. The warehouse uses instanced rendering for repeated parts, generated textures, an industrial shell and simple warehouse lighting. Package art is procedural placeholder artwork. Optional CC0 models add a reusable water bottle and cut avocado to select displays. See ASSET_CREDITS.md.
 
 ## Inventory signals
 
-The catalog has 84 fictional SKUs. The in-memory stock map is the single source of truth for the visualizer. Product details expose a 0–120 unit slider. Adjusting a rack SKU rebuilds its bottom displays across the warehouse, not its hero shelf or decorative surplus.
+The catalog has 81 fictional SKUs. The in-memory stock map is the single source of truth for the visualizer. Product details expose a 0–120 unit slider. Adjusting a rack SKU rebuilds its bottom displays across the warehouse, not its hero shelf or decorative surplus.
 
 | Units | Bottom display |
 | --- | --- |
@@ -61,6 +61,7 @@ The basket is a local, persistent simulation. It does not decrement warehouse st
 - `index.html` — app shell, welcome experience, controls, accessibility labels
 - `style.css` — responsive interface
 - `world.js` — reference-map layout, fixtures, product catalog, stock-state rules, deterministic random generator
+- `assets.js` — optional licensed GLB registry and loader with fallback
 - `main.js` — Three.js scene, geometry, rendering, inventory updates, movement, collision, interaction, map, search and basket
 - `test/world.test.js` — geometry, reachability, catalog, stock thresholds and HUD regression tests
 - `.nojekyll` — direct static Pages hosting
