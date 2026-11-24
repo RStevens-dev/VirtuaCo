@@ -1,7 +1,7 @@
 import * as T from 'three';
 import {zones,WIDTH,DEPTH,SPAWN,colors,catalog,byCategory,byId,money,stockState,rng,archive,planFixtures} from './world.js';
 const $=id=>document.getElementById(id);
-import {installProductModels,models,applyScanThumbnail,preloadWarehouse} from './assets.js';
+import {installProductModels,models,applyScanThumbnail,createSectionStreamer} from './assets.js';
 import {applyProductPhoto,photoManifest} from './photos.js';
 import {fetchExpansion,registerExpansion} from './expansion.js';
 import {nativeIds,sculpt} from './native-models.js';
@@ -217,7 +217,7 @@ function jump(x,z,lookX=x,lookZ=z){const a=nearestFree(x,z);pos.set(a.x,1.68,a.z
 function look(dx,dy){yaw-=dx*.0024;pitch=Math.max(-1.35,Math.min(1.35,pitch-dy*.0024));}
 function lock(){if(!matchMedia('(pointer: coarse)').matches&&renderer.domElement.requestPointerLock)try{const p=renderer.domElement.requestPointerLock();p?.catch?.(()=>{});}catch{}}
 function unlock(){if(document.pointerLockElement)document.exitPointerLock();}
-let warehouseReady=false;
+let warehouseReady=false,sectionStreamer=null,streamX=SPAWN.x,streamZ=SPAWN.z;
 $('start').disabled=true;$('start').textContent='Loading warehouse…';
 $('start').onclick=()=>{if(!warehouseReady)return;started=true;$('welcome').hidden=true;document.activeElement?.blur();lock();};
 document.addEventListener('mousemove',e=>{if(started&&!open&&document.pointerLockElement===renderer.domElement)look(e.movementX,e.movementY);});
@@ -251,7 +251,7 @@ function showProduct(p,zone){
  quantity.oninput=()=>{setStock(p.id,Number(quantity.value));update();};update();
  append(body,art,el('div','eyebrow',p.size+' / '+p.id.toUpperCase()),amount,status,info(nativeVisible.has(p.id)?'Locally generated 3D product geometry. Demo price and stock.':'Illustrative bulk product. Price and inventory are fictional and not connected to a retailer.'),...(p.scan?[info('3D scan: '+p.credit+' · '+p.license),(()=>{const a=el('a','text-button','Original scan and attribution');a.href=p.source;a.target='_blank';a.rel='noopener noreferrer';return a;})()]:photoManifest[p.id]?[info('Photo: '+photoManifest[p.id].credit+' · '+photoManifest[p.id].license),(()=>{const a=el('a','text-button','Original product photo record');a.href=photoManifest[p.id].source;a.target='_blank';a.rel='noopener noreferrer';return a;})()]:[]),add,el('hr'),el('h3','','Inventory visualizer'),info('Adjust simulated availability. Stock-driven physical pallets will be reconnected to verified models in a later iteration.'),quantity,button('Reset simulated stock',()=>{setStock(p.id,p.stock);quantity.value=p.stock;update();}));
 }
-function inspect(){if(hit&&!open&&modelStatus.get(hit.p.id)==='3D model loaded')showProduct(hit.p,hit.zone);else if(!open)toast('Look at a product or price sign to inspect it');}
+function inspect(){if(hit&&!open&&sectionStreamer?.has(hit.p.id))showProduct(hit.p,hit.zone);else if(!open)toast('Look at a product or price sign to inspect it');}
 function productRow(p,fn){let row=el('button','product-row'),sw=el('span','swatch');sw.style.background=p.color;let left=append(el('span','product-text'),el('b','',p.name),el('small','',p.size+' · '+stockState(stock.get(p.id))));append(row,sw,left,el('strong','',money(p.price)));row.onclick=fn;return row;}
 function renderModelList(){const body=$('panelBody');body.replaceChildren(info('Verified local files: '+catalog.length+' · currently rendered: '+[...modelStatus.values()].filter(s=>s==='3D model loaded').length+'. No procedural merchandise.'),info('Select a product to travel directly to a display.'));for(const id of nativeVisible){const p=byId[id],loc=productLocations.get(id)?.[0];body.append(productRow(p,()=>showProduct(p,loc?.zone)),info('Local 3D geometry · no external download'));if(loc)body.append(button('Go to product →',()=>{jump(loc.x,loc.z,loc.x,loc.z);pitch=Math.atan2(.6,Math.hypot(pos.x-loc.x,pos.z-loc.z));}));}for(const [id,asset] of Object.entries(models).filter(([id,a])=>modelStatus.has(id)).slice(0,100)){const p=byId[id],slot=modelSlots.find(s=>s.id===id);if(!p)continue;body.append(productRow(p,()=>showProduct(p)));body.append(info(modelStatus.get(id)||'Waiting for download'));if(slot)body.append(button('Go to model →',()=>{jump(slot.x,slot.z,slot.x,slot.z);pitch=Math.atan2(slot.y+slot.h/2-1.68,Math.hypot(pos.x-slot.x,pos.z-slot.z));}));else body.append(info('No dedicated model placement'));}}
 function showModels(){showPanel('Real product models','ASSET STATUS / FIND A DISPLAY','models');renderModelList();}
@@ -272,12 +272,12 @@ function frame(now){
  }
  camera.position.copy(pos);camera.rotation.set(pitch,yaw,0,'YXZ');camera.updateMatrixWorld();
  if(now-lastScan>100){lastScan=now;hit=null;if(started&&!open){ray.setFromCamera(new T.Vector2(0,0),camera);let intersects=ray.intersectObjects(targets,false);if(intersects.length){let h=intersects[0]; // Reject targets behind other fixture footprints.
-  let v=h.point.clone().sub(pos),dist=Math.hypot(v.x,v.z),clear=true;for(let i=.5;i<dist-.35;i+=.45){let a=pos.x+v.x*i/dist,b=pos.z+v.z*i/dist;if(colliders.some(f=>f!==h.object.userData.slot&&a>f.x&&a<f.x+f.w&&b>f.z&&b<f.z+f.d)){clear=false;break;}}if(clear&&modelStatus.get(h.object.userData.p.id)==='3D model loaded')hit=h.object.userData;
+  let v=h.point.clone().sub(pos),dist=Math.hypot(v.x,v.z),clear=true;for(let i=.5;i<dist-.35;i+=.45){let a=pos.x+v.x*i/dist,b=pos.z+v.z*i/dist;if(colliders.some(f=>f!==h.object.userData.slot&&a>f.x&&a<f.x+f.w&&b>f.z&&b<f.z+f.d)){clear=false;break;}}if(clear&&sectionStreamer?.has(h.object.userData.p.id))hit=h.object.userData;
  }}
  $('reticle').classList.toggle('active',!!hit);$('hint').textContent=hit?hit.p.name+' · '+money(hit.p.price)+'  /  E or click to inspect':'';
  }
  if(now-lastMap>220){lastMap=now;let q=zones.reduce((best,q)=>{let d=Math.hypot(Math.max(q.x-pos.x,0,pos.x-q.x-q.w),Math.max(q.z-pos.z,0,pos.z-q.z-q.d));return d<best.d?{q,d}:best;},{d:Infinity,q:null});$('where').textContent=q.d<4?q.q.name:'Main aisle';$('coords').textContent=Math.round(pos.x)+' / '+Math.round(pos.z);drawMap($('mini'));}
- // Models stay in the scene for the entire visit; normal GPU frustum culling only.
+ if(warehouseReady&&sectionStreamer&&now-lastStream>250){const elapsed=Math.max(.25,(now-lastStream)/1000);sectionStreamer.update(pos,yaw,{x:(pos.x-streamX)/elapsed,z:(pos.z-streamZ)/elapsed});streamX=pos.x;streamZ=pos.z;lastStream=now;const stats=sectionStreamer.stats();$('coords').textContent=stats.resident+' / '+stats.limit+' 3D · '+Math.round(stats.bytes/1048576)+' MB';}
  if(warehouseReady)renderer.render(scene,camera);
 }
 window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
@@ -310,17 +310,12 @@ async function expandWarehouse(){
   }
   for(const id of Object.keys(basket))if(!byId[id])delete basket[id];saveBasket();
   $('loadError').textContent='';
-  const report=await preloadWarehouse(scene,modelSlots,{progress:({completed,loaded,total,bytes,totalBytes,errors})=>{const percent=Math.floor(95*completed/Math.max(1,total));$('preloadBar').value=percent;$('preloadPercent').textContent=percent+'%';$('preloadStatus').textContent='Loading merchandise';$('preloadDetail').textContent=loaded+' / '+total+' models ready · '+(bytes/1e6).toFixed(1)+' / '+(totalBytes/1e6).toFixed(1)+' MB'+(errors?' · '+errors+' failed':'');},status:(id,state)=>modelStatus.set(id,state)});
-  if(report.errors.length||!report.total||report.loaded!==report.total)throw Error(report.errors.length+' models failed. Reload to retry.');
-  $('preloadStatus').textContent='Preparing graphics…';$('preloadDetail').textContent=report.loaded+' models loaded. Preparing GPU materials.';$('preloadBar').value=96;$('preloadPercent').textContent='96%';
-  await new Promise(resolve=>requestAnimationFrame(resolve));
-  camera.position.set(SPAWN.x,1.68,SPAWN.z);camera.rotation.set(0,SPAWN.yaw,0,'YXZ');camera.updateMatrixWorld();
-  if(renderer.compileAsync)await renderer.compileAsync(scene,camera);else renderer.compile(scene,camera);
-  const warmed=new Set();scene.traverse(o=>{if(!o.isMesh)return;for(const material of Array.isArray(o.material)?o.material:[o.material])for(const value of Object.values(material)){if(value?.isTexture)warmed.add(value);}});
-  let done=0;for(const texture of warmed){renderer.initTexture(texture);if(++done%20===0)await new Promise(resolve=>requestAnimationFrame(resolve));}
-  renderer.render(scene,camera);
-  expansionState=report.loaded+' verified local models · all preloaded';$('preloadBar').value=100;$('preloadPercent').textContent='100%';$('preloadStatus').textContent='Warehouse ready';$('preloadDetail').textContent=report.loaded+' / '+report.total+' models loaded. Merchandise remains visible throughout your visit.';$('preloader').dataset.ready='true';warehouseReady=true;$('start').disabled=false;$('start').textContent='Enter the warehouse →';
+  $('preloadStatus').textContent='Preparing nearby sections';$('preloadDetail').textContent='Loading scan images and entrance merchandise…';
+  sectionStreamer=await createSectionStreamer(scene,modelSlots,renderer,(id,state)=>modelStatus.set(id,state));
+  const report=await sectionStreamer.initial(SPAWN,SPAWN.yaw,({loaded,total,settled,atlas})=>{const percent=Math.min(95,Math.round(settled/Math.max(1,total)*95));$('preloadBar').value=percent;$('preloadPercent').textContent=percent+'%';$('preloadDetail').textContent=loaded+' / '+total+' nearby 3D models · '+atlas+' distant scan images ready';});
+  if(!report.loaded&&!report.atlas)throw Error('No nearby merchandise could load');
+  expansionState=items.length+' verified local models · directional section streaming';$('preloadBar').value=100;$('preloadPercent').textContent='100%';$('preloadStatus').textContent='Entrance ready';$('preloadDetail').textContent=report.loaded+' nearby 3D models loaded · '+report.atlas+' distant scan images available. More sections load as you explore.';$('preloader').dataset.ready='true';warehouseReady=true;$('start').disabled=false;$('start').textContent='Enter the warehouse →';
   if(mode==='search')showSearch();
- }catch(error){expansionState='Warehouse preload failed · '+error.message;$('preloadStatus').textContent='Loading unsuccessful';$('loadError').textContent=error.message;$('preloadDetail').textContent='Entry is disabled to avoid missing merchandise.';$('start').disabled=false;$('start').textContent='Retry loading';$('start').onclick=()=>location.reload();if(mode==='search')showSearch();console.warn(error);}
+ }catch(error){expansionState='Warehouse preload failed · '+error.message;$('preloadStatus').textContent='Loading unsuccessful';$('loadError').textContent=error.message;$('preloadDetail').textContent='Retry to prepare the entrance section.';$('start').disabled=false;$('start').textContent='Retry loading';$('start').onclick=()=>location.reload();if(mode==='search')showSearch();console.warn(error);}
 }
 expandWarehouse();
