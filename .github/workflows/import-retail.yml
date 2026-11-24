@@ -1,0 +1,38 @@
+name: Import licensed US retail catalogue
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tools/import-retail.mjs'
+      - '.github/workflows/import-retail.yml'
+permissions:
+  contents: write
+concurrency:
+  group: retail-import
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/import-retail.mjs
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/open-food-facts.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Update licensed US Kirkland product identities"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 5))
+          done
+          exit 1
