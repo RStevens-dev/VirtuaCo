@@ -498,7 +498,7 @@ async function expandWarehouse(){
    const color=e.local?new T.Color(e.local.color):palette(e.page.ctx,e.cell.x,e.cell.y,w,h);
    const bodyColor=type==='wine'?new T.Color('#35442b'):jug?new T.Color('#f0efe7'):color.clone().lerp(new T.Color('#ded8cd'),.12);
    const quant=c=>'#'+[c.r,c.g,c.b].map(v=>Math.round(Math.max(0,Math.min(1,v))*7)*36).map(v=>Math.min(255,v).toString(16).padStart(2,'0')).join('');
-   const body=material(quant(bodyColor)),cap=material(type==='wine'?'#423b35':quant(color)),offsets=fit.offsets;
+   const body=material(quant(bodyColor),type==='can'?.25:0,type==='wine'?.24:round||jug||tray?.36:bag?.48:.78),cap=material(type==='wine'?'#423b35':quant(color),0,.45),offsets=fit.offsets;
    const pieces=new Map();function part(geo,mat,u,y,z,ww,hh,dd,rx=0){const key=geo.uuid+'|'+mat.uuid;if(!pieces.has(key))pieces.set(key,{geo,mat,matrices:[]});dummy.position.set(u,y,z);dummy.rotation.set(rx,0,0);dummy.scale.set(ww,hh,dd);dummy.updateMatrix();pieces.get(key).matrices.push(dummy.matrix.clone());}
    const maxW=fit.w*(round?.82:.94),maxH=fit.h*(bottle?.61:jug?.63:.93);
    const aspect=w/h,labelW=tray?Math.min(fit.w*.94,fit.d*.94*aspect):Math.min(maxW,maxH*aspect),labelH=labelW/aspect;
@@ -516,7 +516,7 @@ async function expandWarehouse(){
     else part(frontGeo,e.page.mat,u,bottle?fit.h*.32:jug?fit.h*.36:fit.h*.48,fit.d*.5+.004,1,1,1);
     part(boxGeo,shadowMat,u,.006,0,fit.w*1.07,.008,fit.d*1.12);
    }
-   if(['wine','bottle','jar','can'].includes(type)){const span=offsets.at(-1)-offsets[0]+fit.w;part(boxGeo,kraft,0,.025,0,span+.025,.05,fit.d*1.12);part(boxGeo,kraft,0,.065,-fit.d*.54,span+.025,.12,.025);}
+   if(['wine','bottle','jar','can','bag'].includes(type)){const span=offsets.at(-1)-offsets[0]+fit.w;part(boxGeo,kraft,0,.018,0,span+.025,.036,fit.d*1.12);part(boxGeo,kraft,0,.055,-fit.d*.54,span+.025,.10,.025);for(const side of [-1,1])part(boxGeo,kraft,side*(span/2+.012),.05,0,.024,.10,fit.d*1.1);}
    for(const {geo,mat,matrices} of pieces.values()){const mesh=new T.InstancedMesh(geo,mat,matrices.length);matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));mesh.instanceMatrix.needsUpdate=true;e.group.add(mesh);}
    visualDisplays.push({product:e.p,type,group:e.group,fit,face:e.face,zone:e.zone||merchDepartment(e.p),ready:true});
   }
