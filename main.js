@@ -218,6 +218,7 @@ function look(dx,dy){yaw-=dx*.0024;pitch=Math.max(-1.35,Math.min(1.35,pitch-dy*.
 function lock(){if(!matchMedia('(pointer: coarse)').matches&&renderer.domElement.requestPointerLock)try{const p=renderer.domElement.requestPointerLock();p?.catch?.(()=>{});}catch{}}
 function unlock(){if(document.pointerLockElement)document.exitPointerLock();}
 let warehouseReady=false,sectionStreamer=null,streamX=SPAWN.x,streamZ=SPAWN.z;
+let loadingTolerance={forward:36,side:18};try{const saved=JSON.parse(localStorage.getItem('virtuaco-loading')||'null');if(saved)for(const k of ['forward','side'])if(Number.isFinite(saved[k]))loadingTolerance[k]=Math.max(0,Math.min(WIDTH,saved[k]));}catch{}
 $('start').disabled=true;$('start').textContent='Loading warehouse…';
 $('start').onclick=()=>{if(!warehouseReady)return;started=true;$('welcome').hidden=true;document.activeElement?.blur();lock();};
 document.addEventListener('mousemove',e=>{if(started&&!open&&document.pointerLockElement===renderer.domElement)look(e.movementX,e.movementY);});
@@ -226,7 +227,7 @@ renderer.domElement.addEventListener('pointermove',e=>{if(!drag||open||document.
 renderer.domElement.addEventListener('pointerup',e=>{if(!drag)return;if(!drag.moved&&started&&!open){if(hit)inspect();else lock();}drag=null;});
 renderer.domElement.addEventListener('pointercancel',()=>{drag=null;});
 const moveKeys=['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','ShiftLeft','ShiftRight'];
-document.addEventListener('keydown',e=>{if(!started)return;if(e.code==='Escape'&&open){closePanel();return;}if(/INPUT|TEXTAREA|SELECT|BUTTON/.test(e.target.tagName))return;if(moveKeys.includes(e.code)){e.preventDefault();keys.add(e.code);}if(e.repeat)return;switch(e.code){case 'KeyE':if(!open)inspect();break;case 'KeyM':showMap();break;case 'KeyF':showSearch();break;case 'KeyB':showBasket();break;case 'Escape':if(open)closePanel();break;case 'KeyH':showHelp();break;}});
+document.addEventListener('keydown',e=>{if(!started)return;if(e.code==='Escape'&&open){closePanel();return;}if(/INPUT|TEXTAREA|SELECT|BUTTON/.test(e.target.tagName))return;if(moveKeys.includes(e.code)){e.preventDefault();keys.add(e.code);}if(e.repeat)return;switch(e.code){case 'KeyE':if(!open)inspect();break;case 'KeyM':showMap();break;case 'KeyF':showSearch();break;case 'KeyB':showBasket();break;case 'Escape':if(open)closePanel();break;case 'KeyL':showLoadingSettings();break;case 'KeyH':showHelp();break;}});
 document.addEventListener('keyup',e=>keys.delete(e.code));window.addEventListener('blur',()=>keys.clear());
 for(const btn of document.querySelectorAll('[data-move]')){let k=btn.dataset.move;btn.onpointerdown=e=>{e.preventDefault();btn.setPointerCapture(e.pointerId);keys.add(k);};btn.onpointerup=btn.onpointercancel=btn.onlostpointercapture=()=>keys.delete(k);}
 $('touchInspect').onclick=inspect;
@@ -261,8 +262,20 @@ function drawMap(canvas,full=false){let c=canvas.getContext('2d'),w=canvas.width
  if(full){c.fillStyle='#fff';c.font='bold 12px sans-serif';c.fillText('ENTRANCE',w-85,12);}
  c.fillStyle='#ffffff';c.beginPath();c.arc(pos.x*sx,pos.z*sz,full?5:3,0,Math.PI*2);c.fill();c.strokeStyle='#fff';c.lineWidth=2;c.beginPath();c.moveTo(pos.x*sx,pos.z*sz);c.lineTo(pos.x*sx-Math.sin(yaw)*11,pos.z*sz-Math.cos(yaw)*11);c.stroke();}
 function showMap(){let body=showPanel('Warehouse map','FLOOR PLAN / SELECT A DESTINATION','map'),can=el('canvas','full-map');can.width=738;can.height=462;drawMap(can,true);can.setAttribute('aria-label','Warehouse map: click to teleport to an aisle');can.onclick=e=>{let r=can.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*WIDTH,z=(e.clientY-r.top)/r.height*DEPTH;jump(x,z,x,z);};append(body,can,info('Select the map or a department to move to its nearest walkable aisle. The entrance is at the upper right, matching the Coomera reference.'),button('Return to entrance',()=>jump(SPAWN.x,SPAWN.z,SPAWN.x-10,SPAWN.z)));let list=el('div','department-list');for(const q of zones)list.append(button(q.name,()=>jump(q.x+q.w/2,q.z+q.d/2,q.x+q.w/2,q.z+q.d/2),'department'));body.append(list);}
+function showLoadingSettings(){
+ const b=showPanel('Loading distances','PERFORMANCE / STREAMING','loading');
+ append(b,info('Control the detailed model loading area relative to your view and movement. Nearby models are prioritized; memory limits still apply.'));
+ const controls=[];
+ for(const [key,name] of [['forward','Forward distance'],['side','Side distance (each direction)']]){
+  const label=el('label','stream-label'),value=el('strong','',loadingTolerance[key]+' m'),input=el('input');input.type='range';input.min=0;input.max=WIDTH;input.step=1;input.value=loadingTolerance[key];input.setAttribute('aria-label',name);
+  append(label,el('span','',name),value);append(b,label,input,el('div','stream-scale','0 m — '+WIDTH+' m (warehouse length)'));
+  input.oninput=()=>{loadingTolerance[key]=Number(input.value);value.textContent=input.value+' m';apply();};controls.push({key,input,value});
+ }
+ function apply(){try{localStorage.setItem('virtuaco-loading',JSON.stringify(loadingTolerance));}catch{}sectionStreamer?.setTolerance(loadingTolerance);sectionStreamer?.update(pos,yaw);}
+ append(b,info('A small near-field safety radius and short rear retention prevent immediate unloading when turning. Maximum distance expands eligibility, not the hard memory budget.'),button('Reset recommended distances',()=>{loadingTolerance={forward:36,side:18};for(const c of controls){c.input.value=loadingTolerance[c.key];c.value.textContent=c.input.value+' m';}apply();}));
+}
 function showHelp(){let b=showPanel('Make yourself at home','CONTROLS / ABOUT','help');append(b,info('Desktop: WASD or arrows to move, mouse to look, Shift to walk faster. Click or press E to inspect an item. Escape releases the mouse.'),info('Touch: drag the warehouse view to look; use the direction buttons to move, and Inspect to open the targeted product.'),info('M opens the map, F finds products, B opens the basket, H opens this help. Product inventory can be adjusted in the detail panel.'),info('VirtuaCo is an independent fictional warehouse simulator, not affiliated with Costco. All packaging, prices and inventory are illustrative. No accounts, payments or tracking.'),button('Back to entrance',()=>jump(SPAWN.x,SPAWN.z,SPAWN.x-10,SPAWN.z)));}
-$('mapBtn').onclick=showMap;$('searchBtn').onclick=showSearch;$('cartBtn').onclick=showBasket;$('helpBtn').onclick=showHelp;$('mini').onclick=showMap;
+$('streamBtn').onclick=showLoadingSettings;$('mapBtn').onclick=showMap;$('searchBtn').onclick=showSearch;$('cartBtn').onclick=showBasket;$('helpBtn').onclick=showHelp;$('mini').onclick=showMap;
 let prev=performance.now(),lastScan=0,lastMap=0,lastStream=0;
 function frame(now){
  requestAnimationFrame(frame);let dt=Math.min(.045,(now-prev)/1000);prev=now;
@@ -277,7 +290,7 @@ function frame(now){
  $('reticle').classList.toggle('active',!!hit);$('hint').textContent=hit?hit.p.name+' · '+money(hit.p.price)+'  /  E or click to inspect':'';
  }
  if(now-lastMap>220){lastMap=now;let q=zones.reduce((best,q)=>{let d=Math.hypot(Math.max(q.x-pos.x,0,pos.x-q.x-q.w),Math.max(q.z-pos.z,0,pos.z-q.z-q.d));return d<best.d?{q,d}:best;},{d:Infinity,q:null});$('where').textContent=q.d<4?q.q.name:'Main aisle';$('coords').textContent=Math.round(pos.x)+' / '+Math.round(pos.z);drawMap($('mini'));}
- if(warehouseReady&&sectionStreamer&&now-lastStream>250){const elapsed=Math.max(.25,(now-lastStream)/1000);sectionStreamer.update(pos,yaw,{x:(pos.x-streamX)/elapsed,z:(pos.z-streamZ)/elapsed});streamX=pos.x;streamZ=pos.z;lastStream=now;const stats=sectionStreamer.stats();$('coords').textContent=stats.resident+' / '+stats.limit+' 3D · '+Math.round(stats.bytes/1048576)+' MB';}
+ if(warehouseReady&&sectionStreamer&&now-lastStream>250){const elapsed=Math.max(.25,(now-lastStream)/1000);sectionStreamer.update(pos,yaw,{x:(pos.x-streamX)/elapsed,z:(pos.z-streamZ)/elapsed});streamX=pos.x;streamZ=pos.z;lastStream=now;const stats=sectionStreamer.stats();$('coords').textContent=stats.resident+' / '+stats.limit+' 3D · '+stats.eligible+' eligible · '+Math.round(stats.bytes/1048576)+' MB';}
  if(warehouseReady)renderer.render(scene,camera);
 }
 window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
@@ -312,6 +325,7 @@ async function expandWarehouse(){
   $('loadError').textContent='';
   $('preloadStatus').textContent='Preparing nearby sections';$('preloadDetail').textContent='Loading scan images and entrance merchandise…';
   sectionStreamer=await createSectionStreamer(scene,modelSlots,renderer,(id,state)=>modelStatus.set(id,state));
+  sectionStreamer.setTolerance(loadingTolerance);
   const report=await sectionStreamer.initial(SPAWN,SPAWN.yaw,({loaded,total,settled,atlas})=>{const percent=Math.min(95,Math.round(settled/Math.max(1,total)*95));$('preloadBar').value=percent;$('preloadPercent').textContent=percent+'%';$('preloadDetail').textContent=loaded+' / '+total+' nearby 3D models · '+atlas+' distant scan images ready';});
   if(!report.loaded&&!report.atlas)throw Error('No nearby merchandise could load');
   expansionState=items.length+' verified local models · directional section streaming';$('preloadBar').value=100;$('preloadPercent').textContent='100%';$('preloadStatus').textContent='Entrance ready';$('preloadDetail').textContent=report.loaded+' nearby 3D models loaded · '+report.atlas+' distant scan images available. More sections load as you explore.';$('preloader').dataset.ready='true';warehouseReady=true;$('start').disabled=false;$('start').textContent='Enter the warehouse →';
