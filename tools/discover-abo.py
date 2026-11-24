@@ -17,11 +17,12 @@ def main():
         for key in ('upc','gtin','modelNumber','model_number','model'):
             v=p.get(key)
             if isinstance(v,str) and len(norm(v))>=5:codes.setdefault(norm(v),[]).append(p)
-    candidates=[];scanned=0;brand_hits=0
+    candidates=[];scanned=0;brand_hits=0;members=[]
     req=urllib.request.Request(BASE+'archives/abo-listings.tar',headers={'User-Agent':'VirtuaCo/1.0'})
     with urllib.request.urlopen(req,timeout=120) as res,tarfile.open(fileobj=res,mode='r|*') as archive:
         for member in archive:
             if not member.isfile() or not re.fullmatch(r'listings_\d+\.json\.gz',pathlib.PurePosixPath(member.name).name):continue
+            members.append(member.name)
             with gzip.GzipFile(fileobj=archive.extractfile(member)) as stream:
                 for line in stream:
                     row=json.loads(line);scanned+=1
@@ -37,7 +38,7 @@ def main():
                         if norm(value) in brands:brand_hits+=1
                     for key,(p,reason) in possible.items():
                         candidates.append({'retailId':key,'retailName':p['name'],'retailSource':p.get('source'),'itemId':row.get('item_id'),'brand':brand,'titles':names,'models':models,'imageId':row.get('main_image_id'),'otherImages':row.get('other_image_id',[]),'model3dId':row.get('3dmodel_id'),'spinId':row.get('spin_id'),'reason':reason,'approved':False})
-    if scanned<140000:raise SystemExit(f'Incomplete metadata scan: {scanned}')
-    result={'version':1,'source':BASE+'index.html','license':'CC-BY-4.0','summary':{'scanned':scanned,'retailRecords':len(products),'brandHits':brand_hits,'candidates':len(candidates),'approved':0},'candidates':candidates}
+    if not scanned or not members:raise SystemExit('No listing records found')
+    result={'version':1,'source':BASE+'index.html','license':'CC-BY-4.0','summary':{'scanned':scanned,'archiveMembers':members,'coverageNote':'Count reflects actual listing archive; not assumed equal to all dataset items','retailRecords':len(products),'brandHits':brand_hits,'candidates':len(candidates),'approved':0},'candidates':candidates}
     (ROOT/'data'/'abo-candidates.json').write_text(json.dumps(result,indent=2));print(json.dumps(result['summary']))
 if __name__=='__main__':main()
