@@ -434,7 +434,9 @@ async function expandWarehouse(){
   }
   for(const {geo,mat,matrices} of batches.values()){const mesh=new T.InstancedMesh(geo,mat,matrices.length);matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));mesh.instanceMatrix.needsUpdate=true;scene.add(mesh);}batches.clear();
   const photoQueue=[],shelfCards=[],photoPages=[];
-  function photoPage(index){if(!photoPages[index]){const canvas=document.createElement('canvas');canvas.width=1920;canvas.height=1920;const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;texture.generateMipmaps=false;texture.minFilter=T.LinearFilter;photoPages[index]={ctx:canvas.getContext('2d'),texture,mat:new T.MeshBasicMaterial({map:texture,toneMapped:false}),dirty:false};}return photoPages[index];}
+  let localArt=null;try{const res=await fetch('./assets/retail-art/index.json');if(res.ok){const candidate=await res.json();if(candidate.version===1&&candidate.width===2048&&candidate.height===2048&&Array.isArray(candidate.pages)&&candidate.pages.length<=2&&candidate.pages.every(p=>/^\.\/assets\/retail-art\/[a-f0-9]{20}\.webp$/.test(p.url)))localArt=candidate;}}catch{}
+  const localPages=[];if(localArt){const loader=new T.TextureLoader();await Promise.all(localArt.pages.map(async(p,i)=>{try{const texture=await loader.loadAsync(p.url);texture.colorSpace=T.SRGBColorSpace;texture.generateMipmaps=false;texture.minFilter=T.LinearFilter;localPages[i]={texture,mat:new T.MeshBasicMaterial({map:texture,toneMapped:false}),width:2048,height:2048};}catch{}}));}
+  function photoPage(index){if(!photoPages[index]){const canvas=document.createElement('canvas');canvas.width=1920;canvas.height=1920;const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;texture.generateMipmaps=false;texture.minFilter=T.LinearFilter;photoPages[index]={ctx:canvas.getContext('2d'),texture,mat:new T.MeshBasicMaterial({map:texture,toneMapped:false}),dirty:false,width:1920,height:1920};}return photoPages[index];}
   const shadowMat=new T.MeshBasicMaterial({color:0x2c2925,transparent:true,opacity:.14,depthWrite:false});
   const heroSet=new Set(featured.slice(0,20).map(p=>p.id));
   // Shared silhouettes; no exact-model claim for inferred forms.
@@ -443,14 +445,14 @@ async function expandWarehouse(){
   function placePhoto(e,w,h){
    const type=packageType(e.p),hero=heroSet.has(e.p.id),fit=packageLayout(type,e.size,Math.max(.12,e.depth*.56),hero),round=['wine','bottle','jar','can','tub'].includes(type),bottle=type==='wine'||type==='bottle',tray=type==='tray';
    e.group.position.set(e.x+e.face.nx*(e.depth*.46-fit.d/2),e.y,e.z+e.face.nz*(e.depth*.46-fit.d/2));e.group.rotation.y=e.face.rot;
-   const color=palette(e.page.ctx,e.cell.x,e.cell.y,w,h),bodyColor=type==='wine'?new T.Color('#35442b'):color.clone().lerp(new T.Color('#ded8cd'),.23);
+   const color=e.local?new T.Color(e.local.color):palette(e.page.ctx,e.cell.x,e.cell.y,w,h),bodyColor=type==='wine'?new T.Color('#35442b'):color.clone().lerp(new T.Color('#ded8cd'),.23);
    // Quantized palette keeps shared materials bounded.
    const quant=c=>'#'+[c.r,c.g,c.b].map(v=>Math.round(Math.max(0,Math.min(1,v))*7)*36).map(v=>Math.min(255,v).toString(16).padStart(2,'0')).join('');
    const body=material(quant(bodyColor)),cap=material(type==='wine'?'#423b35':quant(color)),offsets=fit.offsets;
    const pieces=new Map();function part(geo,mat,u,y,z,ww,hh,dd){const key=geo.uuid+'|'+mat.uuid;if(!pieces.has(key))pieces.set(key,{geo,mat,matrices:[]});dummy.position.set(u,y,z);dummy.rotation.set(0,0,0);dummy.scale.set(ww,hh,dd);dummy.updateMatrix();pieces.get(key).matrices.push(dummy.matrix.clone());}
    const labelW=fit.w*(round?.88:.97),labelH=fit.h*(bottle?.63:tray?.78:.93);
    const frontGeo=new T.PlaneGeometry(labelW,labelH),uv=frontGeo.attributes.uv;
-   for(let k=0;k<uv.count;k++)uv.setXY(k,(e.cell.x+.5+uv.getX(k)*Math.max(0,w-1))/1920,1-(e.cell.y+.5+(1-uv.getY(k))*Math.max(0,h-1))/1920);
+   for(let k=0;k<uv.count;k++)uv.setXY(k,(e.cell.x+.5+uv.getX(k)*Math.max(0,w-1))/e.page.width,1-(e.cell.y+.5+(1-uv.getY(k))*Math.max(0,h-1))/e.page.height);
    for(const u of offsets){
     if(bottle){part(cylGeo,body,u,fit.h*.32,0,fit.w,fit.h*.64,fit.d);part(shoulderGeo,body,u,fit.h*.70,0,fit.w,fit.h*.12,fit.d);part(neckGeo,body,u,fit.h*.84,0,fit.w,fit.h*.17,fit.d);part(capGeo,cap,u,fit.h*.97,0,fit.w*.32,fit.h*.06,fit.d*.32);}
     else if(round){part(cylGeo,body,u,fit.h*.46,0,fit.w,fit.h*.92,fit.d);part(capGeo,cap,u,fit.h*.95,0,fit.w*1.01,fit.h*.10,fit.d*1.01);}
@@ -480,7 +482,7 @@ async function expandWarehouse(){
     const sign=new T.Mesh(geo,atlas.mat);sign.position.set(x+face.nx*depth*.49,y-.06,z+face.nz*depth*.49);sign.rotation.y=rot;scene.add(sign);shelfCards.push(sign);
     proxy(p,x+face.nx*depth*.40,y+.42,z+face.nz*depth*.40,alongX?size:.30,.84,alongX?.30:size,f.zone,f);displayed.add(p.id);
     if(p.model){models[p.id]={...p.model};modelSlots.push({id:p.id,assetId:p.assetId,x,y,z,w:size,h:.85,d:size,rot,bulk:false});}
-    else if(p.image){const cell=atlasCell(photoQueue.length),page=photoPage(cell.page),group=new T.Group();scene.add(group);photoQueue.push({p,x,y,z,size,depth,face,cell,page,group});}
+    else if(p.image){const group=new T.Group();scene.add(group);const a=localArt?.entries?.[p.id];if(a&&a.image===p.image&&a.license===p.imageLicense&&localPages[a.page]&&a.x>=0&&a.y>=0&&a.w>0&&a.h>0&&a.x+a.w<=2048&&a.y+a.h<=2048){placePhoto({p,x,y,z,size,depth,face,cell:a,page:localPages[a.page],group,local:a},a.w,a.h);}else{const cell=atlasCell(photoQueue.length),page=photoPage(cell.page);photoQueue.push({p,x,y,z,size,depth,face,cell,page,group});}}
 
    }
   }
@@ -503,7 +505,7 @@ async function expandWarehouse(){
   const photoFlush=setInterval(()=>{for(const page of photoPages)if(page.dirty){page.texture.needsUpdate=true;page.dirty=false;}if(photoLoaded+photoFailed===queue.length){clearInterval(photoFlush);}},250);
   expansionState=retail.length.toLocaleString()+' sourced US products · '+modelSlots.length+' exact model displays · '+displayed.size+' physical listings · inferred packaging forms. Decorative carton fullness is simulated; South Orlando stock is not implied.';
   $('preloadBar').value=100;$('preloadPercent').textContent='100%';$('preloadStatus').textContent='Warehouse ready';$('preloadDetail').textContent=expansionState;$('preloader').dataset.ready='true';warehouseReady=true;$('start').disabled=false;$('start').textContent='Enter the warehouse →';
-  photos();photos();photos();if(mode==='search')showSearch();
+  if(photoQueue.length){photos();photos();photos();}if(mode==='search')showSearch();
  }catch(error){expansionState='Warehouse preload failed · '+error.message;$('preloadStatus').textContent='Loading unsuccessful';$('loadError').textContent=error.message;$('start').disabled=false;$('start').textContent='Retry loading';$('start').onclick=()=>location.reload();console.warn(error);}
 }
 expandWarehouse();
