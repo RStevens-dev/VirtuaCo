@@ -45,7 +45,7 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
  let lods={};try{const r=await fetch('./assets/lod-index.json');if(r.ok){const j=await r.json();if(j.count===slots.length)lods=j.variants;}}catch{}
  const hasLOD=Object.keys(lods).length===slots.length;
  const limit=low?24:48,byteLimit=low?9_000_000:20_000_000,gpuLimit=low?64*1024*1024:144*1024*1024,workers=low?2:3;
- const resident=new Map(),pending=new Set(),failed=new Set(),impostors=new Map();let desired=new Set(),running=0,queue=[],lastRank=[],atlas=null,tolerance={forward:36,side:18},anchor=null,dirty=true,blockedUntil=new Map(),baseMeshes=new Map(),basePending=0,baseReady=0,evictions=0,upgrades=0;
+ const resident=new Map(),pending=new Set(),failed=new Set(),impostors=new Map();let desired=new Set(),running=0,queue=[],lastRank=[],atlas=null,tolerance={forward:36,side:18},anchor=null,dirty=true,blockedUntil=new Map(),baseMeshes=new Map(),basePending=0,baseReady=0,evictions=0,upgrades=0,bulkUnits=new Map();
  // One shared atlas, per-product UVs; the billboard is an actual scan render, never a fabricated carton.
  try{
   const response=await fetch('./assets/merch-atlas.json');if(!response.ok)throw Error('Atlas not published');
@@ -57,6 +57,11 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
    const mesh=new T.Mesh(geo,mat),dims=models[slot.id]?.dimensions;
    let w=slot.w,h=slot.h;if(Array.isArray(dims)&&dims.length===3&&dims.every(x=>x>0)){const k=Math.min(slot.w/dims[0],slot.h/dims[1],slot.d/dims[2]);w=Math.max(dims[0],dims[2])*k;h=dims[1]*k;}
    mesh.position.set(slot.x,slot.y+h/2,slot.z);mesh.scale.set(w,h,1);mesh.rotation.y=slot.rot||0;scene.add(mesh);impostors.set(slot.id,mesh);
+   if(slot.bulk){
+    const group=new T.InstancedMesh(geo,mat,6),dummy=new T.Object3D(),angle=slot.rot||0;
+    for(let i=0;i<6;i++){let u=(i%3-1)*slot.w*.24,v=(Math.floor(i/3)-.5)*slot.d*.35;dummy.position.set(slot.x+u*Math.cos(angle)+v*Math.sin(angle),slot.bulkY+h*.30,slot.z-u*Math.sin(angle)+v*Math.cos(angle));dummy.rotation.y=angle;dummy.scale.set(w*.55,h*.60,1);dummy.updateMatrix();group.setMatrixAt(i,dummy.matrix);}
+    group.instanceMatrix.needsUpdate=true;scene.add(group);bulkUnits.set(slot.id,group);
+   }
   }
  if(impostors.size!==slots.length)throw Error('Incomplete merchandise atlas: '+impostors.size+' / '+slots.length);
  }catch(e){throw Error('Merchandise atlas required for stable streaming: '+e.message);}
@@ -125,5 +130,5 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
    await new Promise(r=>setTimeout(r,100));
   }
  }
- return {update,initial,setTolerance:(value)=>{tolerance={...tolerance,...value};dirty=true;},stats:()=>({resident:resident.size,pending:pending.size,bytes:used(),limit,eligible:lastRank.filter(r=>r.eligible).length,impostors:impostors.size,baseReady,basePending,hasLOD,evictions,upgrades}),has:id=>resident.has(id)||impostors.has(id)};
+ return {update,initial,setStock:(id,units)=>{const group=bulkUnits.get(id);if(group)group.count=Math.min(6,Math.ceil(units/8));},setTolerance:(value)=>{tolerance={...tolerance,...value};dirty=true;},stats:()=>({resident:resident.size,pending:pending.size,bytes:used(),limit,eligible:lastRank.filter(r=>r.eligible).length,impostors:impostors.size,baseReady,basePending,hasLOD,evictions,upgrades}),has:id=>resident.has(id)||impostors.has(id)};
 }
