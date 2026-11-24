@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - .github/workflows/retail-image-discovery.yml
+      - tools/discover-retail-images.py
 permissions:
   contents: write
 concurrency:
