@@ -10,7 +10,7 @@ def acquire(p):
     m=PATTERN.fullmatch(url)
     if not m or m[1].replace('/','')!=p['upc'] or p.get('imageLicense')!='CC-BY-SA-3.0':
         return p['upc'],{'status':'invalid_source'}
-    full=url[:-7]+'full.jpg'
+    full=url.removesuffix('400.jpg')+'full.jpg'
     try:
         req=urllib.request.Request(full,headers={'User-Agent':'VirtuaCo/1.0 (https://github.com/RStevens-dev/VirtuaCo)'})
         with urllib.request.urlopen(req,timeout=30) as res:
