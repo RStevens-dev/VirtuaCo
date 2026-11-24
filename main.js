@@ -1,6 +1,6 @@
 import * as T from 'three';
 import {runViews,listRuns,exportRun,deleteRun,selectCases} from './visual-tests.js';
-import {fitProduct,shelfFace,productFacings,atlasCell,packageType,merchDepartment,assignMerchandise,packageLayout} from './product-render.js';
+import {fitProduct,shelfFace,productFacings,atlasCell,packageType,merchDepartment,assignMerchandise,packageLayout,depthRows} from './product-render.js';
 import {warehouse,loadRetailCatalogue,priceLabel,availabilityLabel} from './retail.js';
 import {routeGrid,analog,orderStops,ambientAudio} from './experience.js';
 import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/GLTFLoader.js';
@@ -380,7 +380,7 @@ async function showVisualTests(){
  const start=button('Run 10 products × 5 angles',async()=>{
   if(visualRunController)return;
   visualRunController=new AbortController();start.disabled=true;cancel.disabled=false;
-  try{const run=await runViews({displays:visualDisplays,capture:captureProductView,signal:visualRunController.signal,revision:'visual-qa-v3',onProgress:(r,d,v)=>{status.textContent=(r.shots.length+r.errors.length)+' / '+r.planned+' · '+d.product.name+' · '+v.id;progress.max=r.planned||1;progress.value=r.shots.length+r.errors.length;}});
+  try{const run=await runViews({displays:visualDisplays,capture:captureProductView,signal:visualRunController.signal,revision:'visual-qa-v4',onProgress:(r,d,v)=>{status.textContent=(r.shots.length+r.errors.length)+' / '+r.planned+' · '+d.product.name+' · '+v.id;progress.max=r.planned||1;progress.value=r.shots.length+r.errors.length;}});
    status.textContent=run.status+' · '+run.shots.length+' screenshots saved locally · '+run.errors.length+' errors';
   }catch(e){status.textContent='Test run failed: '+e.message;}
   finally{visualCamera=null;visualRunController=null;start.disabled=false;cancel.disabled=true;await refresh();}
@@ -496,26 +496,29 @@ async function expandWarehouse(){
    const type=packageType(e.p),hero=heroSet.has(e.p.id),fit=packageLayout(type,e.size,Math.max(.12,e.depth*.56),hero),round=['wine','bottle','jar','can','tub'].includes(type),bottle=type==='wine'||type==='bottle',tray=type==='tray',bag=type==='bag',jug=type==='jug';
    e.group.position.set(e.x+e.face.nx*(e.depth*.46-fit.d/2),e.y,e.z+e.face.nz*(e.depth*.46-fit.d/2));e.group.rotation.y=e.face.rot;
    const color=e.local?new T.Color(e.local.color):palette(e.page.ctx,e.cell.x,e.cell.y,w,h);
-   const bodyColor=type==='wine'?new T.Color('#35442b'):jug?new T.Color('#f0efe7'):color.clone().lerp(new T.Color('#ded8cd'),.12);
-   const quant=c=>'#'+[c.r,c.g,c.b].map(v=>Math.round(Math.max(0,Math.min(1,v))*7)*36).map(v=>Math.min(255,v).toString(16).padStart(2,'0')).join('');
+   const bodyColor=type==='wine'?new T.Color('#35442b'):jug?new T.Color('#f0efe7'):color.clone().lerp(new T.Color('#ded8cd'),.04);
+   const quant=c=>{const srgb=c.clone().convertLinearToSRGB();return '#'+[srgb.r,srgb.g,srgb.b].map(v=>Math.round(Math.max(0,Math.min(1,v))*7)*36).map(v=>Math.min(255,v).toString(16).padStart(2,'0')).join('');};
    const body=material(quant(bodyColor),type==='can'?.25:0,type==='wine'?.24:round||jug||tray?.36:bag?.48:.78),cap=material(type==='wine'?'#423b35':quant(color),0,.45),offsets=fit.offsets;
-   const pieces=new Map();function part(geo,mat,u,y,z,ww,hh,dd,rx=0){const key=geo.uuid+'|'+mat.uuid;if(!pieces.has(key))pieces.set(key,{geo,mat,matrices:[]});dummy.position.set(u,y,z);dummy.rotation.set(rx,0,0);dummy.scale.set(ww,hh,dd);dummy.updateMatrix();pieces.get(key).matrices.push(dummy.matrix.clone());}
+   const pieces=new Map();function part(geo,mat,u,y,z,ww,hh,dd,rx=0){const key=geo.uuid+'|'+mat.uuid;if(!pieces.has(key))pieces.set(key,{geo,mat,matrices:[]});dummy.position.set(u,y,z+rowZ);dummy.rotation.set(rx,0,0);dummy.scale.set(ww,hh,dd);dummy.updateMatrix();pieces.get(key).matrices.push(dummy.matrix.clone());}
    const maxW=fit.w*(round?.82:.94),maxH=fit.h*(bottle?.61:jug?.63:.93);
    const aspect=w/h,labelW=tray?Math.min(fit.w*.94,fit.d*.94*aspect):Math.min(maxW,maxH*aspect),labelH=labelW/aspect;
    const frontGeo=new T.PlaneGeometry(labelW,labelH,8,4),uv=frontGeo.attributes.uv,verts=frontGeo.attributes.position;
    for(let k=0;k<uv.count;k++){const u=uv.getX(k),v=uv.getY(k);uv.setXY(k,(e.cell.x+.5+u*Math.max(0,w-1))/e.page.width,1-(e.cell.y+.5+(1-v)*Math.max(0,h-1))/e.page.height);if(round){const x=verts.getX(k);verts.setZ(k,fit.d*.5*(Math.sqrt(Math.max(0,1-(x/(fit.w*.5))**2))-1)+.004);}}
    frontGeo.computeVertexNormals();
-   for(const u of offsets){
+   const rows=depthRows(fit.d,Math.max(fit.d,e.depth*.86));
+   let rowZ=0;
+   for(const rz of rows){rowZ=rz;for(const u of offsets){
     if(bottle){part(cylGeo,body,u,fit.h*.32,0,fit.w,fit.h*.64,fit.d);part(shoulderGeo,body,u,fit.h*.70,0,fit.w,fit.h*.12,fit.d);part(neckGeo,body,u,fit.h*.84,0,fit.w,fit.h*.17,fit.d);part(capGeo,cap,u,fit.h*.97,0,fit.w*.32,fit.h*.06,fit.d*.32);}
     else if(jug){part(softGeo,body,u,fit.h*.37,0,fit.w,fit.h*.74,fit.d);part(softGeo,body,u-fit.w*.10,fit.h*.79,0,fit.w*.65,fit.h*.27,fit.d*.85);part(capGeo,cap,u-fit.w*.12,fit.h*.96,0,fit.w*.28,fit.h*.08,fit.d*.28);part(jugHandle,body,u+fit.w*.27,fit.h*.74,0,fit.w*.42,fit.h*.50,fit.d*.3);}
     else if(round){part(cylGeo,body,u,fit.h*.46,0,fit.w,fit.h*.92,fit.d);part(capGeo,cap,u,fit.h*.95,0,fit.w*1.01,fit.h*.10,fit.d*1.01);}
-    else if(tray){part(softGeo,body,u,fit.h*.40,0,fit.w,fit.h*.80,fit.d);part(softGeo,material('#c2c7c5'),u,fit.h*.88,0,fit.w*.98,fit.h*.20,fit.d*.98);}
+    else if(tray){part(softGeo,body,u,fit.h*.40,0,fit.w,fit.h*.80,fit.d);part(softGeo,material('#d5dbd8',0,.22),u,fit.h*.88,0,fit.w*.98,fit.h*.20,fit.d*.98);}
     else if(bag){part(softGeo,body,u,fit.h*.5,0,fit.w,fit.h,fit.d);for(const yy of [.035,.965])part(boxGeo,cap,u,fit.h*yy,0,fit.w*.88,fit.h*.035,fit.d*.35);}
     else part(type==='bale'?softGeo:boxGeo,body,u,fit.h*.5,0,fit.w,fit.h,fit.d);
     if(tray)part(frontGeo,e.page.mat,u,fit.h+.004,0,1,1,1,-Math.PI/2);
     else part(frontGeo,e.page.mat,u,bottle?fit.h*.32:jug?fit.h*.36:fit.h*.48,fit.d*.5+.004,1,1,1);
     part(boxGeo,shadowMat,u,.006,0,fit.w*1.07,.008,fit.d*1.12);
-   }
+   }}
+   rowZ=0;
    if(['wine','bottle','jar','can','bag'].includes(type)){const span=offsets.at(-1)-offsets[0]+fit.w;part(boxGeo,kraft,0,.018,0,span+.025,.036,fit.d*1.12);part(boxGeo,kraft,0,.055,-fit.d*.54,span+.025,.10,.025);for(const side of [-1,1])part(boxGeo,kraft,side*(span/2+.012),.05,0,.024,.10,fit.d*1.1);}
    for(const {geo,mat,matrices} of pieces.values()){const mesh=new T.InstancedMesh(geo,mat,matrices.length);matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));mesh.instanceMatrix.needsUpdate=true;e.group.add(mesh);}
    visualDisplays.push({product:e.p,type,group:e.group,fit,face:e.face,zone:e.zone||merchDepartment(e.p),ready:true});
