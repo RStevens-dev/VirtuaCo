@@ -5,9 +5,9 @@ import {zones,catalog,byCategory,byId,WIDTH,DEPTH,SPAWN,planFixtures,rng,stockSt
 const fixtures=planFixtures();
 const blocked=(x,z)=>x<.55||x>WIDTH-.55||z<.55||z>DEPTH-.55||fixtures.some(f=>x>f.x-.36&&x<f.x+f.w+.36&&z>f.z-.36&&z<f.z+f.d+.36);
 test('floor plan, fixture bounds and collision-free spawn',()=>{
- assert.equal(zones.length,54);
+ assert.equal(zones.length,82);
  assert.equal(new Set(zones.map(z=>z.id)).size,zones.length);
- assert.equal(fixtures.length,316);
+ assert.equal(fixtures.length,371);
  for(const f of fixtures){assert.ok(f.w>0&&f.d>0);assert.ok(f.x>=0&&f.z>=0&&f.x+f.w<=WIDTH&&f.z+f.d<=DEPTH);}
  assert.equal(blocked(SPAWN.x,SPAWN.z),false);
  for(let i=0;i<fixtures.length;i++)for(let j=i+1;j<fixtures.length;j++){
@@ -32,7 +32,7 @@ test('every fixture is adjacent to the entrance-connected aisle network',()=>{
 });
 test('all unique catalog SKUs are displayed in at least one fixture',()=>{
  const seen=new Set();
- assert.equal(catalog.length,84);
+ assert.equal(catalog.length,81);
  for(const p of catalog){assert.equal(byId[p.id],p);assert.ok(p.price>=0&&p.stock>=0);}
  for(const f of fixtures){const items=byCategory[f.zone.category];if(!items||f.type==='service')continue;
   const n=f.type==='rack'&&!f.narrow?2:1;
