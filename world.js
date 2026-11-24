@@ -848,7 +848,149 @@ const groups={
  appliances:[['Countertop air fryer','8 qt',69.99,'#424d59'],['Stand mixer','5 qt',229.99,'#b94b49'],['Robot vacuum','Wi-Fi',199.99,'#66717e']],
  food:[['Hot dog & soda','Combo',1.50,'#d54b42','tub'],['Pizza slice','Cheese',1.99,'#df9d42','tub'],['Berry sundae','12 oz',2.49,'#bf6b9b','tub']]
 };
-export const catalog=Object.entries(groups).filter(([category])=>zones.some(z=>z.category===category)).flatMap(([category,items])=>items.map(([name,size,price,color,shape='box'],i)=>({id:category+'-'+(i+1),category,name,size,price,color,shape,stock:[96,48,14,0,72,33][(i+category.length)%6]})));
+export const scannedCatalog=[
+  {
+    "id": "scan-1",
+    "category": "misc",
+    "name": "Clue board game",
+    "size": "Display sample",
+    "price": 12.99,
+    "color": "#647e91",
+    "shape": "box",
+    "stock": 96,
+    "scan": "Clue_Board_Game_Classic_Edition",
+    "credit": "Google Research, copyright 2020 Google LLC; GLB conversion by CodePawl",
+    "license": "CC-BY-4.0",
+    "source": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Clue_Board_Game_Classic_Edition"
+  },
+  {
+    "id": "scan-2",
+    "category": "misc",
+    "name": "Mad Gab card game",
+    "size": "Display sample",
+    "price": 14.99,
+    "color": "#aa704d",
+    "shape": "box",
+    "stock": 48,
+    "scan": "Mad_Gab_Refresh_Card_Game",
+    "credit": "Google Research, copyright 2020 Google LLC; GLB conversion by CodePawl",
+    "license": "CC-BY-4.0",
+    "source": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Mad_Gab_Refresh_Card_Game"
+  },
+  {
+    "id": "scan-3",
+    "category": "misc",
+    "name": "PlanToys coast guard boat",
+    "size": "Display sample",
+    "price": 19.99,
+    "color": "#5e8b77",
+    "shape": "box",
+    "stock": 14,
+    "scan": "COAST_GUARD_BOAT",
+    "credit": "Google Research, copyright 2020 Google LLC; GLB conversion by CodePawl",
+    "license": "CC-BY-4.0",
+    "source": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/COAST_GUARD_BOAT"
+  },
+  {
+    "id": "scan-4",
+    "category": "misc",
+    "name": "PlanToys geometric peg board",
+    "size": "Display sample",
+    "price": 16.99,
+    "color": "#c1a56e",
+    "shape": "box",
+    "stock": 72,
+    "scan": "GEOMETRIC_PEG_BOARD",
+    "credit": "Google Research, copyright 2020 Google LLC; GLB conversion by CodePawl",
+    "license": "CC-BY-4.0",
+    "source": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/GEOMETRIC_PEG_BOARD"
+  },
+  {
+    "id": "scan-5",
+    "category": "misc",
+    "name": "Wildkin aqua pencil case",
+    "size": "Display sample",
+    "price": 9.99,
+    "color": "#647e91",
+    "shape": "box",
+    "stock": 96,
+    "scan": "Big_Dot_Aqua_Pencil_Case",
+    "credit": "Google Research, copyright 2020 Google LLC; GLB conversion by CodePawl",
+    "license": "CC-BY-4.0",
+    "source": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Big_Dot_Aqua_Pencil_Case"
+  },
+  {
+    "id": "scan-6",
+    "category": "electronics",
+    "name": "ASUS wireless router",
+    "size": "Display sample",
+    "price": 89.99,
+    "color": "#aa704d",
+    "shape": "box",
+    "stock": 48,
+    "scan": "Asus_80211ac_DualBand_Gigabit_Wireless_Router_RTAC68R",
+    "credit": "Google Research, copyright 2020 Google LLC; GLB conversion by CodePawl",
+    "license": "CC-BY-4.0",
+    "source": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Asus_80211ac_DualBand_Gigabit_Wireless_Router_RTAC68R"
+  },
+  {
+    "id": "scan-7",
+    "category": "appliances",
+    "name": "Black & Decker toaster",
+    "size": "Display sample",
+    "price": 29.99,
+    "color": "#5e8b77",
+    "shape": "box",
+    "stock": 14,
+    "scan": "Black_and_Decker_TR3500SD_2Slice_Toaster",
+    "credit": "Google Research, copyright 2020 Google LLC; GLB conversion by CodePawl",
+    "license": "CC-BY-4.0",
+    "source": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Black_and_Decker_TR3500SD_2Slice_Toaster"
+  },
+  {
+    "id": "scan-8",
+    "category": "appliances",
+    "name": "Black & Decker coffee maker",
+    "size": "Display sample",
+    "price": 49.99,
+    "color": "#c1a56e",
+    "shape": "box",
+    "stock": 72,
+    "scan": "Black_Decker_CM2035B_12Cup_Thermal_Coffeemaker",
+    "credit": "Google Research, copyright 2020 Google LLC; GLB conversion by CodePawl",
+    "license": "CC-BY-4.0",
+    "source": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Black_Decker_CM2035B_12Cup_Thermal_Coffeemaker"
+  },
+  {
+    "id": "scan-9",
+    "category": "home",
+    "name": "Porcelain utensil holder",
+    "size": "Display sample",
+    "price": 12.99,
+    "color": "#647e91",
+    "shape": "box",
+    "stock": 96,
+    "scan": "BIA_Cordon_Bleu_White_Porcelain_Utensil_Holder_900028",
+    "credit": "Google Research, copyright 2020 Google LLC; GLB conversion by CodePawl",
+    "license": "CC-BY-4.0",
+    "source": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/BIA_Cordon_Bleu_White_Porcelain_Utensil_Holder_900028"
+  },
+  {
+    "id": "scan-10",
+    "category": "home",
+    "name": "Porcelain ramekin",
+    "size": "Display sample",
+    "price": 8.99,
+    "color": "#aa704d",
+    "shape": "box",
+    "stock": 48,
+    "scan": "BIA_Porcelain_Ramekin_With_Glazed_Rim_35_45_oz_cup",
+    "credit": "Google Research, copyright 2020 Google LLC; GLB conversion by CodePawl",
+    "license": "CC-BY-4.0",
+    "source": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/BIA_Porcelain_Ramekin_With_Glazed_Rim_35_45_oz_cup"
+  }
+];
+export const catalog=Object.entries(groups).filter(([category])=>zones.some(z=>z.category===category)).flatMap(([category,items])=>items.map(([name,size,price,color,shape='box'],i)=>({id:category+'-'+(i+1),category,name,size,price,color,shape,stock:[96,48,14,0,72,33][(i+category.length)%6]}))).concat(scannedCatalog);
 export const byCategory=Object.fromEntries(Object.keys(groups).map(k=>[k,catalog.filter(p=>p.category===k)]));
 export const byId=Object.fromEntries(catalog.map(p=>[p.id,p]));
 export const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n);
