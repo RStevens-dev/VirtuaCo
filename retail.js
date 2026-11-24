@@ -8,12 +8,13 @@ export function validateRecord(raw){
  const upc=String(raw.upc??'').trim(),item=String(raw.item??'').trim();
  const official=/^https:\/\/(?:www\.)?costco\.com\//.test(raw.source)&&/^\d{3,12}$/.test(item);
  const open=raw.source==='https://world.openfoodfacts.org/product/'+upc&&validGTIN(upc)&&raw.sourceLicense==='ODbL-1.0'&&/kirkland/i.test(raw.brand||'');
- if(!official&&!open)return null;
+ const regional=raw.source==='https://www.ubereats.com/store/costco-wholesale-s-orlando/m3cagceGUDyF6OTBRRmr-g'&&/^orlando-[a-z0-9-]+$/.test(raw.regionalId||'')&&raw.listingObservedAt&&Number.isFinite(Date.parse(raw.listingObservedAt));
+ if(!official&&!open&&!regional)return null;
  const observed=raw.warehouse===warehouse.id&&raw.observedAt&&Number.isFinite(Date.parse(raw.observedAt));
  const price=Number.isFinite(raw.price)&&raw.price>=0&&['warehouse','online','delivery'].includes(raw.priceType)&&raw.priceObservedAt&&Number.isFinite(Date.parse(raw.priceObservedAt))&&(raw.priceType!=='warehouse'||observed)?raw.price:null;
  const availability=observed&&['available','unavailable','low'].includes(raw.availability)?raw.availability:'unknown';
  const stockQuantity=observed&&Number.isInteger(raw.stockQuantity)&&raw.stockQuantity>=0?raw.stockQuantity:null;
- return {...raw,id:item?'costco-'+item:'upc-'+upc,upc,item,name:raw.name.trim(),brand:String(raw.brand||''),size:String(raw.size||'Size not verified'),category:String(raw.category||'misc'),price,priceType:price===null?'unknown':raw.priceType,availability,stockQuantity,warehouse:observed?warehouse.id:null,observedAt:observed?raw.observedAt:null,color:'#c5b08c',stock:stockQuantity,kind:'retail',image:open&&raw.imageLicense==='CC-BY-SA-3.0'&&/^https:\/\/images\.openfoodfacts\.org\/images\/products\//.test(raw.image||'')?raw.image:null};
+ return {...raw,id:regional?raw.regionalId:item?'costco-'+item:'upc-'+upc,upc,item,name:raw.name.trim(),brand:String(raw.brand||''),size:String(raw.size||'Size not verified'),category:String(raw.category||'misc'),price,priceType:price===null?'unknown':raw.priceType,availability,stockQuantity,warehouse:observed?warehouse.id:null,observedAt:observed?raw.observedAt:null,color:'#c5b08c',stock:stockQuantity,kind:'retail',regionalListing:!!regional,listingObservedAt:regional?raw.listingObservedAt:null,image:open&&raw.imageLicense==='CC-BY-SA-3.0'&&/^https:\/\/images\.openfoodfacts\.org\/images\/products\//.test(raw.image||'')?raw.image:null};
 }
 export function buildCatalogue(records,assets,approved=[]){
  const index=new Map(assets.map(a=>[a.id,a])),matches=new Map(approved.filter(m=>m.verified===true&&m.evidence&&index.has(m.assetId)).map(m=>[m.productId,m]));
@@ -32,6 +33,6 @@ export function priceLabel(p){return p.price==null?'Price unknown':new Intl.Numb
 export function availabilityLabel(p){return p.availability==='unknown'?'South Orlando availability unknown':p.availability+' · observed '+new Date(p.observedAt).toLocaleDateString('en-US');}
 export async function loadRetailCatalogue(assets){
  const read=async path=>{try{const r=await fetch(path,{cache:'no-cache'});if(r.ok)return await r.json();}catch{}return {};};
- const [manual,open,matches]=await Promise.all([read('./data/warehouse-products.json'),read('./data/open-food-facts.json'),read('./data/verified-matches.json')]);
- return buildCatalogue([...(open.products||[]),...(manual.products||[])],assets,matches.matches||[]);
+ const [manual,open,matches,regional]=await Promise.all([read('./data/warehouse-products.json'),read('./data/open-food-facts.json'),read('./data/verified-matches.json'),read('./data/orlando-listings.json')]);
+ return buildCatalogue([...(open.products||[]),...(manual.products||[]),...(regional.products||[])],assets,matches.matches||[]);
 }
