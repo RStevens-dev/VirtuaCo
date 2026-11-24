@@ -37,9 +37,9 @@ def main():
         if not re.fullmatch(r'\d{8,14}',upc) or entries.get(upc,{}).get('status')=='ok':continue
         try:entries[upc]=discover(upc)
         except Exception as e:entries[upc]={'status':'failed','error':str(e)[:180]}
-        time.sleep(1.2)
+        time.sleep(1.5)
     ok=[e for e in entries.values() if e['status']=='ok']
-    summary={'products':len(products),'checked':len(ok),'withImages':sum(bool(e['images']) for e in ok),'candidates':sum(len(e['images']) for e in ok),'missingFrontRecovered':sum(bool(entries.get(p['upc'],{}).get('images')) for p in products if not p.get('image'))}
+    summary={'products':len(products),'checked':len(ok),'withImages':sum(bool(e['images']) for e in ok),'candidates':sum(len(e['images']) for e in ok),'previouslyMissingWithCandidates':sum(bool(entries.get(p['upc'],{}).get('images')) for p in products if not p.get('image'))}
     OUT.write_text(json.dumps({'version':1,'summary':summary,'entries':entries},indent=2))
     print(json.dumps(summary),flush=True)
     if not ok:raise SystemExit('No successful metadata requests')
