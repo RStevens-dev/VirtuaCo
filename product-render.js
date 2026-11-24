@@ -27,6 +27,8 @@ export function merchDepartment(p){
  if(/paper towels|toilet paper|bath tissue/.test(n))return 'paper';
  if(/purified water|bottled water|agua purificada/.test(n))return 'water';
  if(/sauvignon|chardonnay|cabernet|pinot|merlot|prosecco|wine|vodka|whiskey|whisky|tequila|bourbon|sangria|champagne|orange juice|sparkling|soda/.test(n))return 'drinks';
+ if(/honey roasted.*nuts|macadamia nuts/.test(n))return 'snacks';
+ if(/breaded chicken.*chunks|breaded cod/.test(n))return 'frozen';
  if(/olive oil|avocado oil|honey|spread|jam|rice|flour|vinegar/.test(n))return 'pantry';
  if(/muffin|croissant|pecan pie|bread|bagel|cake/.test(n))return 'bakery';
  if(/ahi tuna.*poke|spicy poke|breaded chicken.*chunks|roller tray|sliced.*(turkey|ham)|ground.*beef|chicken wings|salmon/.test(n))return 'meat';
@@ -51,7 +53,7 @@ export function assignMerchandise(products,fixtures){
 const dimensions={jug:[.26,.32,.22],wine:[.14,.43,.14],bottle:[.18,.37,.18],jar:[.24,.29,.24],tray:[.38,.16,.29],case:[.49,.27,.36],bale:[.54,.43,.36],box:[.36,.48,.24],bag:[.29,.41,.17],can:[.14,.19,.14],tub:[.25,.18,.25],carton:[.19,.32,.19]};
 export function packageLayout(type,width,depth,hero=false){
  const [a,b,c]=dimensions[type]||dimensions.box,scale=Math.min(1.4,width/a,depth/c);
- const w=a*scale,h=b*scale,d=c*scale,n=Math.max(1,Math.min(hero?4:3,Math.floor((width+.00001)/(w*1.05))));
+ const w=a*scale,h=b*scale,d=c*scale,n=Math.max(1,Math.min(hero?6:4,Math.floor((width+.00001)/(w*1.05))));
  const pitch=Math.min(w*1.05,(width-w)/Math.max(1,n-1));
  return {w,h,d,offsets:Array.from({length:n},(_,i)=>(i-(n-1)/2)*pitch)};
 }
