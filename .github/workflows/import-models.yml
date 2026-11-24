@@ -15,6 +15,9 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
       - name: Download and validate 500 GLB models
         run: python3 tools/import_models.py --count 500
       - name: Commit validated catalog and model files
@@ -24,4 +27,13 @@ jobs:
           git add assets/models assets/catalog.json
           git diff --cached --quiet && exit 0
           git commit -m "Import 500 validated local product scans"
-          git push origin HEAD:main
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((attempt * 5))
+          done
+          echo "Could not publish after five attempts" >&2
+          exit 1
