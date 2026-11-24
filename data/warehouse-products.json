@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "referenceWarehouse": "1235",
+  "note": "Manually referenced US product identities, not verified local assortment or prices.",
+  "products": [
+    {
+      "item": "692731",
+      "name": "Kirkland Signature Organic Extra Virgin Olive Oil",
+      "brand": "Kirkland Signature",
+      "size": "2 L",
+      "category": "pantry",
+      "source": "https://www.costco.com/p/-/kirkland-signature-organic-extra-virgin-olive-oil-2-l/100334841"
+    },
+    {
+      "item": "512599",
+      "name": "Kirkland Signature Paper Towels",
+      "brand": "Kirkland Signature",
+      "size": "12 rolls, 160 sheets each",
+      "category": "household",
+      "source": "https://www.costco.com/p/-/kirkland-signature-paper-towels%2C-2-ply%2C-160-sheets%2C-12-count/100234271"
+    },
+    {
+      "item": "1147352",
+      "name": "Kirkland Signature Bottled Water — case pallet",
+      "brand": "Kirkland Signature",
+      "size": "48 cases × 40 bottles × 16.9 fl oz",
+      "category": "beverages",
+      "source": "https://www.costco.com/Kirkland-Signature-Bottled-Water-16.9-fl.-oz.%2C-40-Pack%2C-48-Case-Pallet.product.100344425.html"
+    }
+  ]
+}
