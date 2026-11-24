@@ -42,7 +42,7 @@ export function applyScanThumbnail(p,texture){
 import {rankSlots,residentPlan,evictionPlan} from './sections.js';
 export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
  const low=matchMedia('(pointer:coarse)').matches||(navigator.deviceMemory||8)<=4;
- let lods={};try{const r=await fetch('./assets/lod-index.json');if(r.ok){const j=await r.json();if(j.count===slots.length)lods=j.variants;}}catch{}
+ let lods={};try{const r=await fetch('./assets/lod-index.json');if(r.ok){const j=await r.json();for(const slot of slots){const variant=j.variants?.[slot.assetId||slot.id];if(variant)lods[slot.id]=variant;}}}catch{}
  const hasLOD=Object.keys(lods).length===slots.length;
  const limit=low?24:48,byteLimit=low?9_000_000:20_000_000,gpuLimit=low?64*1024*1024:144*1024*1024,workers=low?2:3;
  const resident=new Map(),pending=new Set(),failed=new Set(),impostors=new Map();let desired=new Set(),running=0,queue=[],lastRank=[],atlas=null,tolerance={forward:36,side:18},anchor=null,dirty=true,blockedUntil=new Map(),baseMeshes=new Map(),basePending=0,baseReady=0,evictions=0,upgrades=0,bulkUnits=new Map();
@@ -52,7 +52,7 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
   const meta=await response.json();atlas=await new T.TextureLoader().loadAsync('./assets/merch-atlas.webp');atlas.colorSpace=T.SRGBColorSpace;atlas.generateMipmaps=false;atlas.minFilter=T.LinearFilter;atlas.magFilter=T.LinearFilter;
   const mat=new T.MeshBasicMaterial({map:atlas,transparent:true,alphaTest:.35,side:T.DoubleSide});
   for(const slot of slots){
-   const e=meta.entries[slot.id];if(!e)continue;const geo=new T.PlaneGeometry(1,1),uv=geo.attributes.uv;
+   const e=meta.entries[slot.assetId||slot.id];if(!e)continue;const geo=new T.PlaneGeometry(1,1),uv=geo.attributes.uv;
    for(let i=0;i<uv.count;i++)uv.setXY(i,(e.x+uv.getX(i)*e.w)/meta.width,1-(e.y+(1-uv.getY(i))*e.h)/meta.height);
    const mesh=new T.Mesh(geo,mat),dims=models[slot.id]?.dimensions;
    let w=slot.w,h=slot.h;if(Array.isArray(dims)&&dims.length===3&&dims.every(x=>x>0)){const k=Math.min(slot.w/dims[0],slot.h/dims[1],slot.d/dims[2]);w=Math.max(dims[0],dims[2])*k;h=dims[1]*k;}
@@ -121,7 +121,7 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
  }
  async function initial(pos,yaw,progress){
   update(pos,yaw);const initialIds=new Set(desired);const total=initialIds.size;
-  if(!total)throw Error('No merchandise near entry');
+  if(!total){prepareBase().catch(console.warn);return {loaded:0,total:0,atlas:impostors.size};}
   const start=performance.now();
   while(true){
    const loaded=[...initialIds].filter(id=>resident.has(id)).length,settled=loaded+[...initialIds].filter(id=>failed.has(id)).length;
