@@ -1,10 +1,10 @@
-// Floor plan: map top = z 0, entrance at lower right. Units are meters.
+// Floor plan: map top = z 0, entrance at lower right; north points left on the reference map. Units are meters.
 // [name, x, z, width, depth, kind, product category]
 export const zones = [
  ['Water',10,1.5,4.5,5,'rack','water'],['Paper goods',5.5,7.5,9,8,'rack','paper'],
  ['Baby goods',16,1,2.4,15,'rack','baby'],['Laundry / cleaning',19,2.5,10.5,13,'rack','clean'],
  ['Beverages',31.5,2.5,11,13,'rack','drinks'],['Frozen',44.5,2.5,19,13,'cold','frozen'],
- ['Pantry goods · North',65.5,2.5,24,13.5,'rack','pantry'],['Medicine / bath',92,2.5,15.5,14,'rack','health'],
+ ['Pantry goods · Rear',65.5,2.5,24,13.5,'rack','pantry'],['Medicine / bath',92,2.5,15.5,14,'rack','health'],
  ['Soda',19,0.2,24,1.5,'rack','drinks'],['Sports drinks',44,0.2,19,1.5,'rack','drinks'],
  ['Snacks',64,0.2,25,1.5,'rack','snacks'],['Pharmacy',90,0.2,14,1.5,'counter','health'],
  ['Hearing',105,0.2,6,1.5,'counter','health'],['Restrooms',112,1,9.5,8,'service',''],
@@ -17,8 +17,8 @@ export const zones = [
  ['Refrigerated foods',15,21,19,14,'cold','fresh'],['Meat',15,37,19,11,'cold','meat'],
  ['Household essentials',36,21,12,12,'rack','home'],['Plants',36,35,2,13,'display','plants'],
  ['Seasonal',49.5,21,18,13,'display','season'],['Seasonal · Discovery',39.5,35,28,13,'display','season'],
- ['Clothing',69,21.5,5.5,26.5,'display','clothing'],['Pantry goods · East',76,22,24.5,10.5,'rack','pantry'],
- ['Furniture · East',76,34,24.5,14,'display','furniture'],['Self checkout',104,22,5,5,'checkout',''],
+ ['Clothing',69,21.5,5.5,26.5,'display','clothing'],['Pantry goods · Checkout-side',76,22,24.5,10.5,'rack','pantry'],
+ ['Furniture · Checkout-side',76,34,24.5,14,'display','furniture'],['Self checkout',104,22,5,5,'checkout',''],
  ['Checkout',104,28,5,19,'checkout',''],['Food court',115,20,6,9,'counter','food'],
  ['Tire sales',115,48,6,6,'counter',''],['Member service',115,55,6,8,'counter',''],
  ['Baked goods',14,50.5,8.5,13,'display','bakery'],['Produce',24,50.5,10,13,'display','produce'],
