@@ -79,3 +79,11 @@ Real product photography and licensed product data; finer environmental detailin
 ## Merchandise assets
 
 The scanned catalog in `world.js` identifies ten real-product scans. `assets.js` uses Meshopt decoding, shared models, up to eight 3D instances per scanned SKU, and asynchronous thumbnail textures for repeated stock. Failed downloads retain procedural packaging. `photos.js` supports individually reviewed Open Food Facts photographs; the manifest starts empty because no photo rights or exact matches were verified. `tools/curate.py` is an optional barcode-by-barcode curator (requires your contact address for the API User-Agent); run without `--approve` to preview. Review product identity, rights, and license before approval. No visitor API calls are made by the curator.
+
+## Model-only warehouse (current)
+
+The active store uses only `assets/catalog.json` and locally stored `.glb` files. Previous sample catalog, sculpted products and generic product boxes are not displayed. Empty shelves mean no validated local asset has been imported or the nearby model has not yet rendered. Structural fixtures and empty pallets are still generated geometry. Inventory quantities are simulated; physical stock visuals and upper-level merchandise are temporarily disabled pending a verified-model implementation.
+
+Run **Actions → Import verified warehouse models → Run workflow** (main). The importer retrieves up to 500 distinct CC BY 4.0 scans, validates GLB structure, embedded resources and supported compression extensions, records checksums and attribution, and commits the binaries and catalog only if all 500 pass. The workflow is also configured to start when its YAML changes. The source is [Google Scanned Objects via CodePawl](https://huggingface.co/datasets/codepawl/scanned-objects-glb). Review underlying brand/artwork rights separately. The import is capped at 700 MB to fit within GitHub Pages constraints. GitHub's branch-based Pages deployment may not trigger from a workflow-token commit; if needed, trigger a normal user commit after the import or use a Pages Actions deployment. No successful import or browser render is implied by the workflow configuration.
+
+Local alternative: `python3 tools/import_models.py --count 500`, then `git add assets && git commit -m 'Import verified product models' && git push`.
