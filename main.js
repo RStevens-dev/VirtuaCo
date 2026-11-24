@@ -34,6 +34,8 @@ function label(p){if(packaging.has(p.id))return packaging.get(p.id);
 }
 function priceMat(p){if(priceMats.has(p.id))return priceMats.get(p.id);let mat=canvasMat(384,192,(c,w,h)=>{c.fillStyle='#fffef5';c.fillRect(0,0,w,h);c.fillStyle='#202526';c.font='bold 25px sans-serif';let ls=lines(c,p.name.toUpperCase(),355).slice(0,2);ls.forEach((s,i)=>c.fillText(s,13,30+i*27));c.font='19px sans-serif';c.fillText(p.size+' · DEMO',13,87);c.font='bold 78px sans-serif';c.fillText(money(p.price),12,165);c.fillStyle='#b8252b';c.fillRect(344,99,27,70);},false);priceMats.set(p.id,mat);return mat;}
 function signMat(text,sub='',bg='#164369'){return canvasMat(768,192,(c,w,h)=>{c.fillStyle=bg;c.fillRect(0,0,w,h);c.fillStyle='#ffffff';c.font='bold 52px sans-serif';let ls=lines(c,text.toUpperCase(),720).slice(0,2);ls.forEach((s,i)=>c.fillText(s,24,62+i*56));if(sub){c.font='25px sans-serif';c.fillStyle='#d8e5ee';c.fillText(sub,24,169);}},false);}
+const lightMat=new T.MeshStandardMaterial({color:'#fff9e9',emissive:'#fff5dc',emissiveIntensity:1.4});
+const contactMat=new T.MeshBasicMaterial({color:'#303434',transparent:true,opacity:.14,depthWrite:false});
 const steel=material('#245d50',.55,.5),beam=material('#d86a22',.45,.52),wood=material('#9e7951'),kraft=material('#b8905c'),darkKraft=material('#8a663e'),black=material('#202a2c'),gray=material('#aab3b5',.4),white=material('#e5e8e6'),rubber=material('#303a3e');
 function proxy(p,x,y,z,w,h,d,zone,slot){const obj=new T.Mesh(boxGeo,invisible);obj.position.set(x,y,z);obj.scale.set(w,h,d);obj.updateMatrixWorld(true);obj.userData={p,zone,slot};targets.push(obj);if(!productLocations.has(p.id))productLocations.set(p.id,[]);productLocations.get(p.id).push({x,z,zone});}
 function packageItem(p,x,y,z,w,h,d,rot=0){
@@ -48,13 +50,12 @@ function crate(x,y,z,w,h,d,open=false){
  else{B(x,y+h/2,z,w,h,d,kraft);B(x,y+h+.003,z,w*.12,.008,d,'#d8b383');B(x,y+h*.56,z+d/2+.006,w*.37,h*.25,.01,'#e9e0c9');}
 }
 function pallet(x,z,w,d){for(let i=0;i<5;i++)B(x-w/2+w*(i+.5)/5,.115,z,w*.17,.075,d,wood);for(let i=0;i<3;i++)B(x,.045,z-d/2+d*(i+.5)/3,w,.09,d*.15,darkKraft);}
-const stockGroups=new Map();
+const stockGroups=new Map(),stockMeshes=new Map();
 function makeStock(p,x,z,w,d,seed){
- const g=new T.Group();scene.add(g);
- const slot={g,p,x,z,w,d,seed};if(!stockGroups.has(p.id))stockGroups.set(p.id,[]);stockGroups.get(p.id).push(slot);refreshStock(slot);
+ const slot={p,x,z,w,d,seed};if(!stockGroups.has(p.id))stockGroups.set(p.id,[]);stockGroups.get(p.id).push(slot);
 }
-function refreshStock(slot){
- let {g,p,x,z,w,d,seed}=slot;g.clear();let n=stock.get(p.id),r=rng(seed),state=stockState(n);
+function stockEntries(slot){
+ let {p,x,z,w,d,seed}=slot;let n=stock.get(p.id),r=rng(seed),state=stockState(n);
  // Instance batches are static; only these small inventory groups are rebuilt.
  const entries=[];
  const add=(a,b,c,ww,hh,dd,m)=>entries.push({a,b,c,ww,hh,dd,m});
@@ -70,10 +71,16 @@ function refreshStock(slot){
    }else{add(xx,yy+hh/2,z,ww*.97,hh,dd,kraft);add(xx,yy+hh+.004,z,ww*.13,.009,dd,'#d7b38b');add(xx,yy+hh*.52,z+dd/2+.008,ww*.54,hh*.35,.012,label(p));}
   }
  }
+ return entries;
+}
+function rebuildProductStock(id){
+ let g=stockMeshes.get(id);if(!g){g=new T.Group();scene.add(g);stockMeshes.set(id,g);}
+ for(const m of g.children)m.dispose?.();g.clear();
+ const entries=(stockGroups.get(id)||[]).flatMap(stockEntries);
  const groups=new Map();for(const e of entries){const m=typeof e.m==='string'?material(e.m):e.m;if(!groups.has(m))groups.set(m,[]);groups.get(m).push(e);}
  for(const [m,items] of groups){let mesh=new T.InstancedMesh(boxGeo,m,items.length);items.forEach((e,i)=>{dummy.position.set(e.a,e.b,e.c);dummy.scale.set(e.ww,e.hh,e.dd);dummy.rotation.set(0,0,0);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});g.add(mesh);}
 }
-function setStock(id,n){stock.set(id,Math.max(0,Math.min(120,Math.round(n))));for(const s of stockGroups.get(id)||[]){for(const m of s.g.children)m.dispose?.();refreshStock(s);}}
+function setStock(id,n){stock.set(id,Math.max(0,Math.min(120,Math.round(n))));rebuildProductStock(id);}
 function local(f,u,v){return f.alongX?[f.x+f.w/2+u,f.z+f.d/2+v]:[f.x+f.w/2+v,f.z+f.d/2+u];}
 function lb(f,u,y,v,w,h,d,c){let [x,z]=local(f,u,v);B(x,y,z,f.alongX?w:d,h,f.alongX?d:w,c);}
 function rack(f){
@@ -95,7 +102,7 @@ function rack(f){
   B(x,yy,z,.055,len,.055,steel,0,f.alongX?0:a,f.alongX?a:0);
  }
  for(let face=0;face<faces;face++){
-  const side=faces===1?(f.zone.z<2?1:-1):(face===0?-1:1),v=side*d*.27, p=products[(f.index*2+face)%products.length];
+  const side=faces===1?(f.zone.z<2?1:-1):(face===0?-1:1),v=side*d*.27, p=products[(f.index*faces+face)%products.length];
   let [x,z]=local(f,0,v),pw=w*.84, pd=d*(faces===1?.79:.42);
   makeStock(p,x,z,f.alongX?pw:pd,f.alongX?pd:pw,1000+f.index*19+face);
   // The second level is the customer-facing hero product shelf.
@@ -147,7 +154,7 @@ function shell(){
  let ground=new T.Mesh(new T.PlaneGeometry(WIDTH,DEPTH),concrete);ground.rotation.x=-Math.PI/2;ground.position.set(WIDTH/2,0,DEPTH/2);scene.add(ground);
  B(WIDTH/2,4.7,0,WIDTH,9.4,.26,'#d2d5d1');B(0,4.7,DEPTH/2,.26,9.4,DEPTH,'#d2d5d1');B(WIDTH,4.7,DEPTH/2,.26,9.4,DEPTH,'#d2d5d1');B(54,4.7,DEPTH,108,9.4,.26,'#d2d5d1');B(119,4.7,DEPTH,8,9.4,.26,'#d2d5d1');
  B(WIDTH/2,9.6,DEPTH/2,WIDTH,.25,DEPTH,'#c2c9ca');
- for(let x=2;x<WIDTH;x+=7.5){B(x,4.5,.35,.18,9,.27,gray);B(x,4.5,DEPTH-.35,.18,9,.27,gray);B(x,8.8,DEPTH/2,.19,.42,DEPTH,gray);for(let z=3;z<DEPTH;z+=8){B(x,8.2,z,.2,.18,3.5,gray);B(x,8.03,z,.35,.12,2.8,material('#fff7de'));}}
+ for(let x=2;x<WIDTH;x+=7.5){B(x,4.5,.35,.18,9,.27,gray);B(x,4.5,DEPTH-.35,.18,9,.27,gray);B(x,8.8,DEPTH/2,.19,.42,DEPTH,gray);for(let z=3;z<DEPTH;z+=8){B(x,8.2,z,.2,.18,3.5,gray);B(x,8.03,z,.35,.12,2.8,lightMat);}}
  for(let z=3;z<DEPTH;z+=6){B(.35,4.5,z,.24,9,.16,gray);B(WIDTH-.35,4.5,z,.24,9,.16,gray);B(WIDTH/2,9.05,z,WIDTH,.16,.12,gray);}
  for(let x=0.6;x<WIDTH;x+=2.1){B(x,2.8,.2,.035,5.5,.035,'#adb4b2');B(x,2.8,DEPTH-.2,.035,5.5,.035,'#adb4b2');}
  for(let x=4;x<WIDTH;x+=12)B(x,.008,DEPTH-1.3,6,.012,.10,'#d1b35a');
@@ -155,7 +162,7 @@ function shell(){
  B(113,3.0,DEPTH-1.0,5,.35,.28,steel);
 }
 shell();
-for(const f of fixtures){colliders.push(f);if(f.type==='rack')rack(f);else if(f.type==='display')display(f);else if(f.type==='cold')cold(f);else if(f.type==='service')service(f);else counter(f);}
+for(const f of fixtures){colliders.push(f);B(f.x+f.w/2,.008,f.z+f.d/2,f.w+.12,.012,f.d+.12,contactMat);if(f.type==='rack')rack(f);else if(f.type==='display')display(f);else if(f.type==='cold')cold(f);else if(f.type==='service')service(f);else counter(f);}
 for(const q of zones){
  const x=q.x+q.w/2,z=q.z+q.d/2,y=q.kind==='rack'?6.72:4.2,sign=signMat(q.name,q.id+' / '+(q.kind==='rack'?'BULK GOODS':'WAREHOUSE DEPARTMENT'));
  B(x,y,z,Math.min(4.9,Math.max(2.3,q.w)),.88,.1,sign);
@@ -163,6 +170,7 @@ for(const q of zones){
 }
 for(const {geo,mat,matrices} of batches.values()){let mesh=new T.InstancedMesh(geo,mat,matrices.length);matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));mesh.instanceMatrix.needsUpdate=true;scene.add(mesh);}
 batches.clear();
+for(const id of stockGroups.keys())rebuildProductStock(id);
 let pos=new T.Vector3(SPAWN.x,1.68,SPAWN.z),yaw=SPAWN.yaw,pitch=0,started=false,open=false,mode='',selected=null,hit=null,keys=new Set(),drag=null,toastTimer;
 const radius=.36;
 function blocked(x,z){if(x<.55||x>WIDTH-.55||z<.55||z>DEPTH-.55)return true;return colliders.some(f=>x>f.x-radius&&x<f.x+f.w+radius&&z>f.z-radius&&z<f.z+f.d+radius);}
@@ -172,20 +180,20 @@ function look(dx,dy){yaw-=dx*.0024;pitch=Math.max(-1.35,Math.min(1.35,pitch-dy*.
 function lock(){if(!matchMedia('(pointer: coarse)').matches&&renderer.domElement.requestPointerLock)try{const p=renderer.domElement.requestPointerLock();p?.catch?.(()=>{});}catch{}}
 function unlock(){if(document.pointerLockElement)document.exitPointerLock();}
 $('start').disabled=false;$('start').textContent='Enter the warehouse →';
-$('start').onclick=()=>{started=true;$('welcome').hidden=true;lock();};
+$('start').onclick=()=>{started=true;$('welcome').hidden=true;document.activeElement?.blur();lock();};
 document.addEventListener('mousemove',e=>{if(started&&!open&&document.pointerLockElement===renderer.domElement)look(e.movementX,e.movementY);});
 renderer.domElement.addEventListener('pointerdown',e=>{if(!started||open)return;if(document.pointerLockElement===renderer.domElement){inspect();return;}drag={x:e.clientX,y:e.clientY,moved:false};renderer.domElement.setPointerCapture(e.pointerId);});
 renderer.domElement.addEventListener('pointermove',e=>{if(!drag||open||document.pointerLockElement)return;let dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.moved||=Math.abs(dx)+Math.abs(dy)>2;look(dx,dy);drag.x=e.clientX;drag.y=e.clientY;});
 renderer.domElement.addEventListener('pointerup',e=>{if(!drag)return;if(!drag.moved&&started&&!open){if(hit)inspect();else lock();}drag=null;});
 renderer.domElement.addEventListener('pointercancel',()=>{drag=null;});
 const moveKeys=['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','ShiftLeft','ShiftRight'];
-document.addEventListener('keydown',e=>{if(!started||/INPUT|TEXTAREA|SELECT|BUTTON/.test(e.target.tagName))return;if(moveKeys.includes(e.code)){e.preventDefault();keys.add(e.code);}if(e.repeat)return;switch(e.code){case 'KeyE':if(!open)inspect();break;case 'KeyM':showMap();break;case 'KeyF':showSearch();break;case 'KeyB':showBasket();break;case 'Escape':if(open)closePanel();break;case 'KeyH':showHelp();break;}});
+document.addEventListener('keydown',e=>{if(!started)return;if(e.code==='Escape'&&open){closePanel();return;}if(/INPUT|TEXTAREA|SELECT|BUTTON/.test(e.target.tagName))return;if(moveKeys.includes(e.code)){e.preventDefault();keys.add(e.code);}if(e.repeat)return;switch(e.code){case 'KeyE':if(!open)inspect();break;case 'KeyM':showMap();break;case 'KeyF':showSearch();break;case 'KeyB':showBasket();break;case 'Escape':if(open)closePanel();break;case 'KeyH':showHelp();break;}});
 document.addEventListener('keyup',e=>keys.delete(e.code));window.addEventListener('blur',()=>keys.clear());
 for(const btn of document.querySelectorAll('[data-move]')){let k=btn.dataset.move;btn.onpointerdown=e=>{e.preventDefault();btn.setPointerCapture(e.pointerId);keys.add(k);};btn.onpointerup=btn.onpointercancel=btn.onlostpointercapture=()=>keys.delete(k);}
 $('touchInspect').onclick=inspect;
 function toast(s){$('toast').textContent=s;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2500);}
 function showPanel(title,kicker,m){open=true;mode=m;keys.clear();unlock();$('panelTitle').textContent=title;$('panelKicker').textContent=kicker;$('panelBody').replaceChildren();$('panel').hidden=false;return $('panelBody');}
-function closePanel(){open=false;mode='';$('panel').hidden=true;keys.clear();selected=null;}
+function closePanel(){document.activeElement?.blur();open=false;mode='';$('panel').hidden=true;keys.clear();selected=null;}
 $('closePanel').onclick=closePanel;$('resume').onclick=()=>{closePanel();lock();};
 function el(tag,cls,text){let a=document.createElement(tag);if(cls)a.className=cls;if(text!==undefined)a.textContent=text;return a;}
 function button(label,fn,cls='secondary'){let b=el('button',cls,label);b.onclick=fn;return b;}
