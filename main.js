@@ -21,7 +21,7 @@ const sun=new T.DirectionalLight(0xfff7e6,1.5);sun.position.set(25,35,10);scene.
 const mats=new Map(), batches=new Map(), colliders=[], targets=[], fixtures=planFixtures(), productLocations=new Map(), stock=new Map(catalog.map(p=>[p.id,p.stock]));
 const boxGeo=new T.BoxGeometry(1,1,1), cylGeo=new T.CylinderGeometry(.5,.5,1,12), sphereGeo=new T.SphereGeometry(.5,12,8);
 const torusGeo=new T.TorusGeometry(.38,.10,8,20);
-const nativeVisible=new Set(),visualDisplays=[];let visualRunController=null;
+const nativeVisible=new Set(),visualDisplays=[];let visualRunController=null,visualCamera=null;
 const temp=new T.Object3D(), dummy=new T.Object3D(), ray=new T.Raycaster();ray.far=8;
 const invisible=new T.MeshBasicMaterial({visible:false});
 function material(color,metal=0,rough=.8){let key=color+'|'+metal+'|'+rough;if(!mats.has(key))mats.set(key,new T.MeshStandardMaterial({color,metalness:metal,roughness:rough}));return mats.get(key);}
@@ -357,14 +357,22 @@ async function captureProductView(d,v){
  const cam=new T.PerspectiveCamera(43,camera.aspect,.035,160),angle=v.angle*Math.PI/180,elev=v.elevation*Math.PI/180;
  const distance=Math.max(.8,Math.max(extent.x,extent.z,extent.y)*1.65)*v.distance;
  const nx=d.face.nx*Math.cos(angle)+d.face.nz*Math.sin(angle),nz=d.face.nz*Math.cos(angle)-d.face.nx*Math.sin(angle);
- cam.position.set(center.x+nx*distance*Math.cos(elev),center.y+distance*Math.sin(elev),center.z+nz*distance*Math.cos(elev));cam.lookAt(center);cam.updateMatrixWorld();
+ // Try shorter or less oblique views when the nominal pose hits another fixture.
+ const own=colliders.find(f=>center.x>=f.x-.1&&center.x<=f.x+f.w+.1&&center.z>=f.z-.1&&center.z<=f.z+f.d+.1);
+ function clear(p){if(blocked(p.x,p.z))return false;for(let t=.05;t<.96;t+=.05){const x=p.x+(center.x-p.x)*t,z=p.z+(center.z-p.z)*t;if(colliders.some(f=>f!==own&&x>f.x&&x<f.x+f.w&&z>f.z&&z<f.z+f.d))return false;}return true;}
+ let found=false,actualAngle=v.angle;
+ for(const a of [v.angle,v.angle*.65,v.angle*.35,0]){for(const factor of [1,.8,.6,.45]){const r=a*Math.PI/180,xx=d.face.nx*Math.cos(r)+d.face.nz*Math.sin(r),zz=d.face.nz*Math.cos(r)-d.face.nx*Math.sin(r),dist=distance*factor;cam.position.set(center.x+xx*dist*Math.cos(elev),center.y+dist*Math.sin(elev),center.z+zz*dist*Math.cos(elev));if(clear(cam.position)){found=true;actualAngle=a;break;}}if(found)break;}
+ if(!found)throw Error('No unobstructed camera position for '+v.id);
+ cam.lookAt(center);cam.updateMatrixWorld();visualCamera=cam;
+ // Keep the capture pose visible on screen before saving it.
+ await new Promise(r=>setTimeout(r,350));
  // Capture synchronously before the normal animation loop clears the drawing buffer.
  renderer.render(scene,cam);const source=renderer.domElement,canvas=document.createElement('canvas'),scale=Math.min(1,1280/source.width,960/source.height);
  canvas.width=Math.max(1,Math.round(source.width*scale));canvas.height=Math.max(1,Math.round(source.height*scale));
  canvas.getContext('2d').drawImage(source,0,0,canvas.width,canvas.height);
  const stats={drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,textures:renderer.info.memory.textures};
  const blob=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error('Screenshot encoding failed')),'image/jpeg',.88));
- return {blob,width:canvas.width,height:canvas.height,camera:{position:cam.position.toArray(),target:center.toArray(),angle:v.angle,elevation:v.elevation},stats};
+ return {blob,width:canvas.width,height:canvas.height,camera:{position:cam.position.toArray(),target:center.toArray(),angle:actualAngle,requestedAngle:v.angle,elevation:v.elevation},stats};
 }
 async function showVisualTests(){
  const b=showPanel('Product view tests','VISUAL QA / LOCAL DATA','visual-tests');
@@ -372,10 +380,10 @@ async function showVisualTests(){
  const start=button('Run 10 products × 5 angles',async()=>{
   if(visualRunController)return;
   visualRunController=new AbortController();start.disabled=true;cancel.disabled=false;
-  try{const run=await runViews({displays:visualDisplays,capture:captureProductView,signal:visualRunController.signal,revision:'visual-qa-v1',onProgress:(r,d,v)=>{status.textContent=(r.shots.length+r.errors.length)+' / '+r.planned+' · '+d.product.name+' · '+v.id;progress.max=r.planned||1;progress.value=r.shots.length+r.errors.length;}});
+  try{const run=await runViews({displays:visualDisplays,capture:captureProductView,signal:visualRunController.signal,revision:'visual-qa-v2',onProgress:(r,d,v)=>{status.textContent=(r.shots.length+r.errors.length)+' / '+r.planned+' · '+d.product.name+' · '+v.id;progress.max=r.planned||1;progress.value=r.shots.length+r.errors.length;}});
    status.textContent=run.status+' · '+run.shots.length+' screenshots saved locally · '+run.errors.length+' errors';
   }catch(e){status.textContent='Test run failed: '+e.message;}
-  finally{visualRunController=null;start.disabled=false;cancel.disabled=true;await refresh();}
+  finally{visualCamera=null;visualRunController=null;start.disabled=false;cancel.disabled=true;await refresh();}
  },'primary');
  const cancel=button('Stop after current screenshot',()=>visualRunController?.abort());cancel.disabled=!visualRunController;start.disabled=!!visualRunController;
  const progress=el('progress');progress.max=50;progress.value=0;progress.setAttribute('aria-label','Capture progress');
@@ -408,7 +416,7 @@ let prev=performance.now(),lastScan=0,lastMap=0,lastStream=0;
 let lastBatteryFrame=0,fps=60,frameCount=0,fpsStart=performance.now(),lastQuality=0,pixelRatio=renderer.getPixelRatio(),performanceLine=null;
 function frame(now){
  requestAnimationFrame(frame);let dt=Math.min(.045,(now-prev)/1000);prev=now;
- if(started&&!open){
+ if(started&&!open&&!visualRunController){
   let f=Number(keys.has('KeyW')||keys.has('ArrowUp'))-Number(keys.has('KeyS')||keys.has('ArrowDown'))-stick.y,s=Number(keys.has('KeyD')||keys.has('ArrowRight'))-Number(keys.has('KeyA')||keys.has('ArrowLeft'))+stick.x,len=Math.max(1,Math.hypot(f,s)),speed=(keys.has('ShiftLeft')||keys.has('ShiftRight')?7.2:4.4)*dt/len;
   let dx=(-Math.sin(yaw)*f+Math.cos(yaw)*s)*speed,dz=(-Math.cos(yaw)*f-Math.sin(yaw)*s)*speed;if(!blocked(pos.x+dx,pos.z))pos.x+=dx;if(!blocked(pos.x,pos.z+dz))pos.z+=dz;
   if(Math.abs(f)+Math.abs(s)>.05&&route.length){route=[];routeStops=[];paintRoute();}else if(route.length){const q=route[0],d=Math.hypot(q.x-pos.x,q.z-pos.z);if(d<.16){route.shift();if(!route.length){paintRoute();if(routeStops.length)nextStop();else toast('Destination reached');}}else{const k=Math.min(d,dt*3.4)/d,xx=pos.x+(q.x-pos.x)*k,zz=pos.z+(q.z-pos.z)*k;if(!blocked(xx,zz)){pos.x=xx;pos.z=zz;}}}
@@ -421,7 +429,7 @@ function frame(now){
  }
  if(now-lastMap>220){lastMap=now;let q=zones.reduce((best,q)=>{let d=Math.hypot(Math.max(q.x-pos.x,0,pos.x-q.x-q.w),Math.max(q.z-pos.z,0,pos.z-q.z-q.d));return d<best.d?{q,d}:best;},{d:Infinity,q:null});$('where').textContent=q.d<4?q.q.name:'Main aisle';audio.update(q.q?.kind==='cold');const coords=Math.round(pos.x)+' / '+Math.round(pos.z);if($('coords').textContent!==coords)$('coords').textContent=coords;drawMap($('mini'));}
  if(warehouseReady&&sectionStreamer&&now-lastStream>250){const elapsed=Math.max(.25,(now-lastStream)/1000);sectionStreamer.update(pos,yaw,{x:(pos.x-streamX)/elapsed,z:(pos.z-streamZ)/elapsed});streamX=pos.x;streamZ=pos.z;lastStream=now;}
- if(warehouseReady&&(!battery||now-lastBatteryFrame>=33)){lastBatteryFrame=now;renderer.render(scene,camera);frameCount++;if(now-fpsStart>=2000){fps=frameCount*1000/(now-fpsStart);frameCount=0;fpsStart=now;if(now-lastQuality>8000){let target=pixelRatio;if(battery)target=Math.min(.85,pixelRatio);else if(fps<28)target=Math.max(.65,pixelRatio-.15);else if(fps>55)target=Math.min(1.6,devicePixelRatio,pixelRatio+.05);if(target!==pixelRatio){pixelRatio=target;renderer.setPixelRatio(pixelRatio);lastQuality=now;}}if(performanceLine?.isConnected){const st=sectionStreamer.stats(),r=renderer.info;performanceLine.textContent=Math.round(fps)+' FPS · '+r.render.calls+' draw calls · '+r.render.triangles.toLocaleString()+' triangles · '+r.memory.textures+' textures · '+st.resident+' detailed / '+st.baseReady+' low-detail models · '+st.pending+' loading · '+st.evictions+' evictions · '+Math.round(st.bytes/1048576)+' MiB detailed estimate · '+(st.hasLOD?'Optimized assets active':'Original assets active');}}}
+ if(warehouseReady&&(!battery||now-lastBatteryFrame>=33)){lastBatteryFrame=now;renderer.render(scene,visualCamera||camera);frameCount++;if(now-fpsStart>=2000){fps=frameCount*1000/(now-fpsStart);frameCount=0;fpsStart=now;if(now-lastQuality>8000){let target=pixelRatio;if(battery)target=Math.min(.85,pixelRatio);else if(fps<28)target=Math.max(.65,pixelRatio-.15);else if(fps>55)target=Math.min(1.6,devicePixelRatio,pixelRatio+.05);if(target!==pixelRatio){pixelRatio=target;renderer.setPixelRatio(pixelRatio);lastQuality=now;}}if(performanceLine?.isConnected){const st=sectionStreamer.stats(),r=renderer.info;performanceLine.textContent=Math.round(fps)+' FPS · '+r.render.calls+' draw calls · '+r.render.triangles.toLocaleString()+' triangles · '+r.memory.textures+' textures · '+st.resident+' detailed / '+st.baseReady+' low-detail models · '+st.pending+' loading · '+st.evictions+' evictions · '+Math.round(st.bytes/1048576)+' MiB detailed estimate · '+(st.hasLOD?'Optimized assets active':'Original assets active');}}}
 }
 window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
 requestAnimationFrame(frame);
