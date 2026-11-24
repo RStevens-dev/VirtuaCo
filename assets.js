@@ -38,35 +38,71 @@ export function applyScanThumbnail(p,texture){
 }
 
 
-// Persistent scene residency: no distance-based loading, removal or replacement.
-export async function preloadWarehouse(scene,slots,{progress=()=>{},status=()=>{},concurrency=6}={}){
- const grouped=new Map();for(const slot of slots){if(!grouped.has(slot.id))grouped.set(slot.id,[]);grouped.get(slot.id).push(slot);}
- const tasks=[...grouped],errors=[];let next=0,completed=0,loaded=0,bytes=0;
- const totalBytes=tasks.reduce((n,[id])=>n+(models[id]?.bytes||0),0);
- progress({completed,loaded,total:tasks.length,bytes,totalBytes,errors:0});
- async function worker(){
-  while(next<tasks.length){
-   const [id,placements]=tasks[next++],asset=models[id];status(id,'Loading local model…');
-   try{
-    if(!asset?.url)throw Error('Missing asset URL');
-    const gltf=await load(asset),root=gltf.scene;
-    const bounds=new T.Box3().setFromObject(root),size=bounds.getSize(new T.Vector3()),center=bounds.getCenter(new T.Vector3());
-    if(![size.x,size.y,size.z].every(v=>Number.isFinite(v)&&v>0))throw Error('Invalid bounds');
-    const holders=[];
-    for(const slot of placements){
-     const clone=root.clone(true),holder=new T.Group();
-     clone.position.sub(new T.Vector3(center.x,bounds.min.y,center.z));holder.add(clone);
-     holder.scale.setScalar(Math.min(slot.w/size.x,slot.h/size.y,slot.d/size.z));
-     holder.position.set(slot.x,slot.y,slot.z);holder.rotation.y=slot.rot||0;
-     holders.push(holder);
-    }
-    for(const holder of holders)scene.add(holder);
-    for(const slot of placements)if(slot.fallback)slot.fallback.visible=false;
-    loaded++;bytes+=asset.bytes||0;status(id,'3D model loaded');
-   }catch(e){errors.push({id,message:String(e)});status(id,'Model failed to load');cache.delete(asset?.url);}
-   finally{completed++;progress({completed,loaded,total:tasks.length,bytes,totalBytes,errors:errors.length});}
+
+import {rankSlots,residentPlan} from './sections.js';
+export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
+ const low=matchMedia('(pointer:coarse)').matches||(navigator.deviceMemory||4)<=4;
+ const limit=low?24:48,byteLimit=low?9_000_000:20_000_000,gpuLimit=low?64*1024*1024:144*1024*1024,workers=low?2:3;
+ const resident=new Map(),pending=new Set(),failed=new Set(),impostors=new Map();let desired=new Set(),running=0,queue=[],lastRank=[],atlas=null;
+ // One shared atlas, per-product UVs; the billboard is an actual scan render, never a fabricated carton.
+ try{
+  const response=await fetch('./assets/merch-atlas.json');if(!response.ok)throw Error('Atlas not published');
+  const meta=await response.json();atlas=await new T.TextureLoader().loadAsync('./assets/merch-atlas.webp');atlas.colorSpace=T.SRGBColorSpace;atlas.generateMipmaps=false;atlas.minFilter=T.LinearFilter;atlas.magFilter=T.LinearFilter;
+  const mat=new T.MeshBasicMaterial({map:atlas,transparent:true,alphaTest:.35,side:T.DoubleSide});
+  for(const slot of slots){
+   const e=meta.entries[slot.id];if(!e)continue;const geo=new T.PlaneGeometry(1,1),uv=geo.attributes.uv;
+   for(let i=0;i<uv.count;i++)uv.setXY(i,(e.x+uv.getX(i)*e.w)/meta.width,1-(e.y+(1-uv.getY(i))*e.h)/meta.height);
+   const mesh=new T.Mesh(geo,mat),dims=models[slot.id]?.dimensions;
+   let w=slot.w,h=slot.h;if(Array.isArray(dims)&&dims.length===3&&dims.every(x=>x>0)){const k=Math.min(slot.w/dims[0],slot.h/dims[1],slot.d/dims[2]);w=Math.max(dims[0],dims[2])*k;h=dims[1]*k;}
+   mesh.position.set(slot.x,slot.y+h/2,slot.z);mesh.scale.set(w,h,1);mesh.rotation.y=slot.rot||0;scene.add(mesh);impostors.set(slot.id,mesh);
+  }
+ }catch(e){console.warn('Scan render atlas unavailable',e);}
+ function dispose(root){
+  const geos=new Set(),mats=new Set(),textures=new Set(),images=new Set();root.traverse(o=>{if(!o.isMesh)return;geos.add(o.geometry);for(const m of Array.isArray(o.material)?o.material:[o.material]){mats.add(m);for(const v of Object.values(m))if(v?.isTexture){textures.add(v);if(v.image?.close)images.add(v.image);}}});
+  for(const t of textures)t.dispose();for(const m of mats)m.dispose();for(const g of geos)g.dispose();for(const im of images)im.close();
+ }
+ function estimate(root){
+  const geos=new Set(),textures=new Set();let bytes=0;root.traverse(o=>{if(!o.isMesh)return;if(!geos.has(o.geometry)){geos.add(o.geometry);for(const a of Object.values(o.geometry.attributes))bytes+=(a.array||a.data?.array)?.byteLength||0;bytes+=o.geometry.index?.array?.byteLength||0;}for(const m of Array.isArray(o.material)?o.material:[o.material])for(const v of Object.values(m))if(v?.isTexture&&!textures.has(v)){textures.add(v);bytes+=(v.image?.width||512)*(v.image?.height||512)*4*1.34;} });return bytes;
+ }
+ function evict(id){const record=resident.get(id);if(!record)return;const sprite=impostors.get(id);if(sprite)sprite.visible=true;scene.remove(record.holder);dispose(record.holder);resident.delete(id);status(id,sprite?'Scan image · distant':'Local model · outside active sections');}
+ function used(){return [...resident.values()].reduce((a,r)=>a+r.bytes,0);}
+ function pump(){
+  while(running<workers&&queue.length){
+   const slot=queue.shift(),id=slot.id;if(!desired.has(id)||resident.has(id)||pending.has(id)||failed.has(id))continue;
+   pending.add(id);running++;status(id,'Loading local model…');
+   // Do not use the old promise cache: it retains decoded meshes indefinitely.
+   loader.loadAsync(models[id].url).then(gltf=>{
+    const root=gltf.scene,bounds=new T.Box3().setFromObject(root),size=bounds.getSize(new T.Vector3()),center=bounds.getCenter(new T.Vector3());
+    if(![size.x,size.y,size.z].every(v=>Number.isFinite(v)&&v>0)){dispose(root);throw Error('Invalid bounds');}
+    if(!desired.has(id)){dispose(root);return;}
+    const bytes=estimate(root);
+    // Avoid evicting a closer product to admit a farther one.
+    const priority=lastRank.findIndex(r=>r.slot.id===id);
+    for(const r of [...lastRank].reverse()){if(used()+bytes<=gpuLimit&&resident.size<limit)break;if(lastRank.indexOf(r)<=priority)continue;evict(r.slot.id);}
+    if(used()+bytes>gpuLimit||resident.size>=limit){dispose(root);return;}
+    const holder=new T.Group();root.position.sub(new T.Vector3(center.x,bounds.min.y,center.z));holder.add(root);holder.scale.setScalar(Math.min(slot.w/size.x,slot.h/size.y,slot.d/size.z));holder.position.set(slot.x,slot.y,slot.z);holder.rotation.y=slot.rot||0;
+    scene.add(holder);resident.set(id,{holder,bytes});const sprite=impostors.get(id);if(sprite)sprite.visible=false;status(id,'3D model loaded');
+   }).catch(e=>{failed.add(id);status(id,impostors.has(id)?'Scan image · model failed':'Model failed to load');console.warn(id,e);}).finally(()=>{pending.delete(id);running--;pump();});
   }
  }
- await Promise.all(Array.from({length:Math.min(concurrency,tasks.length)},worker));
- return {loaded,total:tasks.length,errors};
+ function update(pos,yaw,velocity={x:0,z:0}){
+  lastRank=rankSlots(slots,pos,yaw,velocity);desired=residentPlan(lastRank,resident,{limit,byteLimit,bytesOf:id=>models[id]?.bytes||250000});
+  for(const id of resident.keys())if(!desired.has(id))evict(id);
+  queue=lastRank.filter(r=>desired.has(r.slot.id)&&!resident.has(r.slot.id)&&!pending.has(r.slot.id)&&!failed.has(r.slot.id)).map(r=>r.slot);
+  // Rotate only distant scan images toward the viewer, never full meshes.
+  for(const [id,sprite] of impostors)if(sprite.visible)sprite.rotation.y=Math.atan2(pos.x-sprite.position.x,pos.z-sprite.position.z);
+  pump();
+ }
+ async function initial(pos,yaw,progress){
+  update(pos,yaw);const initialIds=new Set(desired);const total=initialIds.size;
+  if(!total)throw Error('No merchandise near entry');
+  const start=performance.now();
+  while(true){
+   const loaded=[...initialIds].filter(id=>resident.has(id)).length,settled=loaded+[...initialIds].filter(id=>failed.has(id)).length;
+   progress({loaded,total,settled,atlas:impostors.size});
+   if(settled===total||(!running&&!queue.length)||performance.now()-start>45000)return {loaded,total,atlas:impostors.size};
+   await new Promise(r=>setTimeout(r,100));
+  }
+ }
+ return {update,initial,stats:()=>({resident:resident.size,pending:pending.size,bytes:used(),limit,impostors:impostors.size}),has:id=>resident.has(id)||impostors.has(id)};
 }
