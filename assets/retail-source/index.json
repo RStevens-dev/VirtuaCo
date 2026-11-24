@@ -1,0 +1,5204 @@
+{
+  "version": 1,
+  "summary": {
+    "attempted": 305,
+    "acquired": 285,
+    "higherThan400": 285,
+    "atLeast1024": 272,
+    "bytes": 41195950,
+    "missingCatalogImages": 449
+  },
+  "attribution": "Open Food Facts contributors; CC BY-SA 3.0; resized WebP derivatives",
+  "entries": {
+    "0000123482675": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0000123482675",
+      "image": "https://images.openfoodfacts.org/images/products/000/012/348/2675/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/000/012/348/2675/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1536,
+        2048
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "5a2fe37c783e085daddc017251a9d3dbe5a1e4c88d7bc28f9298565844b1cb5b",
+      "file": "328a4b79cb73d7b131d8e005.webp",
+      "bytes": 72618
+    },
+    "0001963393147": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0001963393147",
+      "image": "https://images.openfoodfacts.org/images/products/000/196/339/3147/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/000/196/339/3147/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "acde74ac66197557080e29cb751aa9f62d7f444d2984a37578b986f29f4a592b",
+      "file": "c92c61b50fa4c318c6ebe30c.webp",
+      "bytes": 255744
+    },
+    "0006619615161": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0006619615161",
+      "image": "https://images.openfoodfacts.org/images/products/000/661/961/5161/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/000/661/961/5161/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        500,
+        600
+      ],
+      "storedDimensions": [
+        500,
+        600
+      ],
+      "originalSHA256": "653670add15736076b9059e7da50961895dc3f7f674759967e0ceea4fa9ac3eb",
+      "file": "c2214fa9af1ebf24819d8ccc.webp",
+      "bytes": 37944
+    },
+    "0009661935020": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0009661935020",
+      "image": "https://images.openfoodfacts.org/images/products/000/966/193/5020/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/000/966/193/5020/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        941,
+        1554
+      ],
+      "storedDimensions": [
+        620,
+        1024
+      ],
+      "originalSHA256": "c47a6c38b84625b0aa89b9951f68725b9e613d79567693216138a66bc91f7e7c",
+      "file": "8d93d98e5dca7893d0defc08.webp",
+      "bytes": 137484
+    },
+    "0009663393147": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0009663393147",
+      "image": "https://images.openfoodfacts.org/images/products/000/966/339/3147/front_en.4.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/000/966/339/3147/front_en.4.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1173
+      ],
+      "storedDimensions": [
+        1024,
+        942
+      ],
+      "originalSHA256": "36a20f624acc9cf3c3dec61102fbba1d7bf28b73569a18ba20b8525a18ca1d09",
+      "file": "2b3c2a11b8cfcb63304dd1ca.webp",
+      "bytes": 399530
+    },
+    "0010900060547": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0010900060547",
+      "image": "https://images.openfoodfacts.org/images/products/001/090/006/0547/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/001/090/006/0547/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "3a867e62d37ca0dbb78cbe4229bc81b0a2fe3afa69a770a82aa682c3666db86f",
+      "file": "2527f998e8d55df6700cf045.webp",
+      "bytes": 99044
+    },
+    "0026633918901": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0026633918901",
+      "image": "https://images.openfoodfacts.org/images/products/002/663/391/8901/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/002/663/391/8901/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "28c6e97524a90fff050d92e46303611c9c6db6f75dfb8a4904f5fc90f3371047",
+      "file": "672ae68687ed9ba55a0a4056.webp",
+      "bytes": 101926
+    },
+    "0093319756119": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0093319756119",
+      "image": "https://images.openfoodfacts.org/images/products/009/331/975/6119/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/331/975/6119/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        3072,
+        4080
+      ],
+      "storedDimensions": [
+        771,
+        1024
+      ],
+      "originalSHA256": "77b09bc2f56de230f13ebd089dab8632990312755d69555e848efaf7c19fb9f4",
+      "file": "d9d3ddadd78fa077a45e50f5.webp",
+      "bytes": 142630
+    },
+    "0096612913005": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096612913005",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/291/3005/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/291/3005/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1536,
+        2048
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "793397f7265e0fcdd40eaf553610c47fe042d680619484c8771a6ebfbebd4e1a",
+      "file": "85e4f1000d5ff44bbd8489f7.webp",
+      "bytes": 143764
+    },
+    "0096619000050": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619000050",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/900/0050/front_en.6.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/900/0050/front_en.6.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        965,
+        1200
+      ],
+      "storedDimensions": [
+        823,
+        1024
+      ],
+      "originalSHA256": "6a3116d2b84fce3f4b4694171741f92f4bda3d18f825c7281f09a3638929d629",
+      "file": "77a45551adb5d7788573b736.webp",
+      "bytes": 115362
+    },
+    "0096619006403": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619006403",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/900/6403/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/900/6403/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1169,
+        1288
+      ],
+      "storedDimensions": [
+        929,
+        1024
+      ],
+      "originalSHA256": "924757a10537b42d490c0c2885d6f2da7f6930de9c80eee6d97176f2a7aa1533",
+      "file": "fb35c229b4f2fd35c00d0ced.webp",
+      "bytes": 168360
+    },
+    "0096619025671": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619025671",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/902/5671/front_en.19.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/902/5671/front_en.19.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "efd340dd4a387078f3bc01d78d8b647654c4b532eda5126a0c30f297d21dd779",
+      "file": "b12d354b164f519a81084d06.webp",
+      "bytes": 66744
+    },
+    "0096619034857": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619034857",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/903/4857/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/903/4857/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1536,
+        2048
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "623ae8df9969478274de7849449ce53f5ff8c6c34c61a138a122aa99fe531ec8",
+      "file": "5da2cbf968111f3eed82f513.webp",
+      "bytes": 104158
+    },
+    "0096619038510": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619038510",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/903/8510/front_en.20.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/903/8510/front_en.20.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "f91db41b59283741b5d008985d29cc1980f2a71792a373f2f3ce6501c5d6b22d",
+      "file": "10ca9585b49cc4fc68d89bb1.webp",
+      "bytes": 48280
+    },
+    "0096619056576": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619056576",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/905/6576/front_en.8.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/905/6576/front_en.8.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        966,
+        808
+      ],
+      "storedDimensions": [
+        966,
+        808
+      ],
+      "originalSHA256": "4f7d9c313d2aab648fce7f76cb6ad20b758430af4a4b2771f6b7a0d2def92a67",
+      "file": "14bc91cdd15806441f9bcea5.webp",
+      "bytes": 106844
+    },
+    "0096619065998": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619065998",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/906/5998/front_en.16.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/906/5998/front_en.16.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "7fa0c3645e050fdfdf45132e66191fe585f20e5ff2cd651f45c97af28f585ecb",
+      "file": "46d7bf89da605dd02a2dcb36.webp",
+      "bytes": 137958
+    },
+    "0096619066148": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619066148",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/906/6148/front_en.27.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/906/6148/front_en.27.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1280,
+        592
+      ],
+      "storedDimensions": [
+        1024,
+        474
+      ],
+      "originalSHA256": "2314d66b2a21ba0a48404210736f25fd561b4d19c80e56aa19fe4c42666202f1",
+      "file": "f96ea5b15c97aa612218dd90.webp",
+      "bytes": 81866
+    },
+    "0096619070954": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619070954",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/907/0954/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/907/0954/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "fdf3016db294a902243c09b7f97109738c453c86b922e2f5b48e4cc7ca36c863",
+      "file": "1bf4762c05a4b67469ac69a2.webp",
+      "bytes": 72690
+    },
+    "0096619093922": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619093922",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/909/3922/front_en.34.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/909/3922/front_en.34.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1280,
+        592
+      ],
+      "storedDimensions": [
+        1024,
+        474
+      ],
+      "originalSHA256": "766f5593a3adeb1d4c6660f70f835adc67e643d936f460eeca9579c38875cf69",
+      "file": "11ad0fac9ae63a3ff8529f34.webp",
+      "bytes": 133574
+    },
+    "0096619105557": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619105557",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/910/5557/front_en.77.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/910/5557/front_en.77.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1698,
+        1272
+      ],
+      "storedDimensions": [
+        1024,
+        767
+      ],
+      "originalSHA256": "2fb11aa3e9ebcc92eb54ba20a86c6400828dfa394e93bb14cff913e9f9e9a30d",
+      "file": "d44d50481036a592d3c222e2.webp",
+      "bytes": 207544
+    },
+    "0096619107971": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619107971",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/910/7971/front_en.16.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/910/7971/front_en.16.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        3382,
+        2658
+      ],
+      "storedDimensions": [
+        1024,
+        805
+      ],
+      "originalSHA256": "8a61d968851b4650e9fca88a85b43517c68d38fec6f6a337da8f3af2fde10f12",
+      "file": "b36716b1a7f5551a164c1df2.webp",
+      "bytes": 245732
+    },
+    "0096619128921": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619128921",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/912/8921/front_en.16.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/912/8921/front_en.16.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1864,
+        4032
+      ],
+      "storedDimensions": [
+        473,
+        1024
+      ],
+      "originalSHA256": "817f779ea6628b281af2012b3f1d9c577a328d88906736c0fe722dfeb79f76cf",
+      "file": "ed18c503935cb2855a9e47b5.webp",
+      "bytes": 74580
+    },
+    "0096619135417": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619135417",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/913/5417/front_en.10.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/913/5417/front_en.10.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1864,
+        3136
+      ],
+      "storedDimensions": [
+        609,
+        1024
+      ],
+      "originalSHA256": "705b662f2420aecd335d41d7bafbce06ab6707104fd8afea8d5ccaad0abc9d54",
+      "file": "dec6d183e31ab4745584e202.webp",
+      "bytes": 131760
+    },
+    "0096619140220": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619140220",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/914/0220/front_en.8.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/914/0220/front_en.8.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "e976448e3397e77f7ae879d5dd34a75f78e36beb3c5f1b13627c71972a526136",
+      "file": "051e8d69985e2d21e0e23e3b.webp",
+      "bytes": 98972
+    },
+    "0096619140503": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619140503",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/914/0503/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/914/0503/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1202,
+        1200
+      ],
+      "storedDimensions": [
+        1024,
+        1022
+      ],
+      "originalSHA256": "3507df248a8bf7e16258a037a23e445186841e8e4b976e72ad55968bf62868be",
+      "file": "e750f3e8295e1f45d8d138b5.webp",
+      "bytes": 114130
+    },
+    "0096619142576": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619142576",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/914/2576/front_en.11.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/914/2576/front_en.11.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "935fba590949f715f077e2fab6eb816389c357ed4a152c2d3be6d01e95c9bbfa",
+      "file": "fdd1fc19ef6672f939ff932a.webp",
+      "bytes": 67256
+    },
+    "0096619189182": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619189182",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/918/9182/front_en.19.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/918/9182/front_en.19.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        3224,
+        1774
+      ],
+      "storedDimensions": [
+        1024,
+        563
+      ],
+      "originalSHA256": "42c8a92cefc7131d1b00e86f01140fdf5484560ac69384a23dd295824a2b246c",
+      "file": "465f3aa0351c0efce7a83c9c.webp",
+      "bytes": 106674
+    },
+    "0096619189199": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619189199",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/918/9199/front_en.11.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/918/9199/front_en.11.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        996,
+        1019
+      ],
+      "storedDimensions": [
+        996,
+        1019
+      ],
+      "originalSHA256": "1916cd7960026f7bc7b74a7dc7bfec20c74ae19bf6c19dd10ce4fe379e51dac6",
+      "file": "d1647676a8c453731a84e9a5.webp",
+      "bytes": 184248
+    },
+    "0096619189281": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619189281",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/918/9281/front_en.43.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/918/9281/front_en.43.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1864,
+        4032
+      ],
+      "storedDimensions": [
+        473,
+        1024
+      ],
+      "originalSHA256": "cc89f2a3132274e81d31e616bd6dc7334543beb59aae5e775a05a160fe2179a5",
+      "file": "cad31cbc7c6d9d7241799191.webp",
+      "bytes": 134966
+    },
+    "0096619192106": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619192106",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/919/2106/front_en.5.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/919/2106/front_en.5.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1200,
+        268
+      ],
+      "storedDimensions": [
+        1024,
+        229
+      ],
+      "originalSHA256": "aa11fec1b8b03482d2212b5cac8e8e1c791f405adcc7ecebcb93038d6c6a4561",
+      "file": "06e508368e5aa5233b28c9c2.webp",
+      "bytes": 36490
+    },
+    "0096619212965": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619212965",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/921/2965/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/921/2965/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "810060ad2533449e21b1fb7e6adf3301952f26df49c3515f9317fcfbc6e7a87a",
+      "file": "b8b6d2f051bd38bbfbacc6e5.webp",
+      "bytes": 230266
+    },
+    "0096619222483": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619222483",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/922/2483/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/922/2483/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        939,
+        1200
+      ],
+      "storedDimensions": [
+        801,
+        1024
+      ],
+      "originalSHA256": "73719e6758e6f334c7827698cfd3ba427438efa6a8bc3bcd1a49903076e9dd2f",
+      "file": "9017839ea88ee6b531592b45.webp",
+      "bytes": 175498
+    },
+    "0096619254149": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619254149",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/925/4149/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/925/4149/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        645,
+        924
+      ],
+      "storedDimensions": [
+        645,
+        924
+      ],
+      "originalSHA256": "3b701673632325e24394cf0b9ba8b8c09e759cbeb660b7196da165f6268badef",
+      "file": "fd55b8c0cf5981137ebfbf70.webp",
+      "bytes": 128528
+    },
+    "0096619261000": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619261000",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/926/1000/front_en.18.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/926/1000/front_en.18.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        494,
+        1200
+      ],
+      "storedDimensions": [
+        422,
+        1024
+      ],
+      "originalSHA256": "fe558ace575010d7d6b701dc4ee5da76a66c7a168233d09c7c3ee6c635e9033d",
+      "file": "ba2952046dd5b792283897e4.webp",
+      "bytes": 94414
+    },
+    "0096619261109": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619261109",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/926/1109/front_en.8.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/926/1109/front_en.8.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        302,
+        1175
+      ],
+      "storedDimensions": [
+        263,
+        1024
+      ],
+      "originalSHA256": "0f8729ad8c8d2963dad1bb09b8d053fcd4ee48eb75cb5d83cff6d8887e71b1d2",
+      "file": "6a1d7a4bf747a696f19233ce.webp",
+      "bytes": 65902
+    },
+    "0096619301461": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619301461",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/930/1461/front_en.120.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/930/1461/front_en.120.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "cac7426ddb50e39009e2562cd8a468d0865d5d3d602d1ed52ca09c4f4809cfe2",
+      "file": "d8b2981193ec4d6254c6da91.webp",
+      "bytes": 65048
+    },
+    "0096619309641": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619309641",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/930/9641/front_en.11.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/930/9641/front_en.11.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1856,
+        3421
+      ],
+      "storedDimensions": [
+        556,
+        1024
+      ],
+      "originalSHA256": "6e1124d789597d379e6bbbcb76072628d42f8c0cc94510d27f707924be311ae9",
+      "file": "d5f6ecd0ccfbb5acba6ab9f3.webp",
+      "bytes": 112806
+    },
+    "0096619311378": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619311378",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/931/1378/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/931/1378/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        600,
+        600
+      ],
+      "storedDimensions": [
+        600,
+        600
+      ],
+      "originalSHA256": "ae8a83c930e7648c5043e94e494028d9cb6be0791e1939eff83a89b431918887",
+      "file": "1d1f7b7d7bcb662ebc62f176.webp",
+      "bytes": 44678
+    },
+    "0096619313051": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619313051",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/931/3051/front_en.9.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/931/3051/front_en.9.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "dbdb0ac42009b4c1f796836fbd72cda2bb7114d135361f0d295107ddc15ded70",
+      "file": "3c74840e48fcee1062d46e4f.webp",
+      "bytes": 202266
+    },
+    "0096619334339": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619334339",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/933/4339/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/933/4339/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        745,
+        1185
+      ],
+      "storedDimensions": [
+        644,
+        1024
+      ],
+      "originalSHA256": "f156dcc862e72662e54589e0cf68d374c755b02885fe71d2c90ff640344bc16a",
+      "file": "8d54ec69698a1784adfeb2af.webp",
+      "bytes": 83028
+    },
+    "0096619338634": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619338634",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/933/8634/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/933/8634/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        876,
+        1143
+      ],
+      "storedDimensions": [
+        785,
+        1024
+      ],
+      "originalSHA256": "cb1e03bdc575ae4d574fd3253181c0700f5374fa38317ece2ea817a82d38f3be",
+      "file": "aad1885f14a6a473ea99b3a7.webp",
+      "bytes": 113866
+    },
+    "0096619356010": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619356010",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/935/6010/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/935/6010/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1698,
+        1271
+      ],
+      "storedDimensions": [
+        1024,
+        766
+      ],
+      "originalSHA256": "1dd094279a7ad153f51c5561b22f741a23dfa6b8ffbed320b4175778965f88a2",
+      "file": "932261407e8d6cfa2b63f97a.webp",
+      "bytes": 144182
+    },
+    "0096619367542": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619367542",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/936/7542/front_en.14.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/936/7542/front_en.14.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "2950f09e088c8c15956f8d8a997092c37b1e437ecc96fb44c3188ae8cf80c85f",
+      "file": "e7929475e1d539eec15bfeee.webp",
+      "bytes": 113964
+    },
+    "0096619374632": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619374632",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/937/4632/front_en.13.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/937/4632/front_en.13.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "157aa416ff6976c30fc1a55c51bb5f5865252d6d188b050bb5a09868d7cc467c",
+      "file": "9f54289f7631339a93c17752.webp",
+      "bytes": 190348
+    },
+    "0096619385218": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619385218",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/938/5218/front_en.6.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/938/5218/front_en.6.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        4000,
+        3000
+      ],
+      "storedDimensions": [
+        1024,
+        768
+      ],
+      "originalSHA256": "f254a9531b54ae39bfca83bcc107887ff0d95aef898dd47cd881037078e02a3b",
+      "file": "1f5237747a155851c4202cee.webp",
+      "bytes": 183930
+    },
+    "0096619416417": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619416417",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/941/6417/front_en.26.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/941/6417/front_en.26.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "71ca719e137f655606207c88a4aca3d7ba08004ab2afe040ef07f24e78dd13cd",
+      "file": "59ffb5d12a9893f4b11d4b28.webp",
+      "bytes": 40050
+    },
+    "0096619422500": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619422500",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/942/2500/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/942/2500/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1887,
+        1080
+      ],
+      "storedDimensions": [
+        1024,
+        586
+      ],
+      "originalSHA256": "27d8427c1393c25fe53517513b397e9b9f20512fd4c0ef2c612accac9e7f6121",
+      "file": "cd99de4828e946defdb6e852.webp",
+      "bytes": 145884
+    },
+    "0096619445387": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619445387",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/944/5387/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/944/5387/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        813,
+        1200
+      ],
+      "storedDimensions": [
+        694,
+        1024
+      ],
+      "originalSHA256": "a959c500bd2053629fc58d5cdd769583c2ebfd32f14ac608f75fbf2160de6706",
+      "file": "64078263a679716869ea28a7.webp",
+      "bytes": 116666
+    },
+    "0096619456949": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619456949",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/945/6949/front_en.14.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/945/6949/front_en.14.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        439,
+        1200
+      ],
+      "storedDimensions": [
+        375,
+        1024
+      ],
+      "originalSHA256": "b014eabe0aee274c94c17d05d956ddf0317a00239946f2f461815052f5b5568e",
+      "file": "b513becaf330af5586a646d4.webp",
+      "bytes": 108206
+    },
+    "0096619626410": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619626410",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/962/6410/front_en.34.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/962/6410/front_en.34.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "9a5f2f1a3891696847041109b7797708f340574e527b1dfbfdb214d613156f68",
+      "file": "911dd3712cdb15ad62940806.webp",
+      "bytes": 98646
+    },
+    "0096619631391": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619631391",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/963/1391/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/963/1391/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        3024,
+        4032
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "3e4c180f97afbca5100deb25398044796794e7eeb181d763186ca418966a9768",
+      "file": "9719612faa18a3b25d479cee.webp",
+      "bytes": 73448
+    },
+    "0096619639274": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619639274",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/963/9274/front_en.15.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/963/9274/front_en.15.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1331,
+        3538
+      ],
+      "storedDimensions": [
+        385,
+        1024
+      ],
+      "originalSHA256": "14893a3b08d4c49ffd3cdbecaba0218cf6b76f081ea41e2687d72aa2eb72ae41",
+      "file": "509571ca349f0a241b211938.webp",
+      "bytes": 93360
+    },
+    "0096619677498": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619677498",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/967/7498/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/967/7498/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1046,
+        396
+      ],
+      "storedDimensions": [
+        1024,
+        388
+      ],
+      "originalSHA256": "6a8eb03776c2a360e9f7edbd6397af089a7587dc3987018edb1ad9734a9951b4",
+      "file": "f4987d42bfaa41fb061de1dc.webp",
+      "bytes": 105910
+    },
+    "0096619682133": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619682133",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/968/2133/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/968/2133/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "1d4f3f23c212a6a3f67e0af402a60ebf49d09cd23ef17d84ba3349160268eecd",
+      "file": "8b06a7bf517aa4e49b913efb.webp",
+      "bytes": 59238
+    },
+    "0096619723829": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619723829",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/972/3829/front_en.4.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/972/3829/front_en.4.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        3120,
+        3304
+      ],
+      "storedDimensions": [
+        967,
+        1024
+      ],
+      "originalSHA256": "ef4f3865a3dcfd4d753ee90b62dd97acd221e09bae9ad5e79132bb24d3f9be66",
+      "file": "9d40555f84207114afc7975d.webp",
+      "bytes": 90924
+    },
+    "0096619792214": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619792214",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/979/2214/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/979/2214/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "1b282e834356ba85462ca628874617238905e046c888b44884ad16e08a691fca",
+      "file": "c40980be3763aebabc81ac03.webp",
+      "bytes": 79142
+    },
+    "0096619844333": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619844333",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/984/4333/front_en.73.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/984/4333/front_en.73.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "bdefc6eee5b708ef10a828e180ea5fd7e03b16d373106adc8481b64520cfb356",
+      "file": "8d774b644fbcd3bca79804cf.webp",
+      "bytes": 72282
+    },
+    "0096619884186": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619884186",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/988/4186/front_en.4.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/988/4186/front_en.4.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "7bda6f3f2c07d875593a660a7037adc7c1ef7adfed5675822cf975ecda59fc96",
+      "file": "94614e2b4a0d7ee2ae5b87df.webp",
+      "bytes": 162976
+    },
+    "0096619885176": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619885176",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/988/5176/front_en.20.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/988/5176/front_en.20.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "326701fee3dcee370a76f99e245d9825f25c136713c8f01b4a11ab56b34e94d7",
+      "file": "e51c9856d94bad1811e1b62e.webp",
+      "bytes": 81356
+    },
+    "0096619887422": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619887422",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/988/7422/front_en.32.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/988/7422/front_en.32.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1862,
+        4032
+      ],
+      "storedDimensions": [
+        473,
+        1024
+      ],
+      "originalSHA256": "7812bec3ccecd169a103a768a894b37fe43609777bd6fa4047aec3ba7d27d756",
+      "file": "a4483c66c31338e495db2250.webp",
+      "bytes": 117934
+    },
+    "0096619905775": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619905775",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/990/5775/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/990/5775/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "05ce6c8db20a300ebd431ff2a746888b5f9b4460c4eb01a693047a01b55e5adb",
+      "file": "357efcd84224ae01d8987b70.webp",
+      "bytes": 97806
+    },
+    "0096619950287": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619950287",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/995/0287/front_en.10.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/995/0287/front_en.10.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        544,
+        1200
+      ],
+      "storedDimensions": [
+        464,
+        1024
+      ],
+      "originalSHA256": "ac048e856e40fc7d9a0b32b6b07c2da74e9b8a6329370faeef20eae8950032c4",
+      "file": "00b0c47eb78fdde9ebbf1462.webp",
+      "bytes": 145730
+    },
+    "0096619969463": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619969463",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/996/9463/front_en.16.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/996/9463/front_en.16.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1087,
+        1678
+      ],
+      "storedDimensions": [
+        663,
+        1024
+      ],
+      "originalSHA256": "85752f37f50f1afe2110e605bc7363adad597c1ce6298200e629e70b94e744ff",
+      "file": "367ad8c2b647908edb0ff73a.webp",
+      "bytes": 164058
+    },
+    "0096619994700": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0096619994700",
+      "image": "https://images.openfoodfacts.org/images/products/009/661/999/4700/front_en.4.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/009/661/999/4700/front_en.4.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1152,
+        2048
+      ],
+      "storedDimensions": [
+        576,
+        1024
+      ],
+      "originalSHA256": "7b4e45147e1f54a4c1050f53fa45b14fcfb0ea32c7767ab5aa03d48e657fc1b9",
+      "file": "c8d7da0cae4d983a65afa09b.webp",
+      "bytes": 152968
+    },
+    "0106633231474": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0106633231474",
+      "image": "https://images.openfoodfacts.org/images/products/010/663/323/1474/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/010/663/323/1474/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "d3b9971f08a3941ac33de27a4b5f2f3e9a16791ce4836861acee2837ac272b8a",
+      "file": "4c851f58f0646a3280b6afe3.webp",
+      "bytes": 203412
+    },
+    "0196333945795": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196333945795",
+      "image": "https://images.openfoodfacts.org/images/products/019/633/394/5795/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/633/394/5795/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "bb5bdbfa7de08ef4b4fec9a935da21cddd3621d4e96d680c2c630ef6bfabd28e",
+      "file": "5f3046301fff2614433dcba4.webp",
+      "bytes": 141368
+    },
+    "0196633805706": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196633805706",
+      "image": "https://images.openfoodfacts.org/images/products/019/663/380/5706/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/663/380/5706/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1700,
+        1275
+      ],
+      "storedDimensions": [
+        1024,
+        768
+      ],
+      "originalSHA256": "91642998a2940e7bfe7aade2ef7151ff18626599a4635c4541d6ee884624158c",
+      "file": "bd203b23a9d7ca7beb02e787.webp",
+      "bytes": 131346
+    },
+    "0196633809087": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196633809087",
+      "image": "https://images.openfoodfacts.org/images/products/019/663/380/9087/front_en.40.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/663/380/9087/front_en.40.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        650,
+        1279
+      ],
+      "storedDimensions": [
+        520,
+        1024
+      ],
+      "originalSHA256": "7616b8cb559aec7bb3bd2cf7dbb04ca64bb27ef24eeaf40824be857d8d64e54f",
+      "file": "15c6d4961d8b85bec3eace92.webp",
+      "bytes": 142502
+    },
+    "0196633883704": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196633883704",
+      "image": "https://images.openfoodfacts.org/images/products/019/663/388/3704/front_es.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/663/388/3704/front_es.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "275c7a7625da9a3d8b86dbda5a019400970ae92a2f75b64f41836e90a38e51ba",
+      "file": "15ee7669adffae8f68e6b011.webp",
+      "bytes": 103946
+    },
+    "0196633908063": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196633908063",
+      "image": "https://images.openfoodfacts.org/images/products/019/663/390/8063/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/663/390/8063/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1536,
+        2048
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "62ab656334594409b785d76ef849e0184252595b4a35689fc6362abe7b5ec145",
+      "file": "fb4c5467c111e89f1992b8c1.webp",
+      "bytes": 104700
+    },
+    "0196633908070": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196633908070",
+      "image": "https://images.openfoodfacts.org/images/products/019/663/390/8070/front_en.8.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/663/390/8070/front_en.8.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        590,
+        1280
+      ],
+      "storedDimensions": [
+        472,
+        1024
+      ],
+      "originalSHA256": "eca56d4b4dc30b556cf2cb73d6d6c1e820ff1ddef0a72d2e24d4b2bc482add5f",
+      "file": "df0ea9e05e17bc6d07a5522a.webp",
+      "bytes": 49188
+    },
+    "0196633915597": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196633915597",
+      "image": "https://images.openfoodfacts.org/images/products/019/663/391/5597/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/663/391/5597/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1536,
+        2048
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "4126078e656b2578f4005572acb62d25b2aead9f199e479acb6d3475cddc88ce",
+      "file": "542fedfe0144a1172b24d966.webp",
+      "bytes": 90256
+    },
+    "0196633917942": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196633917942",
+      "image": "https://images.openfoodfacts.org/images/products/019/663/391/7942/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/663/391/7942/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "f34d97ff0ea52234551246a758ef61fdd810ee02e4b8997654b0cd8cddef9324",
+      "file": "ff4a422d5b8ce748e8dd9971.webp",
+      "bytes": 71818
+    },
+    "0196633928184": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196633928184",
+      "image": "https://images.openfoodfacts.org/images/products/019/663/392/8184/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/663/392/8184/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "103533cd73704da58923d1d81f9e210959528e95217bffca1f8756fe38679950",
+      "file": "589ac678daa02208a3f6b1fa.webp",
+      "bytes": 130554
+    },
+    "0196633936530": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196633936530",
+      "image": "https://images.openfoodfacts.org/images/products/019/663/393/6530/front_en.10.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/663/393/6530/front_en.10.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1274,
+        656
+      ],
+      "storedDimensions": [
+        1024,
+        527
+      ],
+      "originalSHA256": "a25f5b86ce9d25db07f70f7aff728dd5ffdd58f7bd84af9a1a4e57b05f9ac85d",
+      "file": "2a0099781ed5adb644fb8d83.webp",
+      "bytes": 86992
+    },
+    "0196633936752": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196633936752",
+      "image": "https://images.openfoodfacts.org/images/products/019/663/393/6752/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/663/393/6752/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "24426fb1e5738ed8f781eb5ef29b24f32cefd4964d7d62a610b3eb3b3b6dbe1e",
+      "file": "a8a1de9bf0c2c0355dec2c38.webp",
+      "bytes": 171866
+    },
+    "0196633945235": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196633945235",
+      "image": "https://images.openfoodfacts.org/images/products/019/663/394/5235/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/663/394/5235/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        3707,
+        6001
+      ],
+      "storedDimensions": [
+        633,
+        1024
+      ],
+      "originalSHA256": "70c26aaddc471a7d1f95b8f81a87ae22b20cd497e3b32eff64c247a2daa4d03d",
+      "file": "ae3c809f9517d8d750154ad7.webp",
+      "bytes": 189928
+    },
+    "0196633954459": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196633954459",
+      "image": "https://images.openfoodfacts.org/images/products/019/663/395/4459/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/663/395/4459/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1536,
+        2048
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "a794da37b6b89b08b285f676f0989e4481795fc4e0582c98d39416330534f721",
+      "file": "6209c7134a23a02ea8a86b95.webp",
+      "bytes": 79558
+    },
+    "0196633967084": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196633967084",
+      "image": "https://images.openfoodfacts.org/images/products/019/663/396/7084/front_en.17.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/663/396/7084/front_en.17.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "7059a97eb314f6aac5d8fb83218c351b2aec9192a3cbefcfdf41ba7c830c8deb",
+      "file": "d61a7ef2956aa859561daf58.webp",
+      "bytes": 174832
+    },
+    "0196633980700": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196633980700",
+      "image": "https://images.openfoodfacts.org/images/products/019/663/398/0700/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/663/398/0700/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "2934a95c3d544a17129941c01915296ac4a12bafe350f4eff42b72baa6c35fb3",
+      "file": "0a46ead9c7ca4ec7227f7bcf.webp",
+      "bytes": 153006
+    },
+    "0196676431474": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0196676431474",
+      "image": "https://images.openfoodfacts.org/images/products/019/667/643/1474/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/019/667/643/1474/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "17c137b69c1af6f9f18e77e4171e04296f017fab86acae869b2709a5badcc340",
+      "file": "a3d04e94260f7a3c7f233ac9.webp",
+      "bytes": 99624
+    },
+    "0203130020713": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0203130020713",
+      "image": "https://images.openfoodfacts.org/images/products/020/313/002/0713/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/020/313/002/0713/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1856,
+        4032
+      ],
+      "storedDimensions": [
+        471,
+        1024
+      ],
+      "originalSHA256": "1f63e37bf23f74bbd0334d516fd1f1ff0b8b52e4ab71e5767cb5f703277413b2",
+      "file": "a3a048ece8e102cffd3c93dc.webp",
+      "bytes": 115426
+    },
+    "0203130024483": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0203130024483",
+      "image": "https://images.openfoodfacts.org/images/products/020/313/002/4483/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/020/313/002/4483/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1207,
+        1016
+      ],
+      "storedDimensions": [
+        1024,
+        862
+      ],
+      "originalSHA256": "0e33616c811becf053a74ea74573428c4349b338b6581871148aca2fd967baac",
+      "file": "c330ee8401631c94ae22585e.webp",
+      "bytes": 223868
+    },
+    "0210579829500": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0210579829500",
+      "image": "https://images.openfoodfacts.org/images/products/021/057/982/9500/front_en.4.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/057/982/9500/front_en.4.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        3000,
+        4000
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "99acc7620cc7d13a9ba5e6b9e0a1daf63028a5f53fa0a8c51809949bb65e5997",
+      "file": "20f5fe0b98535e31f4eb38e1.webp",
+      "bytes": 164846
+    },
+    "0210668417823": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0210668417823",
+      "image": "https://images.openfoodfacts.org/images/products/021/066/841/7823/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/066/841/7823/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        3072,
+        4080
+      ],
+      "storedDimensions": [
+        771,
+        1024
+      ],
+      "originalSHA256": "94195abf8cf485e5e71f7e6ff9160a728fb14b1cabe895ffa8900ce9731025a3",
+      "file": "e1b5ff00b1299c482c56a002.webp",
+      "bytes": 85886
+    },
+    "0210757725648": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0210757725648",
+      "image": "https://images.openfoodfacts.org/images/products/021/075/772/5648/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/075/772/5648/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "a2eab00125722f2a8e3668068422d699eb9cae3134f90299e20fa5cbfd3aab31",
+      "file": "4fc3b9d84a4636148c2a77bd.webp",
+      "bytes": 195190
+    },
+    "0211448216377": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0211448216377",
+      "image": "https://images.openfoodfacts.org/images/products/021/144/821/6377/front_en.6.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/144/821/6377/front_en.6.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1699,
+        1275
+      ],
+      "storedDimensions": [
+        1024,
+        768
+      ],
+      "originalSHA256": "bb7b556986657bca97d3d478819fea6203a9811e7f3b163857d06b38f4502903",
+      "file": "55a44d8f148b9368e02fd537.webp",
+      "bytes": 239498
+    },
+    "0211448926320": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0211448926320",
+      "image": "https://images.openfoodfacts.org/images/products/021/144/892/6320/front_en.10.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/144/892/6320/front_en.10.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        923,
+        1699
+      ],
+      "storedDimensions": [
+        556,
+        1024
+      ],
+      "originalSHA256": "584d03a3d96e723ce813d42dd1fed6d73776aa0ca6c68407a36e87a963846ab3",
+      "file": "6faee2e6a080f4f5bc331380.webp",
+      "bytes": 160520
+    },
+    "0211499013635": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0211499013635",
+      "image": "https://images.openfoodfacts.org/images/products/021/149/901/3635/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/149/901/3635/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1272,
+        820
+      ],
+      "storedDimensions": [
+        1024,
+        660
+      ],
+      "originalSHA256": "7e7be0fe87ea0228c3eb426f14bdcf55b8404a82d37de4202339ddc351f15a6a",
+      "file": "476fac764ef0aa342d5b91bf.webp",
+      "bytes": 143024
+    },
+    "0211545215983": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0211545215983",
+      "image": "https://images.openfoodfacts.org/images/products/021/154/521/5983/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/154/521/5983/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        720,
+        1280
+      ],
+      "storedDimensions": [
+        576,
+        1024
+      ],
+      "originalSHA256": "98b499eaf223b2874e1745a153683556baa5e13c104f6cef2cb07c92e8b3f90c",
+      "file": "5ef5ec668490a8c6685a0653.webp",
+      "bytes": 56378
+    },
+    "0212823818186": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0212823818186",
+      "image": "https://images.openfoodfacts.org/images/products/021/282/381/8186/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/282/381/8186/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "f10620a6867edb02f19f54b6561370f761f628e21118135196e19820cc11f5ab",
+      "file": "be3effef25c764b10ca386d6.webp",
+      "bytes": 224394
+    },
+    "0213057049100": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0213057049100",
+      "image": "https://images.openfoodfacts.org/images/products/021/305/704/9100/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/305/704/9100/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "968cae1c302f2a726b16fbe6b857b23cde175241da9617dd336820af6a4fc799",
+      "file": "1b4b098cde0d3c9e95c63e46.webp",
+      "bytes": 247102
+    },
+    "0215314721774": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0215314721774",
+      "image": "https://images.openfoodfacts.org/images/products/021/531/472/1774/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/531/472/1774/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        3024,
+        4032
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "3e465db64dfb2fe8e08165a20cbaf569ae178bc22c7cdae5b5312634b9e604ad",
+      "file": "ada38085515bb5000d3d982b.webp",
+      "bytes": 308440
+    },
+    "0215411609012": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0215411609012",
+      "image": "https://images.openfoodfacts.org/images/products/021/541/160/9012/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/541/160/9012/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "c1fed94653d1fe1c393bf6e4c242ac0f681a5f77a06e4c1ba66804318375ceb9",
+      "file": "b5da92dc5161e0856f3a87e3.webp",
+      "bytes": 160746
+    },
+    "0216318228177": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0216318228177",
+      "image": "https://images.openfoodfacts.org/images/products/021/631/822/8177/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/631/822/8177/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        937,
+        927
+      ],
+      "storedDimensions": [
+        937,
+        927
+      ],
+      "originalSHA256": "0d5a9718338605c9805ff017816998d1a3665e86ac02cba682c061831ababeec",
+      "file": "675fb1d9625c117f0c303385.webp",
+      "bytes": 274502
+    },
+    "0216382722427": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0216382722427",
+      "image": "https://images.openfoodfacts.org/images/products/021/638/272/2427/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/638/272/2427/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1700,
+        1275
+      ],
+      "storedDimensions": [
+        1024,
+        768
+      ],
+      "originalSHA256": "51f76e38a94c5a5744f35e459e1fda9307dde6fc0dea7c5001bd9d8c75864fb7",
+      "file": "8420e2edafd7fa01317de7a1.webp",
+      "bytes": 161156
+    },
+    "0216631710137": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0216631710137",
+      "image": "https://images.openfoodfacts.org/images/products/021/663/171/0137/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/663/171/0137/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        575,
+        942
+      ],
+      "storedDimensions": [
+        575,
+        942
+      ],
+      "originalSHA256": "cb2f0000669635cc6a275ca2dcc9389a6b6f7425e3ba8addfaaf7fd26219783c",
+      "file": "6ad354b0de8fc2acba4f7e5c.webp",
+      "bytes": 183758
+    },
+    "0216965034084": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0216965034084",
+      "image": "https://images.openfoodfacts.org/images/products/021/696/503/4084/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/696/503/4084/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "7ad1c5081870bbcce3e042745bf9c940971a9daad441e7adb96a71973b67d9d8",
+      "file": "098328c3b84401f592c02d78.webp",
+      "bytes": 179702
+    },
+    "0216965634321": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0216965634321",
+      "image": "https://images.openfoodfacts.org/images/products/021/696/563/4321/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/696/563/4321/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "c4349a6eebe04c0080dcae81fa882565cb87fef794445406ed44f8445dec0052",
+      "file": "15130a43b3818a5fb4d62983.webp",
+      "bytes": 185810
+    },
+    "0217368629372": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0217368629372",
+      "image": "https://images.openfoodfacts.org/images/products/021/736/862/9372/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/736/862/9372/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1536,
+        2048
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "053df1dc259f611b8d997fb2485a6f5f1a2082649a989d2421d96ab94fd12131",
+      "file": "740454ed48c39da1e3c163f8.webp",
+      "bytes": 128200
+    },
+    "0218146015301": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0218146015301",
+      "image": "https://images.openfoodfacts.org/images/products/021/814/601/5301/front_en.4.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/814/601/5301/front_en.4.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "0faf45d48470b69633db3f45c359f48d45c251321e0d70ae2b4f8177b2d24cc7",
+      "file": "8a1b1517d64e4d0553f1e45e.webp",
+      "bytes": 82676
+    },
+    "0218146216937": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0218146216937",
+      "image": "https://images.openfoodfacts.org/images/products/021/814/621/6937/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/814/621/6937/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1241,
+        1626
+      ],
+      "storedDimensions": [
+        782,
+        1024
+      ],
+      "originalSHA256": "2da54a7128be5af96687cdbda7c8d45588b1bf75664d27c069b0e6f2bc22a0ed",
+      "file": "66066b8088a08e1e6b71a07f.webp",
+      "bytes": 176884
+    },
+    "0218146218061": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0218146218061",
+      "image": "https://images.openfoodfacts.org/images/products/021/814/621/8061/front_en.10.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/814/621/8061/front_en.10.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "4b5c160969c5c04a2342b81cac32e1c6b6fe1db4ae8b3fe042c60650bf9ef9c9",
+      "file": "536a19388e3cc166a22e1673.webp",
+      "bytes": 166406
+    },
+    "0218146218900": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0218146218900",
+      "image": "https://images.openfoodfacts.org/images/products/021/814/621/8900/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/814/621/8900/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "83e0b037889183587bd3b59edd4df3d85edb12ed6ef95cb6fa08d9eaad59f07f",
+      "file": "80c8fe078be1574b57eaec86.webp",
+      "bytes": 80136
+    },
+    "0218146317085": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0218146317085",
+      "image": "https://images.openfoodfacts.org/images/products/021/814/631/7085/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/814/631/7085/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "f039b7386a0b1584db5452c97f756cbea04e7e23e6ae99298fd3392ab1df590b",
+      "file": "be87aacfee024ce2ef371493.webp",
+      "bytes": 69052
+    },
+    "0218146416177": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0218146416177",
+      "image": "https://images.openfoodfacts.org/images/products/021/814/641/6177/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/814/641/6177/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "2fd833e8495af1e2405f97c5386bfb24da878544140cf381823965150c5fbcca",
+      "file": "5ff4e2d247af057e3b12ef24.webp",
+      "bytes": 138732
+    },
+    "0218146418379": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0218146418379",
+      "image": "https://images.openfoodfacts.org/images/products/021/814/641/8379/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/814/641/8379/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        590,
+        1280
+      ],
+      "storedDimensions": [
+        472,
+        1024
+      ],
+      "originalSHA256": "9c37ef59aafa2cfd0b3ba5ba7f0010b0c17afee5b8dfb07976a8d426470d0d18",
+      "file": "43f57e9861d65194d0dd3023.webp",
+      "bytes": 78118
+    },
+    "0218146819138": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0218146819138",
+      "image": "https://images.openfoodfacts.org/images/products/021/814/681/9138/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/814/681/9138/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1006,
+        1285
+      ],
+      "storedDimensions": [
+        802,
+        1024
+      ],
+      "originalSHA256": "103fdd6796c232f53bd6e0c50c7f288dc8fe0e1605cad3b3ad92b5f428c33b5b",
+      "file": "83f255336c2034c6e67ee98b.webp",
+      "bytes": 319956
+    },
+    "0218470728885": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0218470728885",
+      "image": "https://images.openfoodfacts.org/images/products/021/847/072/8885/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/847/072/8885/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1536,
+        2048
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "85587ef5cb8a84e74f5922e6faa1cbf3cfb73b01ab3324a7eaf3db2597cd5342",
+      "file": "d29166d024713bf309563c58.webp",
+      "bytes": 135088
+    },
+    "0218978017894": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0218978017894",
+      "image": "https://images.openfoodfacts.org/images/products/021/897/801/7894/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/897/801/7894/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1225,
+        1700
+      ],
+      "storedDimensions": [
+        738,
+        1024
+      ],
+      "originalSHA256": "d027a7aa590295888545500e05dd2164aa6c5fc6ccacd08e24ea1de9525cb35d",
+      "file": "201d6827d9e6f6c87a6e9021.webp",
+      "bytes": 118016
+    },
+    "0218978518049": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0218978518049",
+      "image": "https://images.openfoodfacts.org/images/products/021/897/851/8049/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/897/851/8049/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        590,
+        1280
+      ],
+      "storedDimensions": [
+        472,
+        1024
+      ],
+      "originalSHA256": "dd8366b97c802fb8db2f88ac3cd684b5e5207670097ef632c058b3fe0e3cd2f3",
+      "file": "c33f72c4ffe7e3151b4fd0b6.webp",
+      "bytes": 84672
+    },
+    "0218978712546": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0218978712546",
+      "image": "https://images.openfoodfacts.org/images/products/021/897/871/2546/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/897/871/2546/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1129
+      ],
+      "storedDimensions": [
+        1024,
+        907
+      ],
+      "originalSHA256": "302f106ca90791fffce14ffe311204102161d08b004adf4f3204f651a3e568fd",
+      "file": "3f61473255965a17ac582616.webp",
+      "bytes": 154818
+    },
+    "0218978715608": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0218978715608",
+      "image": "https://images.openfoodfacts.org/images/products/021/897/871/5608/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/897/871/5608/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        911,
+        1148
+      ],
+      "storedDimensions": [
+        813,
+        1024
+      ],
+      "originalSHA256": "b85ce294109a6727fa4977f807d08d03459ca6d2ff505231a0478fc57703d514",
+      "file": "030d09c4f96cf7e0de8bcb03.webp",
+      "bytes": 321916
+    },
+    "0219247713585": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0219247713585",
+      "image": "https://images.openfoodfacts.org/images/products/021/924/771/3585/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/924/771/3585/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "47b5fa70ed736e130493e387a1293d6f36bd3d79770239f5977f731131e5867a",
+      "file": "57dea4bb2017c161e00f24fd.webp",
+      "bytes": 101970
+    },
+    "0219927709792": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0219927709792",
+      "image": "https://images.openfoodfacts.org/images/products/021/992/770/9792/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/021/992/770/9792/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "8d6613d6798ebff3108dce34f2866cd24e46f976c82e726c6372c90dd9def131",
+      "file": "97aae7c953d08c0fa7b6201e.webp",
+      "bytes": 62052
+    },
+    "0220128515242": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0220128515242",
+      "image": "https://images.openfoodfacts.org/images/products/022/012/851/5242/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/012/851/5242/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1700,
+        1086
+      ],
+      "storedDimensions": [
+        1024,
+        654
+      ],
+      "originalSHA256": "c7ea06664e668da15f3840c089bce85bd3c754f18585bfc0c4285eba68ce97f5",
+      "file": "78164b74bf5fceb91b1a31f9.webp",
+      "bytes": 123594
+    },
+    "0221897526880": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0221897526880",
+      "image": "https://images.openfoodfacts.org/images/products/022/189/752/6880/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/189/752/6880/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "b5ab68949274632732f98b10a6206b05f1bb01cbfa471df9058a62c3774cf9b3",
+      "file": "3999c24f3ee7e8ce5198b5bd.webp",
+      "bytes": 123228
+    },
+    "0222041126796": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0222041126796",
+      "image": "https://images.openfoodfacts.org/images/products/022/204/112/6796/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/204/112/6796/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1119,
+        1425
+      ],
+      "storedDimensions": [
+        804,
+        1024
+      ],
+      "originalSHA256": "1b0192cac00c3714f551dec0db39b36e3166db1f2dac65c3a34f6913dce2285f",
+      "file": "fb172b78563546a3ddbc9156.webp",
+      "bytes": 152454
+    },
+    "0222041132292": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0222041132292",
+      "image": "https://images.openfoodfacts.org/images/products/022/204/113/2292/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/204/113/2292/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "cc8578ec5447a2495bb767fd71fcfe22618dfb84ccf9d8ee81701e94b690ccde",
+      "file": "8795bcd0f4ccaf281d171089.webp",
+      "bytes": 77032
+    },
+    "0222041221835": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0222041221835",
+      "image": "https://images.openfoodfacts.org/images/products/022/204/122/1835/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/204/122/1835/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "d8bdf62a16a70b7fa64f681714b5d5ea622db03ce79be70430d5ea9bc884d9ac",
+      "file": "42c72f8b4c187db358372fda.webp",
+      "bytes": 201970
+    },
+    "0222041327032": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0222041327032",
+      "image": "https://images.openfoodfacts.org/images/products/022/204/132/7032/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/204/132/7032/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "3f19bf974f80ba0e325905c50f0f2c2943d9add4cb14df3fcecdcd1e95f3433b",
+      "file": "bc76f93b173adaae08fca2d2.webp",
+      "bytes": 182654
+    },
+    "0222041623561": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0222041623561",
+      "image": "https://images.openfoodfacts.org/images/products/022/204/162/3561/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/204/162/3561/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "2134b00c380209656a4fe6d429a84e9468d57a631d8baa411904b97511c9c877",
+      "file": "fa9cdac2077f5cdd7a2fe368.webp",
+      "bytes": 149972
+    },
+    "0222041629938": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0222041629938",
+      "image": "https://images.openfoodfacts.org/images/products/022/204/162/9938/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/204/162/9938/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "678e75b4b10b6ddb41d0db710b8bcbb6dc3baa127dc712ca41f3dddbc09b6bea",
+      "file": "f739cbb7bf67cc9272a3bce2.webp",
+      "bytes": 189194
+    },
+    "0222041725920": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0222041725920",
+      "image": "https://images.openfoodfacts.org/images/products/022/204/172/5920/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/204/172/5920/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "912b1fbd3f310e1612703ca525e7946bd80a7723c46e2f5c2708c1f403f8355a",
+      "file": "20957906bf2e295a27b170f0.webp",
+      "bytes": 158586
+    },
+    "0222041821950": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0222041821950",
+      "image": "https://images.openfoodfacts.org/images/products/022/204/182/1950/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/204/182/1950/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1163,
+        1698
+      ],
+      "storedDimensions": [
+        701,
+        1024
+      ],
+      "originalSHA256": "67660c2241bea5879d3b865f823c5adc2b30384994dfcfdff45edb654a583258",
+      "file": "baab4214be4c7891a092e0d6.webp",
+      "bytes": 131746
+    },
+    "0222041931222": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0222041931222",
+      "image": "https://images.openfoodfacts.org/images/products/022/204/193/1222/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/204/193/1222/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1092,
+        1400
+      ],
+      "storedDimensions": [
+        799,
+        1024
+      ],
+      "originalSHA256": "c7594b24fd26c91c24864465d1acee5434254019ffb6fda790be0146867c32fc",
+      "file": "1a25e4fe67e890416be7a3e1.webp",
+      "bytes": 222158
+    },
+    "0222933427376": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0222933427376",
+      "image": "https://images.openfoodfacts.org/images/products/022/293/342/7376/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/293/342/7376/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "9b3d071fcdfc73b93879ef18dca6d7d406c2f032e42848188381926d759ff0b2",
+      "file": "4d8469de41abf0164df27187.webp",
+      "bytes": 188000
+    },
+    "0222967130372": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0222967130372",
+      "image": "https://images.openfoodfacts.org/images/products/022/296/713/0372/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/296/713/0372/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "8580887e2dfde0b1565e33fe5c111942122c15a911fba4bcf70fccb9dcb19b3d",
+      "file": "546f2c75f8e9d49b40fdebba.webp",
+      "bytes": 178396
+    },
+    "0223516111989": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0223516111989",
+      "image": "https://images.openfoodfacts.org/images/products/022/351/611/1989/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/351/611/1989/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        759,
+        1374
+      ],
+      "storedDimensions": [
+        566,
+        1024
+      ],
+      "originalSHA256": "3c96cb13e6b07c89c09e9333983917741c528cb5e5d08ae1552ed5126efc80f3",
+      "file": "c6fb4f2457fce31377e90056.webp",
+      "bytes": 145596
+    },
+    "0228831613248": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0228831613248",
+      "image": "https://images.openfoodfacts.org/images/products/022/883/161/3248/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/883/161/3248/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1280,
+        1252
+      ],
+      "storedDimensions": [
+        1024,
+        1002
+      ],
+      "originalSHA256": "5582feb6e2913198c34af0df18eb2ea3d5bd0c6660b7cb8da5a88fa627c884cb",
+      "file": "2d1356f1b083ca9372579f27.webp",
+      "bytes": 318094
+    },
+    "0229192139477": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0229192139477",
+      "image": "https://images.openfoodfacts.org/images/products/022/919/213/9477/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/919/213/9477/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        969,
+        780
+      ],
+      "storedDimensions": [
+        969,
+        780
+      ],
+      "originalSHA256": "26484aed6715b54c2dfd362f53f72b08fd10bc57a37f21d0f2e78b86bc1dbf37",
+      "file": "bebcff132b338a37b491a300.webp",
+      "bytes": 110332
+    },
+    "0229433416015": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0229433416015",
+      "image": "https://images.openfoodfacts.org/images/products/022/943/341/6015/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/943/341/6015/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "e915eeb66f6b3f21b79d7c42547e46b65bfd4710f9d0041c0951499d2c7d8aa7",
+      "file": "d5ae8fa2ef8fc31de0bdc923.webp",
+      "bytes": 196396
+    },
+    "0229433716641": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0229433716641",
+      "image": "https://images.openfoodfacts.org/images/products/022/943/371/6641/front_de.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/943/371/6641/front_de.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1700,
+        993
+      ],
+      "storedDimensions": [
+        1024,
+        598
+      ],
+      "originalSHA256": "c46e903f67acb8c72b636c32dce3a90105afc16c167a573edcc496672d3e14a1",
+      "file": "f3adb432db30a3c5054f85a9.webp",
+      "bytes": 119122
+    },
+    "0229694424088": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0229694424088",
+      "image": "https://images.openfoodfacts.org/images/products/022/969/442/4088/front_en.4.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/022/969/442/4088/front_en.4.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1536,
+        2048
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "a2dcd68d058a507fe10dde6969d182dcb3c09bcf50fb1495315fa412b86e5942",
+      "file": "ecac891d90f80a305a8ef182.webp",
+      "bytes": 109832
+    },
+    "0230471128273": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0230471128273",
+      "image": "https://images.openfoodfacts.org/images/products/023/047/112/8273/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/047/112/8273/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1244,
+        1683
+      ],
+      "storedDimensions": [
+        757,
+        1024
+      ],
+      "originalSHA256": "809b66108537ab8d5d5fda53ef72fea0fa746fcfb374a6fdddc02cf0fa66ff7a",
+      "file": "e486e840cb2f7910054a45f3.webp",
+      "bytes": 218226
+    },
+    "0230471833245": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0230471833245",
+      "image": "https://images.openfoodfacts.org/images/products/023/047/183/3245/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/047/183/3245/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "64e966732a7782f102c44228f964ac92955d7ee2975f336c986789683b308fa0",
+      "file": "b5b52f450704969af3be40be.webp",
+      "bytes": 112424
+    },
+    "0230571830670": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0230571830670",
+      "image": "https://images.openfoodfacts.org/images/products/023/057/183/0670/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/057/183/0670/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "391afc76877fc593244b08d4ac2c1929c4fa6a7dd427c6a5c3e78e7f4d9c7836",
+      "file": "e3dc21d8f2674900c88cd5f7.webp",
+      "bytes": 204640
+    },
+    "0231300024322": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0231300024322",
+      "image": "https://images.openfoodfacts.org/images/products/023/130/002/4322/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/130/002/4322/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1275
+      ],
+      "storedDimensions": [
+        1024,
+        1024
+      ],
+      "originalSHA256": "23379b5bdaa8b13508ebc4a4f3ea98d4301feeb81587d67cc321ce0412bc996f",
+      "file": "8a004b3f6041f69cb6aa9db6.webp",
+      "bytes": 271212
+    },
+    "0231300125470": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0231300125470",
+      "image": "https://images.openfoodfacts.org/images/products/023/130/012/5470/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/130/012/5470/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "285a42eefc097c3f3aa670f46229fed6b1f99d38d3ce2e6c69d330da6161b3ed",
+      "file": "07924c0981040270ea078c44.webp",
+      "bytes": 199350
+    },
+    "0231300221042": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0231300221042",
+      "image": "https://images.openfoodfacts.org/images/products/023/130/022/1042/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/130/022/1042/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        590,
+        1280
+      ],
+      "storedDimensions": [
+        472,
+        1024
+      ],
+      "originalSHA256": "e72271b09d21c0012f5f5bcfcb0431441c1084f51c7500d82bcf65ebbcec98c1",
+      "file": "88b5c22440b5bd7d04066646.webp",
+      "bytes": 62670
+    },
+    "0231300422883": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0231300422883",
+      "image": "https://images.openfoodfacts.org/images/products/023/130/042/2883/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/130/042/2883/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "900cde6c54ae3d01a261ef5074b5f2dc8458ed977ae7ff802f59d068b99e91f0",
+      "file": "f472c5a957d7c6f9a48f7747.webp",
+      "bytes": 149580
+    },
+    "0231300521746": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0231300521746",
+      "image": "https://images.openfoodfacts.org/images/products/023/130/052/1746/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/130/052/1746/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1168,
+        1245
+      ],
+      "storedDimensions": [
+        961,
+        1024
+      ],
+      "originalSHA256": "9d65ecca70ee088a88db6f14dc8fe365e1661b64b5a50dbfaf89131059384072",
+      "file": "a1fbbeeb5265fa1f5a25af69.webp",
+      "bytes": 246862
+    },
+    "0231300522781": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0231300522781",
+      "image": "https://images.openfoodfacts.org/images/products/023/130/052/2781/front_en.5.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/130/052/2781/front_en.5.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        2013,
+        1678
+      ],
+      "storedDimensions": [
+        1024,
+        854
+      ],
+      "originalSHA256": "1a93bcb29ddbef3ceac14d71fc6f8ff8adba889b043f93333560379e847b61e9",
+      "file": "6e5fa03cf60450f031038881.webp",
+      "bytes": 235278
+    },
+    "0231300722099": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0231300722099",
+      "image": "https://images.openfoodfacts.org/images/products/023/130/072/2099/front_en.7.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/130/072/2099/front_en.7.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "161a44e3e103fae9f6623a7e81327c0cb924c2a070cd055a1b33eaa5fb43e13a",
+      "file": "51f2ce6688c8a89813ce1995.webp",
+      "bytes": 219832
+    },
+    "0231300723539": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0231300723539",
+      "image": "https://images.openfoodfacts.org/images/products/023/130/072/3539/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/130/072/3539/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "513436c199b7a0245d01b430a23df5153ff51612ce767851714dcbd89fea1bd2",
+      "file": "39db7c05f62f2beb05b0e8a5.webp",
+      "bytes": 205656
+    },
+    "0231300821952": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0231300821952",
+      "image": "https://images.openfoodfacts.org/images/products/023/130/082/1952/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/130/082/1952/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "8258015da901644ad56171d952031eb99b42f3f4de6da1ab5a6da3465d2b7bcf",
+      "file": "afdf2503d1586c3536195d8d.webp",
+      "bytes": 102442
+    },
+    "0231300920976": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0231300920976",
+      "image": "https://images.openfoodfacts.org/images/products/023/130/092/0976/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/130/092/0976/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1700,
+        1273
+      ],
+      "storedDimensions": [
+        1024,
+        767
+      ],
+      "originalSHA256": "aee9683a24e82f2ce7b3a68c686279c12bbcd9d68f9674d3dd41fcca8cb74a59",
+      "file": "8556c721a001b5d8a418f89a.webp",
+      "bytes": 209620
+    },
+    "0231300921850": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0231300921850",
+      "image": "https://images.openfoodfacts.org/images/products/023/130/092/1850/front_en.6.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/130/092/1850/front_en.6.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1209,
+        1698
+      ],
+      "storedDimensions": [
+        729,
+        1024
+      ],
+      "originalSHA256": "96696d68ba2dd5c93b4e4f51cc540f2c6541403de44d5d011ad0cef4c8bbebf3",
+      "file": "c1d2bd8eeec61fdd45060cc2.webp",
+      "bytes": 229868
+    },
+    "0231300922383": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0231300922383",
+      "image": "https://images.openfoodfacts.org/images/products/023/130/092/2383/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/130/092/2383/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "934774586b8e6aab2ea11ef3977e6bcd100fd4d8dcf33aa91ab96cd586c46c77",
+      "file": "f52ff69b5d4818a869ff886d.webp",
+      "bytes": 82878
+    },
+    "0232653627451": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0232653627451",
+      "image": "https://images.openfoodfacts.org/images/products/023/265/362/7451/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/265/362/7451/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "839cd227a4d95a36ba6eca5b4a4ffc617e33f597d9301a7dced30ad3aac49f4c",
+      "file": "63413dfd2b274a4734abdc17.webp",
+      "bytes": 250894
+    },
+    "0232729718359": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0232729718359",
+      "image": "https://images.openfoodfacts.org/images/products/023/272/971/8359/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/272/971/8359/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "670e82b12fe0dc7a7966b5a880c2ec5420a379575e58ddc75c6815ba47c45aa7",
+      "file": "a2eedf698848c2246703897d.webp",
+      "bytes": 137888
+    },
+    "0232807625180": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0232807625180",
+      "image": "https://images.openfoodfacts.org/images/products/023/280/762/5180/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/280/762/5180/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        4032,
+        2268
+      ],
+      "storedDimensions": [
+        1024,
+        576
+      ],
+      "originalSHA256": "1a048d852da48ab0821dd8b08ffc90a0656f4dc3140f2b4ba78919fb755dea3b",
+      "file": "bf9fb720df579bd36bf68240.webp",
+      "bytes": 110274
+    },
+    "0232807929639": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0232807929639",
+      "image": "https://images.openfoodfacts.org/images/products/023/280/792/9639/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/280/792/9639/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "303fb8ac6d65b4de0275d9288cb4c580ed5ed57788d749b30dee07f47b701f0e",
+      "file": "229882ea55e5131279208cd8.webp",
+      "bytes": 283006
+    },
+    "0233645932614": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233645932614",
+      "image": "https://images.openfoodfacts.org/images/products/023/364/593/2614/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/364/593/2614/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1860,
+        4032
+      ],
+      "storedDimensions": [
+        472,
+        1024
+      ],
+      "originalSHA256": "685ea16f8ff5bf8d58b2da5a0d8f58c385d12b165a6c441a4f516df6272017a9",
+      "file": "febe42542bb18dc5f458d8ce.webp",
+      "bytes": 159722
+    },
+    "0233724031795": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233724031795",
+      "image": "https://images.openfoodfacts.org/images/products/023/372/403/1795/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/372/403/1795/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "be17131170390106ca6c9e16dc3251a88a5af4dc306f3ff6ba7c4bb810030e60",
+      "file": "c9f1c3f416104357be7e62a5.webp",
+      "bytes": 245216
+    },
+    "0233724034642": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233724034642",
+      "image": "https://images.openfoodfacts.org/images/products/023/372/403/4642/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/372/403/4642/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        590,
+        1280
+      ],
+      "storedDimensions": [
+        472,
+        1024
+      ],
+      "originalSHA256": "4be04e8935114ce7c7edf3aa0e2ed296c6e998ba7ddbcdedb2d1cf40c9c03f7d",
+      "file": "856fee91e0d7c5b40ab64603.webp",
+      "bytes": 86986
+    },
+    "0233724229543": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233724229543",
+      "image": "https://images.openfoodfacts.org/images/products/023/372/422/9543/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/372/422/9543/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1280,
+        1700
+      ],
+      "storedDimensions": [
+        771,
+        1024
+      ],
+      "originalSHA256": "095f8508139d9bb265314fa1ad4b011ce5d1939ee2f092a9e83a1e3074079bed",
+      "file": "ec859a290b61a84d411fb588.webp",
+      "bytes": 174268
+    },
+    "0233724434688": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233724434688",
+      "image": "https://images.openfoodfacts.org/images/products/023/372/443/4688/front_en.4.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/372/443/4688/front_en.4.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1280,
+        1700
+      ],
+      "storedDimensions": [
+        771,
+        1024
+      ],
+      "originalSHA256": "7354ded1ea3651c786ef1b498fac92240d86e97b13ff05c36975bfde26de885d",
+      "file": "c51ad07f9ee0eca6a5997558.webp",
+      "bytes": 228620
+    },
+    "0233724530748": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233724530748",
+      "image": "https://images.openfoodfacts.org/images/products/023/372/453/0748/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/372/453/0748/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "33df061533a2f48b0b2a7ca4ba1689b1e7a10cc34a46c2ef5b85918161680573",
+      "file": "a67f95c636b0744881f2a5a4.webp",
+      "bytes": 131464
+    },
+    "0233724535163": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233724535163",
+      "image": "https://images.openfoodfacts.org/images/products/023/372/453/5163/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/372/453/5163/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1036,
+        1396
+      ],
+      "storedDimensions": [
+        760,
+        1024
+      ],
+      "originalSHA256": "772518909366edc892fa2f48bc57e4fe2667112d05ed9b857c5142f27b130776",
+      "file": "4c1f0a3892e4e733df314fac.webp",
+      "bytes": 219502
+    },
+    "0233724828296": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233724828296",
+      "image": "https://images.openfoodfacts.org/images/products/023/372/482/8296/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/372/482/8296/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1546
+      ],
+      "storedDimensions": [
+        845,
+        1024
+      ],
+      "originalSHA256": "2b183c95adb5c815dba40546b4b534499d974746fe90dc313c7affbb7dae15a3",
+      "file": "bd47366b3aae53d5e2e86743.webp",
+      "bytes": 231182
+    },
+    "0233724833030": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233724833030",
+      "image": "https://images.openfoodfacts.org/images/products/023/372/483/3030/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/372/483/3030/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1700,
+        1272
+      ],
+      "storedDimensions": [
+        1024,
+        766
+      ],
+      "originalSHA256": "8905ed94be18efa4638a5159c6d839d653feddb96b31eaa81f4bd59f65f48fe3",
+      "file": "16ff800625365f161ef38722.webp",
+      "bytes": 224848
+    },
+    "0233724928248": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233724928248",
+      "image": "https://images.openfoodfacts.org/images/products/023/372/492/8248/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/372/492/8248/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1602
+      ],
+      "storedDimensions": [
+        815,
+        1024
+      ],
+      "originalSHA256": "7db2601a5c479cd6ccd277f37a92c2d7954b469af0159c1d20b63428917aacff",
+      "file": "0b4ac4238a3090fb7a56f3a1.webp",
+      "bytes": 258534
+    },
+    "0233841022409": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233841022409",
+      "image": "https://images.openfoodfacts.org/images/products/023/384/102/2409/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/384/102/2409/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "fdbc7a0e04789b900c949809736449608d516ced9ae3304d2dedd3c3a40e6f5f",
+      "file": "8570e81473448a9c5e04781d.webp",
+      "bytes": 176974
+    },
+    "0233841627666": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233841627666",
+      "image": "https://images.openfoodfacts.org/images/products/023/384/162/7666/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/384/162/7666/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1438
+      ],
+      "storedDimensions": [
+        908,
+        1024
+      ],
+      "originalSHA256": "f21d7e55adb9210a61f8f9d8797c99850d94ed302769eed2228bde811a82d5b9",
+      "file": "aa46509c5a78cf9f4e8ac34b.webp",
+      "bytes": 255716
+    },
+    "0233841630598": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233841630598",
+      "image": "https://images.openfoodfacts.org/images/products/023/384/163/0598/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/384/163/0598/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "5fe6860730d4c886d0f7b1b97de1805442c9c18811443d4b6a5b2fadf8abc89b",
+      "file": "309a7aeb8ba455913c5e1efa.webp",
+      "bytes": 233404
+    },
+    "0233845018491": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233845018491",
+      "image": "https://images.openfoodfacts.org/images/products/023/384/501/8491/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/384/501/8491/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "13e4c74cab2bd68a327c99df4c6710976485179eaffde0d0a99f97a4675c2aac",
+      "file": "a4d6065b69a70de1759d2a50.webp",
+      "bytes": 54370
+    },
+    "0233845020302": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233845020302",
+      "image": "https://images.openfoodfacts.org/images/products/023/384/502/0302/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/384/502/0302/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "59ba297dc2e109fbd9751d1878a17f8197aa4a114e3c3d6e08f36017de7c3b12",
+      "file": "d4177abb5cef4bbe27a89ce5.webp",
+      "bytes": 76134
+    },
+    "0233845819906": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0233845819906",
+      "image": "https://images.openfoodfacts.org/images/products/023/384/581/9906/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/384/581/9906/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "889c860574de2da009f852d90f183adb8b0c4e0c30203ec600222ecd3e856267",
+      "file": "f0301134aac196ee4ba7c3ee.webp",
+      "bytes": 158602
+    },
+    "0234344013406": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234344013406",
+      "image": "https://images.openfoodfacts.org/images/products/023/434/401/3406/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/434/401/3406/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        858,
+        557
+      ],
+      "storedDimensions": [
+        858,
+        557
+      ],
+      "originalSHA256": "cb73990b54cd033da439ece17e11eadee2d02a83a6300467732d8f40f2a1948a",
+      "file": "7d5bb62ec4d5a4b853edcd01.webp",
+      "bytes": 107112
+    },
+    "0234777120108": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234777120108",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/712/0108/front_it.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/712/0108/front_it.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1174,
+        906
+      ],
+      "storedDimensions": [
+        1024,
+        790
+      ],
+      "originalSHA256": "99affe7187241006981c01561f49ffa1127c4800a84a84d32d50fbe453536991",
+      "file": "06d30959c25329d4c255d93e.webp",
+      "bytes": 164432
+    },
+    "0234777321895": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234777321895",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/732/1895/front_en.9.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/732/1895/front_en.9.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "e3e16ef2d861a1d10e2a06dd85f2456b4c1acf277f08591f8f66e92f7f18b1aa",
+      "file": "564f4f31c67545abfafc4014.webp",
+      "bytes": 97966
+    },
+    "0234777420246": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234777420246",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/742/0246/front_it.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/742/0246/front_it.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1700,
+        1273
+      ],
+      "storedDimensions": [
+        1024,
+        767
+      ],
+      "originalSHA256": "2c60dd36a85bee361b4a2a560edfe514652f6af773f5b7b1bb2fbe10cec44dd7",
+      "file": "2dc62e1ad8c3ac5a0fa610dc.webp",
+      "bytes": 136322
+    },
+    "0234777521301": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234777521301",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/752/1301/front_it.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/752/1301/front_it.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "a053cfe5bbc63c32ce3380459501829ba88d6fbca3895aa91d1ecb719e2e626a",
+      "file": "e428ae7d06cd9ff7be6fce20.webp",
+      "bytes": 154042
+    },
+    "0234777619497": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234777619497",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/761/9497/front_it.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/761/9497/front_it.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "dec6739d3a67c5c26881c08092a9b5387ac49b79b66c6dcaf77ca4e3e3203d5b",
+      "file": "a7504e48270e9149b0e477d0.webp",
+      "bytes": 100926
+    },
+    "0234777619985": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234777619985",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/761/9985/front_it.4.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/761/9985/front_it.4.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1241,
+        987
+      ],
+      "storedDimensions": [
+        1024,
+        814
+      ],
+      "originalSHA256": "bfd57c3360de29e0fb38af4a28fcc7b27469bf826f121a5f28e5b219d90f2618",
+      "file": "f746009ac38a3baff5813d7d.webp",
+      "bytes": 180584
+    },
+    "0234777621599": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234777621599",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/762/1599/front_it.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/762/1599/front_it.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "c884a4ea847748b2982835d127b2afc75038d9eb22ea8375575697c37ddf8a2b",
+      "file": "9dba9b01b94716f3173f8769.webp",
+      "bytes": 162080
+    },
+    "0234777817862": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234777817862",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/781/7862/front_it.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/781/7862/front_it.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1234,
+        826
+      ],
+      "storedDimensions": [
+        1024,
+        685
+      ],
+      "originalSHA256": "72fbb35cfd49ff044bbbec473d8edf0affc9bbc7d5c01bbe04db84367f2ccf97",
+      "file": "c33856e90ad0d95b3c16a9ae.webp",
+      "bytes": 133162
+    },
+    "0234778021244": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234778021244",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/802/1244/front_it.9.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/802/1244/front_it.9.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1638,
+        908
+      ],
+      "storedDimensions": [
+        1024,
+        568
+      ],
+      "originalSHA256": "14977966ffc1a30af9597949a0dce271992fcb18a76edd116f0a0a77b6731d70",
+      "file": "e709ee281625838d75b1d1f8.webp",
+      "bytes": 145544
+    },
+    "0234778024603": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234778024603",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/802/4603/front_it.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/802/4603/front_it.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1070,
+        629
+      ],
+      "storedDimensions": [
+        1024,
+        602
+      ],
+      "originalSHA256": "1e14565c2b4a2dfd684a90a2eb45a0d35a17105864992eb3c830cd31cb998ff1",
+      "file": "3a006f5d72f363c6dcebb549.webp",
+      "bytes": 125982
+    },
+    "0234778025419": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234778025419",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/802/5419/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/802/5419/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        590,
+        1280
+      ],
+      "storedDimensions": [
+        472,
+        1024
+      ],
+      "originalSHA256": "8b468eb74475367e9158cec7b1437d4c898fbc9bda37a8a4ff8e94f811e070d0",
+      "file": "177adba6a6c5ca5f3aa8ffa5.webp",
+      "bytes": 68228
+    },
+    "0234778122811": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234778122811",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/812/2811/front_it.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/812/2811/front_it.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1280,
+        884
+      ],
+      "storedDimensions": [
+        1024,
+        707
+      ],
+      "originalSHA256": "0cb4af12eb82077e61e59fa7f53faef9710ff771549925d804f220a5e6479895",
+      "file": "aaa7a9d2a0f6cd841aebbda5.webp",
+      "bytes": 106764
+    },
+    "0234779418708": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234779418708",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/941/8708/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/941/8708/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "43066060cc846cd532c1fa45ddb23742c2fb12337c7dc611baccdcd278911096",
+      "file": "880a6099899ea061ebd04224.webp",
+      "bytes": 46758
+    },
+    "0234779716361": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234779716361",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/971/6361/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/971/6361/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1856,
+        4032
+      ],
+      "storedDimensions": [
+        471,
+        1024
+      ],
+      "originalSHA256": "4be3093db7aec95f19ce9f54e20cc78c68abd53736f1d13a40aaef83852a36be",
+      "file": "35208665af3832dadfdb1a60.webp",
+      "bytes": 51974
+    },
+    "0234779722218": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234779722218",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/972/2218/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/972/2218/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "07306a472357b2c6a5e5950150339eda43811ef2de3fb1ecbd6870becadf9bb2",
+      "file": "5abcf168e0523bf085840cf6.webp",
+      "bytes": 39982
+    },
+    "0234779821393": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0234779821393",
+      "image": "https://images.openfoodfacts.org/images/products/023/477/982/1393/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/477/982/1393/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        3024,
+        4032
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "968cb4f200f848e22d3fc8f1790356d256cfc6b14b083d2ce84e44b46a3741c1",
+      "file": "2b0bcbea02221cbc18b34af9.webp",
+      "bytes": 103380
+    },
+    "0235057625306": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0235057625306",
+      "image": "https://images.openfoodfacts.org/images/products/023/505/762/5306/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/505/762/5306/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "d645e52a90d703aded1d786a93d9fc6b99ef74732034b9ab864554ccf5f6e3e6",
+      "file": "a89c0deb01f48bf3f9f4193b.webp",
+      "bytes": 179838
+    },
+    "0237244623126": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0237244623126",
+      "image": "https://images.openfoodfacts.org/images/products/023/724/462/3126/front_en.13.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/724/462/3126/front_en.13.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        4032,
+        1856
+      ],
+      "storedDimensions": [
+        1024,
+        471
+      ],
+      "originalSHA256": "819c92ba1392afa9d718e8dab31743f71d24e04557e298871223b28d754a8517",
+      "file": "688caa239bdbd45426a071cc.webp",
+      "bytes": 179080
+    },
+    "0237719313545": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0237719313545",
+      "image": "https://images.openfoodfacts.org/images/products/023/771/931/3545/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/771/931/3545/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "db39e420cc5b8469949f2cecc5449f7d4f1c24c891b4dfca8390562bd2b8328b",
+      "file": "571b2612a1dfb8d9d676ba5f.webp",
+      "bytes": 197974
+    },
+    "0237719910423": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0237719910423",
+      "image": "https://images.openfoodfacts.org/images/products/023/771/991/0423/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/771/991/0423/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "cd7eb872985a48daeb9dc77f2fa6842d63d8d1dcb1172959b39558326cd97095",
+      "file": "e546b172b8484d5c5ed20917.webp",
+      "bytes": 195574
+    },
+    "0238480731217": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0238480731217",
+      "image": "https://images.openfoodfacts.org/images/products/023/848/073/1217/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/848/073/1217/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        3635,
+        6000
+      ],
+      "storedDimensions": [
+        620,
+        1024
+      ],
+      "originalSHA256": "ae06d1b8ec0a1442b963ccd13b3fe8f307d26d3a29d80e25fdb718acbdca946c",
+      "file": "0403c64306e6d05b4d936dd8.webp",
+      "bytes": 153994
+    },
+    "0239876621204": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0239876621204",
+      "image": "https://images.openfoodfacts.org/images/products/023/987/662/1204/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/987/662/1204/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "3e9570a3b33af43936b02fe99c5dffc4d869674b6199ec2b60904815f907c0c2",
+      "file": "0aa1e1f4f4cf92784b3e389a.webp",
+      "bytes": 115646
+    },
+    "0239876723304": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0239876723304",
+      "image": "https://images.openfoodfacts.org/images/products/023/987/672/3304/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/987/672/3304/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "bd5b83fe889e7566f28f7e157a7cdc95db0ba72a67f42d0169ad832a6d6eae5b",
+      "file": "7ecd5233046c003740133896.webp",
+      "bytes": 228590
+    },
+    "0239876822045": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0239876822045",
+      "image": "https://images.openfoodfacts.org/images/products/023/987/682/2045/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/023/987/682/2045/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1536,
+        2048
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "967ea43bad7efa11e6471102db8d4a2d1dbc7a3aa599159ca221370e9035e94d",
+      "file": "f74af4573f514bd97e182391.webp",
+      "bytes": 126010
+    },
+    "0240249118726": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0240249118726",
+      "image": "https://images.openfoodfacts.org/images/products/024/024/911/8726/front_en.7.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/024/911/8726/front_en.7.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1698,
+        1275
+      ],
+      "storedDimensions": [
+        1024,
+        769
+      ],
+      "originalSHA256": "97b0e94715a4f5c71825873c74ef7950c791dc561ef98fb78b434ea878e927a1",
+      "file": "a10a2863e22cfbd5d4ac0b29.webp",
+      "bytes": 242148
+    },
+    "0241217022359": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0241217022359",
+      "image": "https://images.openfoodfacts.org/images/products/024/121/702/2359/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/121/702/2359/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "d0127f253a866b38940827ca1c87b27aa9c90f1f1412b8647fbeb154df871bf2",
+      "file": "92302d7170b1206e208c48c9.webp",
+      "bytes": 83026
+    },
+    "0241398217254": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0241398217254",
+      "image": "https://images.openfoodfacts.org/images/products/024/139/821/7254/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/139/821/7254/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "c55bc66830074765227bf0b6b5a06f9ac495114dea110767006a9a3125ea67d1",
+      "file": "7ae6d28fea24776730dfe0b8.webp",
+      "bytes": 135124
+    },
+    "0242940818462": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0242940818462",
+      "image": "https://images.openfoodfacts.org/images/products/024/294/081/8462/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/294/081/8462/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1856,
+        1332
+      ],
+      "storedDimensions": [
+        1024,
+        735
+      ],
+      "originalSHA256": "f4575e4368a8b7ff80755611414c824d4a679ba8dacdee80c76c3949f73aebe1",
+      "file": "3c48fb96373c4bd1091c7508.webp",
+      "bytes": 258410
+    },
+    "0244355521029": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0244355521029",
+      "image": "https://images.openfoodfacts.org/images/products/024/435/552/1029/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/435/552/1029/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "20e1c33056ea98312f4bb7b36df9e66169fb744efee9ceb6e77e56eb0277afbf",
+      "file": "6c75b11cb3f8d670fad34a3e.webp",
+      "bytes": 131470
+    },
+    "0244478369102": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0244478369102",
+      "image": "https://images.openfoodfacts.org/images/products/024/447/836/9102/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/447/836/9102/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "f071621a2e4474000cd0ba9494fc5878daeede4cc998b8f5fd7f8b471f560d62",
+      "file": "ba47c45b16129504be19d24e.webp",
+      "bytes": 88186
+    },
+    "0244877018106": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0244877018106",
+      "image": "https://images.openfoodfacts.org/images/products/024/487/701/8106/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/487/701/8106/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "915ec2728b2ea7105ce0410dc73db4ab50f1c9bb8d3cee101d88b89a05eb820e",
+      "file": "cd4c4a71dacc6f411307de61.webp",
+      "bytes": 61298
+    },
+    "0244877020741": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0244877020741",
+      "image": "https://images.openfoodfacts.org/images/products/024/487/702/0741/front_it.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/487/702/0741/front_it.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        944,
+        1029
+      ],
+      "storedDimensions": [
+        939,
+        1024
+      ],
+      "originalSHA256": "bd57c10e347d6d640152c48dd60eaa95fd920641d11498a765e93313b2f2533e",
+      "file": "0f6902c4419514d329697cbb.webp",
+      "bytes": 220744
+    },
+    "0244877720382": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0244877720382",
+      "image": "https://images.openfoodfacts.org/images/products/024/487/772/0382/front_it.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/487/772/0382/front_it.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1272,
+        1700
+      ],
+      "storedDimensions": [
+        766,
+        1024
+      ],
+      "originalSHA256": "53f6e8ac7ed52a44dbda30217e281b1dbe7d92cf5989624760608025093ed676",
+      "file": "4f4fc5c2207e31e0090485b8.webp",
+      "bytes": 184686
+    },
+    "0246481125317": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0246481125317",
+      "image": "https://images.openfoodfacts.org/images/products/024/648/112/5317/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/648/112/5317/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        886
+      ],
+      "storedDimensions": [
+        1024,
+        712
+      ],
+      "originalSHA256": "72f45c0542490650261d844257726986b78e11f79ca20ea1c0070fb1872b7bc4",
+      "file": "f4726bef6c2696487dfa550f.webp",
+      "bytes": 176464
+    },
+    "0246481415906": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0246481415906",
+      "image": "https://images.openfoodfacts.org/images/products/024/648/141/5906/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/648/141/5906/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1840,
+        1776
+      ],
+      "storedDimensions": [
+        1024,
+        988
+      ],
+      "originalSHA256": "b63db1f5b8e6708dbaf2b1cd4fde6802c26a8e5f9d20474c6eaa439c92201126",
+      "file": "1894573d25cdc5190f52c4ea.webp",
+      "bytes": 209630
+    },
+    "0246655810476": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0246655810476",
+      "image": "https://images.openfoodfacts.org/images/products/024/665/581/0476/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/665/581/0476/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1617,
+        1183
+      ],
+      "storedDimensions": [
+        1024,
+        749
+      ],
+      "originalSHA256": "be34216361702d776eb06f916a4ebf6103180a8a10c3524b5d5258f9a60f89f2",
+      "file": "bf12b24bffd534115d554971.webp",
+      "bytes": 191088
+    },
+    "0247266535161": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247266535161",
+      "image": "https://images.openfoodfacts.org/images/products/024/726/653/5161/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/726/653/5161/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "027f4ef99fb2b9e47a65f3a86b11367c683d3862a881245073db8e2aa3e3dab8",
+      "file": "cb579a5ccc0f826fcf24d9bb.webp",
+      "bytes": 147890
+    },
+    "0247266930850": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247266930850",
+      "image": "https://images.openfoodfacts.org/images/products/024/726/693/0850/front_en.8.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/726/693/0850/front_en.8.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1699,
+        1275
+      ],
+      "storedDimensions": [
+        1024,
+        768
+      ],
+      "originalSHA256": "e5e098a3487c067260f3bb6f7d5dfab9c8690b20dbc36a750d3be85d9bf3e81d",
+      "file": "4f2c6ca45a3f4b988ce18cf1.webp",
+      "bytes": 241088
+    },
+    "0247266935763": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247266935763",
+      "image": "https://images.openfoodfacts.org/images/products/024/726/693/5763/front_en.10.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/726/693/5763/front_en.10.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1678,
+        1060
+      ],
+      "storedDimensions": [
+        1024,
+        647
+      ],
+      "originalSHA256": "ae590d62d1710bf8b30ea13a4ec36ad6420aed53e62575fdeb762a0e090c1ad3",
+      "file": "9030e19ba56af2dddc75915d.webp",
+      "bytes": 188268
+    },
+    "0247492413233": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247492413233",
+      "image": "https://images.openfoodfacts.org/images/products/024/749/241/3233/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/749/241/3233/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "507dc838a5cb14471f1ee48b4df779cb0c40c5f1a16fd509bea2501a05351337",
+      "file": "263d8c3e4032610d8d9aff72.webp",
+      "bytes": 115762
+    },
+    "0247500024765": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500024765",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/002/4765/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/002/4765/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "59894b38f8eb6fcd788c8465cfa759c157a361521962640de37a769746d36d19",
+      "file": "cc113a3afc282013649cce70.webp",
+      "bytes": 104426
+    },
+    "0247500112653": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500112653",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/011/2653/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/011/2653/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1540,
+        1195
+      ],
+      "storedDimensions": [
+        1024,
+        795
+      ],
+      "originalSHA256": "d953785ebdeec5125a0a8047e64a4d102512924b32629ba476efcf43c63b16b3",
+      "file": "f3b2f7465d2998c870884fa5.webp",
+      "bytes": 220766
+    },
+    "0247500117078": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500117078",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/011/7078/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/011/7078/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "34ee2f18ed0f476f8695056a26a53ae6b6826fb2fd09ce43cf06f6ff44d39987",
+      "file": "c88d5b83653174fabcf24443.webp",
+      "bytes": 138216
+    },
+    "0247500121655": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500121655",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/012/1655/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/012/1655/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1111,
+        1443
+      ],
+      "storedDimensions": [
+        788,
+        1024
+      ],
+      "originalSHA256": "c5d34ef4526e1a77888b0bcfb5995f947fd69eb0254f1e000c0e607a241b1104",
+      "file": "fcaaf28d8a9afdda4dc87bb4.webp",
+      "bytes": 278256
+    },
+    "0247500121709": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500121709",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/012/1709/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/012/1709/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "dec565bd45b865d1a9e50642167b92b68a13cf90222e3cf87b1e5dc443b7c0e4",
+      "file": "aa0c877e5d1ad81276a9a24f.webp",
+      "bytes": 57922
+    },
+    "0247500219505": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500219505",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/021/9505/front_en.8.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/021/9505/front_en.8.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        870,
+        1152
+      ],
+      "storedDimensions": [
+        773,
+        1024
+      ],
+      "originalSHA256": "60c6c69af649806052faa52b6786c6e26491ada42db7bfaa376455b3fb9598c2",
+      "file": "6861445ea706426d9d993407.webp",
+      "bytes": 228208
+    },
+    "0247500226305": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500226305",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/022/6305/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/022/6305/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "dbcf999b94a8d704099ecf24b738fe64c83ae074587d4d795971016e02f8655d",
+      "file": "ce5e1661a5331424ddaa0f42.webp",
+      "bytes": 206282
+    },
+    "0247500310257": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500310257",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/031/0257/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/031/0257/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1209,
+        1585
+      ],
+      "storedDimensions": [
+        781,
+        1024
+      ],
+      "originalSHA256": "8f56ddafcede42196647ba53acba9e4937b478a1fc4cc93145eb2c756d5054a5",
+      "file": "b641bcfb9c416e5e36e7b455.webp",
+      "bytes": 154540
+    },
+    "0247500317157": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500317157",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/031/7157/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/031/7157/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "76a562f3f5bbd599cec0a804dc3c47a0e3187a4e7236a8cc2636bed17c79e8a0",
+      "file": "31a845522c2b24d1c3380292.webp",
+      "bytes": 202422
+    },
+    "0247500321949": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500321949",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/032/1949/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/032/1949/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "e1a2e00ae1439425d4c176a2ecef3c4c91d1a86df2609e01f1b749931bb70dbb",
+      "file": "63dc3680ebe7b4c59fddeba3.webp",
+      "bytes": 136452
+    },
+    "0247500322618": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500322618",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/032/2618/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/032/2618/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        590,
+        1280
+      ],
+      "storedDimensions": [
+        472,
+        1024
+      ],
+      "originalSHA256": "714ecdde4fec5bc669e01c5c207f886b0e892d55b226948ee7be105091ca3911",
+      "file": "599064722c22405d652642e5.webp",
+      "bytes": 60554
+    },
+    "0247500414320": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500414320",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/041/4320/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/041/4320/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "abcc4bdd12a8eb28e15e42e915182b3528c10ecd152dd9a32af9b61135f0a524",
+      "file": "bcc2dc2ea7f098ceb824c7ba.webp",
+      "bytes": 184502
+    },
+    "0247500415624": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500415624",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/041/5624/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/041/5624/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "98446c57f444ebdeacea4506d048c637eae6f8d1073540b8f5e63fb96d9c5cc8",
+      "file": "41ec69966556212d1e19aac2.webp",
+      "bytes": 119524
+    },
+    "0247500415853": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500415853",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/041/5853/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/041/5853/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        590,
+        1280
+      ],
+      "storedDimensions": [
+        472,
+        1024
+      ],
+      "originalSHA256": "f8f8af25c002d16a2c58bbce747290e75596004a5a05b6b6fc19c5033cbf05db",
+      "file": "4e1c358783fac85ad6e0d21f.webp",
+      "bytes": 81812
+    },
+    "0247500421564": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500421564",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/042/1564/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/042/1564/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "65d11a7d0ee5f10c87aa0481cf69128ede6290174bbd276ce5cbd101fab6d026",
+      "file": "d94d9fa22529205e43d1153c.webp",
+      "bytes": 198606
+    },
+    "0247500619541": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500619541",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/061/9541/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/061/9541/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        2930,
+        3793
+      ],
+      "storedDimensions": [
+        791,
+        1024
+      ],
+      "originalSHA256": "5b22bfaa75d2f6ee43d327e6992d7ca38f75f731241ab445a1c4b4ec3be8bb3a",
+      "file": "44d9878cc75d95589a6594f3.webp",
+      "bytes": 113986
+    },
+    "0247500622039": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500622039",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/062/2039/front_en.5.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/062/2039/front_en.5.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "5fa08915b2ebb21598da34a8c6ce693155bdd2bd7d9f0c16c8cbc95332039884",
+      "file": "6a49e9930eadc3f24a5d48e9.webp",
+      "bytes": 162584
+    },
+    "0247500711504": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500711504",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/071/1504/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/071/1504/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        683,
+        760
+      ],
+      "storedDimensions": [
+        683,
+        760
+      ],
+      "originalSHA256": "da5bdb31ced0fa965c1ae852d2f70e8f822128b355be434282113369cfe21247",
+      "file": "888c18af9997068ff0d9243a.webp",
+      "bytes": 110750
+    },
+    "0247500718350": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500718350",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/071/8350/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/071/8350/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "3022a5cdd040afa642e46599dfea8c9e487d8a4970d572fbc7b6cc99689a6be0",
+      "file": "a9d0fc62c9d854ce4322ab9e.webp",
+      "bytes": 144572
+    },
+    "0247500815660": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500815660",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/081/5660/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/081/5660/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1536,
+        2048
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "1a5c2a73c8196106a9d039790509a411582e55f2b3cae4a82308662b42c0dddd",
+      "file": "f51c3e690121df13c43d7c08.webp",
+      "bytes": 148826
+    },
+    "0247500824754": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247500824754",
+      "image": "https://images.openfoodfacts.org/images/products/024/750/082/4754/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/750/082/4754/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1280,
+        1700
+      ],
+      "storedDimensions": [
+        771,
+        1024
+      ],
+      "originalSHA256": "15212c2a2fb7ca79478fa70d5baba5d60e2da71b0eb69784d27ac8ee95e686de",
+      "file": "2523bfc8c14bfbe2463625a7.webp",
+      "bytes": 106204
+    },
+    "0247729023006": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247729023006",
+      "image": "https://images.openfoodfacts.org/images/products/024/772/902/3006/front_en.4.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/772/902/3006/front_en.4.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "dee731d45d2c5f4ca18287efa5f255cfe8823cfeb036840d0746bcf78416b899",
+      "file": "a95de431ad6649f04152d376.webp",
+      "bytes": 201736
+    },
+    "0247729023396": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247729023396",
+      "image": "https://images.openfoodfacts.org/images/products/024/772/902/3396/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/772/902/3396/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1862,
+        4032
+      ],
+      "storedDimensions": [
+        473,
+        1024
+      ],
+      "originalSHA256": "f64093f6bea33fb064eb22047f20d5ecdcb30e3e38e36548e95c0afbd0c624e0",
+      "file": "ac4cc2109abaddbe86e71dd2.webp",
+      "bytes": 124606
+    },
+    "0247729121658": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247729121658",
+      "image": "https://images.openfoodfacts.org/images/products/024/772/912/1658/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/772/912/1658/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "3ab7a800699c34ae1e1ad40cbb877a2cc71a49f18e35d4e32e976a6a1e70e807",
+      "file": "42720d625e221f0c6e518603.webp",
+      "bytes": 176730
+    },
+    "0247729325278": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247729325278",
+      "image": "https://images.openfoodfacts.org/images/products/024/772/932/5278/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/772/932/5278/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "fcd521c4dddb690266f8474b54fa52f0849c691cb6f85ea2891e361eed821bf8",
+      "file": "7900e02c5917516f61bda487.webp",
+      "bytes": 90472
+    },
+    "0247729523896": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247729523896",
+      "image": "https://images.openfoodfacts.org/images/products/024/772/952/3896/front_en.9.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/772/952/3896/front_en.9.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1591,
+        809
+      ],
+      "storedDimensions": [
+        1024,
+        521
+      ],
+      "originalSHA256": "272aa495ab4b9d73d18f3b3ac8f45ed7f54c480273315699be43fdeb3fda9f26",
+      "file": "eb49bd61e99cbe8319fe0901.webp",
+      "bytes": 131812
+    },
+    "0247729722930": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247729722930",
+      "image": "https://images.openfoodfacts.org/images/products/024/772/972/2930/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/772/972/2930/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "1f8eff417b9d20aca6d8b8a6e445a23959d25065bfa171362f956c5ee0638c42",
+      "file": "221ac0b7206f66dea0a74506.webp",
+      "bytes": 181738
+    },
+    "0247729922170": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247729922170",
+      "image": "https://images.openfoodfacts.org/images/products/024/772/992/2170/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/772/992/2170/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        810,
+        916
+      ],
+      "storedDimensions": [
+        810,
+        916
+      ],
+      "originalSHA256": "379f7da8a0317990c1a45fd9e53a292130c2affd6ec446fe18a1ea2cc41b8c24",
+      "file": "a961117f9d8b4b0182696dfc.webp",
+      "bytes": 105342
+    },
+    "0247729923108": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247729923108",
+      "image": "https://images.openfoodfacts.org/images/products/024/772/992/3108/front_en.20.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/772/992/3108/front_en.20.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        794,
+        1700
+      ],
+      "storedDimensions": [
+        478,
+        1024
+      ],
+      "originalSHA256": "9945ebc35c9892e5293738f3798f6d1b6e6272ecf4be7fec942c1ea5438ca3a2",
+      "file": "f403377c5dd17abbec4932b4.webp",
+      "bytes": 113784
+    },
+    "0247729923825": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247729923825",
+      "image": "https://images.openfoodfacts.org/images/products/024/772/992/3825/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/772/992/3825/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        920,
+        1252
+      ],
+      "storedDimensions": [
+        752,
+        1024
+      ],
+      "originalSHA256": "d713f7174fc2eac839f602328167875ed487d7a73c9bfbb55264dc29d5777b24",
+      "file": "0c1f2a205bbaf0aaf10aee63.webp",
+      "bytes": 120528
+    },
+    "0247731324979": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247731324979",
+      "image": "https://images.openfoodfacts.org/images/products/024/773/132/4979/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/773/132/4979/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "b04e551ba96bcc86056b010816a850311c43a81be1c62a6f171e0a19cebc223e",
+      "file": "04b84f556e6ac63222536a0b.webp",
+      "bytes": 165914
+    },
+    "0247731929358": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247731929358",
+      "image": "https://images.openfoodfacts.org/images/products/024/773/192/9358/front_en.8.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/773/192/9358/front_en.8.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1700,
+        1275
+      ],
+      "storedDimensions": [
+        1024,
+        768
+      ],
+      "originalSHA256": "daf29d330fe31b6a3f0c92a01703becd7585d758022cfbf351feaad60c6db83a",
+      "file": "1c337f8dd5e994e43637cf7d.webp",
+      "bytes": 181908
+    },
+    "0247731929914": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247731929914",
+      "image": "https://images.openfoodfacts.org/images/products/024/773/192/9914/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/773/192/9914/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "b08c1711a94b326d32ce799dd6088802b2ebc0d2a1dad26ff51ec16c028b2761",
+      "file": "5a5b685126715df0cc6bc9d8.webp",
+      "bytes": 228058
+    },
+    "0247735123622": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247735123622",
+      "image": "https://images.openfoodfacts.org/images/products/024/773/512/3622/front_en.9.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/773/512/3622/front_en.9.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "3a620187c2516cd1a1931e96ec056f3e879cb283d553d7705d63bbd65c898f0d",
+      "file": "ed4d55cb15730cae5b0a9a4a.webp",
+      "bytes": 181472
+    },
+    "0247735225654": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247735225654",
+      "image": "https://images.openfoodfacts.org/images/products/024/773/522/5654/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/773/522/5654/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        917,
+        1222
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "695ca6a455bed5f6b8ab6fc6c531026c26638438962277fbea3b0d159a7b4671",
+      "file": "99b00a905d9eb378ca12734b.webp",
+      "bytes": 179868
+    },
+    "0247735325279": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247735325279",
+      "image": "https://images.openfoodfacts.org/images/products/024/773/532/5279/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/773/532/5279/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "954886097caa92d645b3cc35fd87110768683120cb4ed685f2e2aa953dd26e21",
+      "file": "2ae977a37282db81a0807d1f.webp",
+      "bytes": 72396
+    },
+    "0247735522340": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247735522340",
+      "image": "https://images.openfoodfacts.org/images/products/024/773/552/2340/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/773/552/2340/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "0ce0f5296f1340abc97046859a2aed6165d8e15d95a12699fbd7aa736701af83",
+      "file": "1601810f62c7fb796aae8511.webp",
+      "bytes": 143926
+    },
+    "0247735527277": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247735527277",
+      "image": "https://images.openfoodfacts.org/images/products/024/773/552/7277/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/773/552/7277/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1110,
+        1479
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "bbcf07622860990d13c686d6b91ac3904ed3a39b0aaa349818d6e569715998b9",
+      "file": "3d3ffb2a0fc05350b2d6a47f.webp",
+      "bytes": 131590
+    },
+    "0247735622316": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247735622316",
+      "image": "https://images.openfoodfacts.org/images/products/024/773/562/2316/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/773/562/2316/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "69d69a0e5b54e9acec2505819f1789b7251fa5dfd197b78b6bfe0bfe04aed880",
+      "file": "53bc175ce32d053b21d6bdf2.webp",
+      "bytes": 117134
+    },
+    "0247735923987": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247735923987",
+      "image": "https://images.openfoodfacts.org/images/products/024/773/592/3987/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/773/592/3987/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        925,
+        1585
+      ],
+      "storedDimensions": [
+        598,
+        1024
+      ],
+      "originalSHA256": "f21a47ce69d038fcfa7b832e8f1a22707bb9acd5ebe792d0b229f52f41c209f1",
+      "file": "93636ed76862fccb108b4f06.webp",
+      "bytes": 178016
+    },
+    "0247735925394": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247735925394",
+      "image": "https://images.openfoodfacts.org/images/products/024/773/592/5394/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/773/592/5394/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "0cf2a9fb76ac9088dcaa5bfbe61185ba79ddf967ba89e96ab77302399f2926fd",
+      "file": "60242c85ccec9d01e5d6aa05.webp",
+      "bytes": 90452
+    },
+    "0247737520931": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247737520931",
+      "image": "https://images.openfoodfacts.org/images/products/024/773/752/0931/front_en.17.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/773/752/0931/front_en.17.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "705648f4254e6fc45f19227a9b975845a5aedc557dc5863c53b8911d21fa6cd7",
+      "file": "cb11aefbea20385086f124d9.webp",
+      "bytes": 57980
+    },
+    "0247739708474": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247739708474",
+      "image": "https://images.openfoodfacts.org/images/products/024/773/970/8474/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/773/970/8474/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        590,
+        1280
+      ],
+      "storedDimensions": [
+        472,
+        1024
+      ],
+      "originalSHA256": "78f1f282a75153f5e6577028c2b9637374ae3edc08503eac1e92b13c740a09c7",
+      "file": "2149985bba522f2919c08776.webp",
+      "bytes": 59920
+    },
+    "0247739907723": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0247739907723",
+      "image": "https://images.openfoodfacts.org/images/products/024/773/990/7723/front_en.6.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/773/990/7723/front_en.6.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        2048,
+        1536
+      ],
+      "storedDimensions": [
+        1024,
+        768
+      ],
+      "originalSHA256": "0ec2c246fb9aafbd6c2f1795a9dd48d1ab906dde04f5fb6b38909c1f115b569c",
+      "file": "8d4b0291bfb7dc3641946433.webp",
+      "bytes": 109840
+    },
+    "0248500314580": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0248500314580",
+      "image": "https://images.openfoodfacts.org/images/products/024/850/031/4580/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/850/031/4580/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1700
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "6d38d4b12bc0c065585a32a882907574e9ba3a14b01c2aa15b6982c21512174e",
+      "file": "062231cb7cd70206eb4e3142.webp",
+      "bytes": 191814
+    },
+    "0248500717527": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0248500717527",
+      "image": "https://images.openfoodfacts.org/images/products/024/850/071/7527/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/850/071/7527/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "7ddab767c09ee4a7b510adae033fbdd4095d80f0bc68149bb58d25b4933ab2e3",
+      "file": "b620b013a1d8a4a53e59c025.webp",
+      "bytes": 206342
+    },
+    "0248600013918": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0248600013918",
+      "image": "https://images.openfoodfacts.org/images/products/024/860/001/3918/front_en.11.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/024/860/001/3918/front_en.11.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1023,
+        1861
+      ],
+      "storedDimensions": [
+        563,
+        1024
+      ],
+      "originalSHA256": "a8f429d1fd583b5528986bc9f6f47c77e099e71a5f447ca8ba42e33f39423dbd",
+      "file": "887ef8797cdf791354262b4f.webp",
+      "bytes": 109938
+    },
+    "0250748217257": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0250748217257",
+      "image": "https://images.openfoodfacts.org/images/products/025/074/821/7257/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/025/074/821/7257/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1699
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "69b3270bc44d572244b942b0d1f2432e52829f06b058028dc1186e33e315591a",
+      "file": "afbd232fbd6f36db6ecd2132.webp",
+      "bytes": 153136
+    },
+    "0250748817372": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0250748817372",
+      "image": "https://images.openfoodfacts.org/images/products/025/074/881/7372/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/025/074/881/7372/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1700,
+        1382
+      ],
+      "storedDimensions": [
+        1024,
+        832
+      ],
+      "originalSHA256": "0fb4a39d59ab5e0be31c09d1fcca5c1ab1deca0b10536f5dc985978919585c98",
+      "file": "5472006cf03b5dd9f24401a6.webp",
+      "bytes": 122656
+    },
+    "0250748916167": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0250748916167",
+      "image": "https://images.openfoodfacts.org/images/products/025/074/891/6167/front_en.4.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/025/074/891/6167/front_en.4.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        788,
+        1027
+      ],
+      "storedDimensions": [
+        786,
+        1024
+      ],
+      "originalSHA256": "0c41ede2ba0352ab7dfa8f171b8aaeb3838808f22dec1559ea4ab9bc9508f67a",
+      "file": "164df068b86a614e6f58e58f.webp",
+      "bytes": 92510
+    },
+    "0255503336471": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0255503336471",
+      "image": "https://images.openfoodfacts.org/images/products/025/550/333/6471/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/025/550/333/6471/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        590,
+        1280
+      ],
+      "storedDimensions": [
+        472,
+        1024
+      ],
+      "originalSHA256": "432d7e9675829d26509a31d72849f6cd80e84e48adb05cb9281f620d417f9e81",
+      "file": "a01c0ee129c5c2ae6a50ac76.webp",
+      "bytes": 94874
+    },
+    "02669069": {
+      "status": "invalid_source"
+    },
+    "0270476011712": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0270476011712",
+      "image": "https://images.openfoodfacts.org/images/products/027/047/601/1712/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/027/047/601/1712/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        937,
+        687
+      ],
+      "storedDimensions": [
+        937,
+        687
+      ],
+      "originalSHA256": "c6ee74e73768cdadd568579423fbb51a4f63d245e485a674187bc4be25a20004",
+      "file": "fa0a98e1ce752716a66b9905.webp",
+      "bytes": 115710
+    },
+    "0270476611998": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0270476611998",
+      "image": "https://images.openfoodfacts.org/images/products/027/047/661/1998/front_en.5.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/027/047/661/1998/front_en.5.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "683d7148cbc0152a4035129f59cd04365b2c23e4effc05192af7de0cd271b246",
+      "file": "2bee364b92414cae1fdc50dc.webp",
+      "bytes": 163274
+    },
+    "0270476712985": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0270476712985",
+      "image": "https://images.openfoodfacts.org/images/products/027/047/671/2985/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/027/047/671/2985/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1138,
+        730
+      ],
+      "storedDimensions": [
+        1024,
+        657
+      ],
+      "originalSHA256": "89bf351f6d0314d1f2ebcc82fa902c96448a2eed7ad0cbc77aee761e43f17a01",
+      "file": "c441b3aaff6416fec658863d.webp",
+      "bytes": 101924
+    },
+    "0270476812883": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0270476812883",
+      "image": "https://images.openfoodfacts.org/images/products/027/047/681/2883/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/027/047/681/2883/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1862,
+        4032
+      ],
+      "storedDimensions": [
+        473,
+        1024
+      ],
+      "originalSHA256": "9534bc380ea09ccbd50add56988220c33b747890ce92f7d3bfbba94064c9b2f3",
+      "file": "a1301d3db998ca6b56e99021.webp",
+      "bytes": 48628
+    },
+    "0270476813279": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0270476813279",
+      "image": "https://images.openfoodfacts.org/images/products/027/047/681/3279/front_en.4.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/027/047/681/3279/front_en.4.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "bd9a78a88653c4b1f005d41aa65a68995898d56d4636a3b18104d51eda31acbf",
+      "file": "8471f695cba181d21a652b55.webp",
+      "bytes": 139458
+    },
+    "0273616322051": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0273616322051",
+      "image": "https://images.openfoodfacts.org/images/products/027/361/632/2051/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/027/361/632/2051/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1698,
+        1275
+      ],
+      "storedDimensions": [
+        1024,
+        769
+      ],
+      "originalSHA256": "3d5d599feeeb5411e8d5f068b7b88863c520da5fc711b02876c4a8cc3bd22552",
+      "file": "304996c426232fd7dad5758d.webp",
+      "bytes": 330132
+    },
+    "0281505222641": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0281505222641",
+      "image": "https://images.openfoodfacts.org/images/products/028/150/522/2641/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/028/150/522/2641/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "9a5971d14e7a1cfa73397de533819c2db8a0ed453e41ef3e0c238337cc2abd9e",
+      "file": "03ac6a58ba0241fa3fb36aa7.webp",
+      "bytes": 89478
+    },
+    "0281505320132": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0281505320132",
+      "image": "https://images.openfoodfacts.org/images/products/028/150/532/0132/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/028/150/532/0132/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "54acb27c957fe4bede1f3fda409e08c8e1fa687df3c4433c94f88b71e4a9d787",
+      "file": "d4ad17f619fb77472c22cec3.webp",
+      "bytes": 62302
+    },
+    "0281505620553": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0281505620553",
+      "image": "https://images.openfoodfacts.org/images/products/028/150/562/0553/front_en.7.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/028/150/562/0553/front_en.7.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        2708,
+        1860
+      ],
+      "storedDimensions": [
+        1024,
+        703
+      ],
+      "originalSHA256": "13a244edd7a3dc0eb6e2817c9f5f89e46dbd6aaae2509d1b41ddada2d8fe5f35",
+      "file": "3bb65f971ca7c3d70b1615e0.webp",
+      "bytes": 132442
+    },
+    "0705988611414": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0705988611414",
+      "image": "https://images.openfoodfacts.org/images/products/070/598/861/1414/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/070/598/861/1414/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        515,
+        786
+      ],
+      "storedDimensions": [
+        515,
+        786
+      ],
+      "originalSHA256": "e64b2c3f22dffd46df1f29328d1f873c3dfcad29f6602e8937af64500a7bffc7",
+      "file": "468b73c505a7720d6eed6038.webp",
+      "bytes": 79234
+    },
+    "0716837291121": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0716837291121",
+      "image": "https://images.openfoodfacts.org/images/products/071/683/729/1121/front_en.7.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/071/683/729/1121/front_en.7.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        3024,
+        4032
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "0d018b15c3f3f52d4e6dd1e7c5d80767a51e38ee2c65133fa1f3bcb854e52e7d",
+      "file": "9d1830b8a05da792b527ee7b.webp",
+      "bytes": 187286
+    },
+    "0815887010710": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0815887010710",
+      "image": "https://images.openfoodfacts.org/images/products/081/588/701/0710/front_en.13.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/081/588/701/0710/front_en.13.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1275,
+        1698
+      ],
+      "storedDimensions": [
+        769,
+        1024
+      ],
+      "originalSHA256": "05c285a2188385980957d76b0fb95c43825eb2b8ebf97282c96a91f8113b4fbb",
+      "file": "ef93efb1d85cc5e9c9dc51a9.webp",
+      "bytes": 161048
+    },
+    "0826088442101": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0826088442101",
+      "image": "https://images.openfoodfacts.org/images/products/082/608/844/2101/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/082/608/844/2101/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1536,
+        2048
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "dde11abb3f107c96f04ae049861444d383bf8a25633287bbecf94f831dfcd916",
+      "file": "130d4b8ea2b0179ccc917392.webp",
+      "bytes": 118090
+    },
+    "0843237009527": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0843237009527",
+      "image": "https://images.openfoodfacts.org/images/products/084/323/700/9527/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/084/323/700/9527/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1204,
+        1700
+      ],
+      "storedDimensions": [
+        725,
+        1024
+      ],
+      "originalSHA256": "363495eb349d0e6f3d01a1366fb6d61e30fe2f0dcfd01edcdf8bbb0fd9bd951a",
+      "file": "1571715026d7d2dad5e3ea29.webp",
+      "bytes": 148474
+    },
+    "0966196058280": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/0966196058280",
+      "image": "https://images.openfoodfacts.org/images/products/096/619/605/8280/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/096/619/605/8280/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        956,
+        1297
+      ],
+      "storedDimensions": [
+        755,
+        1024
+      ],
+      "originalSHA256": "6c864c5c3c3e2052c33b945e90b7971f9ed826bdfb7fbf59e587adf20a03f3a2",
+      "file": "26c0a501bba036100931320f.webp",
+      "bytes": 283110
+    },
+    "17215084": {
+      "status": "invalid_source"
+    },
+    "17940962": {
+      "status": "invalid_source"
+    },
+    "18342895": {
+      "status": "invalid_source"
+    },
+    "18348101": {
+      "status": "invalid_source"
+    },
+    "18348811": {
+      "status": "invalid_source"
+    },
+    "18490732": {
+      "status": "invalid_source"
+    },
+    "18493245": {
+      "status": "invalid_source"
+    },
+    "18814019": {
+      "status": "invalid_source"
+    },
+    "19570518": {
+      "status": "invalid_source"
+    },
+    "19588612": {
+      "status": "invalid_source"
+    },
+    "19917160": {
+      "status": "invalid_source"
+    },
+    "2019041210086": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/2019041210086",
+      "image": "https://images.openfoodfacts.org/images/products/201/904/121/0086/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/201/904/121/0086/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "204494713042b83aa302170b30ee0f9f43ca74c6244e1eea5f35307b44a119b7",
+      "file": "207602c7ed2157ce68fdbf5e.webp",
+      "bytes": 90448
+    },
+    "2099895008992": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/2099895008992",
+      "image": "https://images.openfoodfacts.org/images/products/209/989/500/8992/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/209/989/500/8992/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        590,
+        1280
+      ],
+      "storedDimensions": [
+        472,
+        1024
+      ],
+      "originalSHA256": "bc0b6a3f2a69f42225d8bd55dcec5287bd2ada7c6aa772d794e86b36763595cb",
+      "file": "9c7666569660baf6906e65b6.webp",
+      "bytes": 70776
+    },
+    "2099912077819": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/2099912077819",
+      "image": "https://images.openfoodfacts.org/images/products/209/991/207/7819/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/209/991/207/7819/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        590,
+        1280
+      ],
+      "storedDimensions": [
+        472,
+        1024
+      ],
+      "originalSHA256": "625a55f51ed43d6517c8f02aec897aa7501f1b8549c2cbf4fb1d2b351b8d9747",
+      "file": "cf8ac9561ff676585dd0fdb0.webp",
+      "bytes": 68550
+    },
+    "35737278": {
+      "status": "invalid_source"
+    },
+    "3951521289986": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/3951521289986",
+      "image": "https://images.openfoodfacts.org/images/products/395/152/128/9986/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/395/152/128/9986/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        592,
+        1280
+      ],
+      "storedDimensions": [
+        474,
+        1024
+      ],
+      "originalSHA256": "dfad2a7d705f100b9ec6a1a375ef1f2b2338a7bd5cf9b1eb1a17bf85137c0a96",
+      "file": "0f829899b60fe0340ad371f5.webp",
+      "bytes": 58662
+    },
+    "4549358000004": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/4549358000004",
+      "image": "https://images.openfoodfacts.org/images/products/454/935/800/0004/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/454/935/800/0004/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        3024,
+        4032
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "b475e21b79df1adb99238e9c30a67e5048e81c95b82f3ffd33288de72a860c64",
+      "file": "bfee31eeed687b5965aabf7b.webp",
+      "bytes": 80716
+    },
+    "45546136": {
+      "status": "invalid_source"
+    },
+    "53515513": {
+      "status": "invalid_source"
+    },
+    "6582795272267": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/6582795272267",
+      "image": "https://images.openfoodfacts.org/images/products/658/279/527/2267/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/658/279/527/2267/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1862,
+        4032
+      ],
+      "storedDimensions": [
+        473,
+        1024
+      ],
+      "originalSHA256": "f04c0a3340c71e676fda7339524a784e4fbbe136bb1011247ae92b16ec613e27",
+      "file": "dc95c82a1caa6e41b4ceb910.webp",
+      "bytes": 79502
+    },
+    "66338949": {
+      "status": "invalid_source"
+    },
+    "67628483": {
+      "status": "invalid_source"
+    },
+    "7393933316465": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/7393933316465",
+      "image": "https://images.openfoodfacts.org/images/products/739/393/331/6465/front_en.6.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/739/393/331/6465/front_en.6.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        4032,
+        1856
+      ],
+      "storedDimensions": [
+        1024,
+        471
+      ],
+      "originalSHA256": "18dd17c980406515362b9516b34201fb78fdeeb138b64d76b6e67c27c262dd35",
+      "file": "4dd6e22139bdf1e352814d39.webp",
+      "bytes": 72578
+    },
+    "8086089508271": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/8086089508271",
+      "image": "https://images.openfoodfacts.org/images/products/808/608/950/8271/front_en.8.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/808/608/950/8271/front_en.8.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        3000,
+        4000
+      ],
+      "storedDimensions": [
+        768,
+        1024
+      ],
+      "originalSHA256": "3cb0fb49a569abadd6b564d31c57e5945dcaf9983702ad19fd1b0629cbee3662",
+      "file": "2c67990720c802a5d49f381f.webp",
+      "bytes": 156802
+    },
+    "86674508": {
+      "status": "invalid_source"
+    },
+    "90174209": {
+      "status": "invalid_source"
+    },
+    "96767955": {
+      "status": "invalid_source"
+    },
+    "9914947680069": {
+      "status": "acquired",
+      "source": "https://world.openfoodfacts.org/product/9914947680069",
+      "image": "https://images.openfoodfacts.org/images/products/991/494/768/0069/front_en.3.full.jpg",
+      "catalogImage": "https://images.openfoodfacts.org/images/products/991/494/768/0069/front_en.3.400.jpg",
+      "license": "CC-BY-SA-3.0",
+      "originalDimensions": [
+        1864,
+        2830
+      ],
+      "storedDimensions": [
+        674,
+        1024
+      ],
+      "originalSHA256": "a3a1437797eb2043e3daeb7257f09c5386d31d45ec160a6b5df50adc581a3c82",
+      "file": "504b9a93a8064bb836931ac2.webp",
+      "bytes": 139686
+    }
+  }
+}
