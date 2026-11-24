@@ -1,0 +1,1351 @@
+{
+  "version": 1,
+  "summary": {
+    "files": 48,
+    "licenseCandidates": 45,
+    "approved": 0
+  },
+  "entries": [
+    {
+      "title": "File:Kirkland Signature logo.svg",
+      "pageId": 44698977,
+      "source": "https://commons.wikimedia.org/wiki/File:Kirkland_Signature_logo.svg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Kirkland_Signature_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 178,
+      "height": 55,
+      "sha1": "64d2390f261d48a0ca212d3b1c4854cc5b2a6ef1",
+      "metadata": {
+        "ImageDescription": "The logo of Kirkland Signature, a <a href=\"https://en.wikipedia.org/wiki/private_label\" class=\"extiw\" title=\"w:private label\">private label</a> owned and used by <a href=\"https://en.wikipedia.org/wiki/Costco\" class=\"extiw\" title=\"w:Costco\">Costco</a>.",
+        "DateTimeOriginal": "1989",
+        "Credit": "<a rel=\"nofollow\" class=\"external text\" href=\"http://m.costco.com/wcsstore/CostcoUSBCCatalogAssetStore/Attachment/KS-Vitamin-and-Supplement-Guide-2013-optimized.pdf\">Kirkland Signature Vitamin &amp; Supplement Guide</a>",
+        "Artist": "<a href=\"https://en.wikipedia.org/wiki/Costco\" class=\"extiw\" title=\"w:Costco\">Costco Wholesale Corporation</a>",
+        "LicenseShortName": "Public domain",
+        "AttributionRequired": "false",
+        "Restrictions": "trademarked"
+      },
+      "licenseCandidate": false,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:2019-02-26 12 55 00 A Kirkland Signature Chocolate Chip Soft and Chewy Granola Bar in the Dulles section of Sterling, Loudoun County, Virginia.jpg",
+      "pageId": 77250474,
+      "source": "https://commons.wikimedia.org/wiki/File:2019-02-26_12_55_00_A_Kirkland_Signature_Chocolate_Chip_Soft_and_Chewy_Granola_Bar_in_the_Dulles_section_of_Sterling,_Loudoun_County,_Virginia.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/3/34/2019-02-26_12_55_00_A_Kirkland_Signature_Chocolate_Chip_Soft_and_Chewy_Granola_Bar_in_the_Dulles_section_of_Sterling%2C_Loudoun_County%2C_Virginia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4032,
+      "height": 3024,
+      "sha1": "1ccba2d41919939ece76b13d5db1b946285db6bb",
+      "metadata": {
+        "ImageDescription": "A Kirkland Signature Chocolate Chip Soft and Chewy Granola Bar in the Dulles section of Sterling, Loudoun County, Virginia",
+        "DateTimeOriginal": "2019-02-26 12:55:00",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:Famartin\" title=\"User:Famartin\">Famartin</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:2019-02-26 15 24 15 Kirkland Signature Dry, Roasted and Salted Almonds in the Dulles section of Sterling, Loudoun County, Virginia.jpg",
+      "pageId": 77250483,
+      "source": "https://commons.wikimedia.org/wiki/File:2019-02-26_15_24_15_Kirkland_Signature_Dry,_Roasted_and_Salted_Almonds_in_the_Dulles_section_of_Sterling,_Loudoun_County,_Virginia.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/b/b6/2019-02-26_15_24_15_Kirkland_Signature_Dry%2C_Roasted_and_Salted_Almonds_in_the_Dulles_section_of_Sterling%2C_Loudoun_County%2C_Virginia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4032,
+      "height": 3024,
+      "sha1": "264899dad94d8d0582292a7b1df5688c4224d832",
+      "metadata": {
+        "ImageDescription": "Kirkland Signature Dry, Roasted and Salted Almonds in the Dulles section of Sterling, Loudoun County, Virginia",
+        "DateTimeOriginal": "2019-02-26 15:24:15",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:Famartin\" title=\"User:Famartin\">Famartin</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:2020-06-03 02 46 31 A cooked Kirkland one-quarter pound ground beef patty in the Dulles section of Sterling, Loudoun County, Virginia.jpg",
+      "pageId": 90910163,
+      "source": "https://commons.wikimedia.org/wiki/File:2020-06-03_02_46_31_A_cooked_Kirkland_one-quarter_pound_ground_beef_patty_in_the_Dulles_section_of_Sterling,_Loudoun_County,_Virginia.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/1/14/2020-06-03_02_46_31_A_cooked_Kirkland_one-quarter_pound_ground_beef_patty_in_the_Dulles_section_of_Sterling%2C_Loudoun_County%2C_Virginia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4032,
+      "height": 3024,
+      "sha1": "5be9de476cc8f7c7c3abaf7d72d3474952e136b7",
+      "metadata": {
+        "ImageDescription": "A cooked Kirkland one-quarter pound ground beef patty in the Dulles section of Sterling, Loudoun County, Virginia",
+        "DateTimeOriginal": "2020-06-03 02:46:31",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:Famartin\" title=\"User:Famartin\">Famartin</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:2020-06-03 02 53 04 A frozen Kirkland one-quarter pound ground beef patty in the Dulles section of Sterling, Loudoun County, Virginia.jpg",
+      "pageId": 90910167,
+      "source": "https://commons.wikimedia.org/wiki/File:2020-06-03_02_53_04_A_frozen_Kirkland_one-quarter_pound_ground_beef_patty_in_the_Dulles_section_of_Sterling,_Loudoun_County,_Virginia.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/b/b1/2020-06-03_02_53_04_A_frozen_Kirkland_one-quarter_pound_ground_beef_patty_in_the_Dulles_section_of_Sterling%2C_Loudoun_County%2C_Virginia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4032,
+      "height": 3024,
+      "sha1": "bb7781abe5f757e81feedbcc5f8e7a44acff4935",
+      "metadata": {
+        "ImageDescription": "A frozen Kirkland one-quarter pound ground beef patty in the Dulles section of Sterling, Loudoun County, Virginia",
+        "DateTimeOriginal": "2020-06-03 02:53:04",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:Famartin\" title=\"User:Famartin\">Famartin</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:2020-08-09 05 30 49 A frozen Kirkland one-quarter pound ground beef patty in the Dulles section of Sterling, Loudoun County, Virginia.jpg",
+      "pageId": 93005980,
+      "source": "https://commons.wikimedia.org/wiki/File:2020-08-09_05_30_49_A_frozen_Kirkland_one-quarter_pound_ground_beef_patty_in_the_Dulles_section_of_Sterling,_Loudoun_County,_Virginia.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/0/06/2020-08-09_05_30_49_A_frozen_Kirkland_one-quarter_pound_ground_beef_patty_in_the_Dulles_section_of_Sterling%2C_Loudoun_County%2C_Virginia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4032,
+      "height": 3024,
+      "sha1": "adf3876482e0c9b8e72642f5bf2a6d589dba5411",
+      "metadata": {
+        "ImageDescription": "A frozen Kirkland one-quarter pound ground beef patty in the Dulles section of Sterling, Loudoun County, Virginia",
+        "DateTimeOriginal": "2020-08-09 05:30:49",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:Famartin\" title=\"User:Famartin\">Famartin</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:2020-08-09 05 39 20 A cooked Kirkland one-quarter pound ground beef patty in the Dulles section of Sterling, Loudoun County, Virginia.jpg",
+      "pageId": 93005982,
+      "source": "https://commons.wikimedia.org/wiki/File:2020-08-09_05_39_20_A_cooked_Kirkland_one-quarter_pound_ground_beef_patty_in_the_Dulles_section_of_Sterling,_Loudoun_County,_Virginia.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/e/e9/2020-08-09_05_39_20_A_cooked_Kirkland_one-quarter_pound_ground_beef_patty_in_the_Dulles_section_of_Sterling%2C_Loudoun_County%2C_Virginia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4032,
+      "height": 3024,
+      "sha1": "a7fde061d955c001437f2f3935aebfd85e1b5a66",
+      "metadata": {
+        "ImageDescription": "A cooked Kirkland one-quarter pound ground beef patty in the Dulles section of Sterling, Loudoun County, Virginia",
+        "DateTimeOriginal": "2020-08-09 05:39:20",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:Famartin\" title=\"User:Famartin\">Famartin</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:2021-05-15 04 41 53 A bag of Kirkland Trail Mix in the Dulles section of Sterling, Loudoun County, Virginia.jpg",
+      "pageId": 105321936,
+      "source": "https://commons.wikimedia.org/wiki/File:2021-05-15_04_41_53_A_bag_of_Kirkland_Trail_Mix_in_the_Dulles_section_of_Sterling,_Loudoun_County,_Virginia.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/d/da/2021-05-15_04_41_53_A_bag_of_Kirkland_Trail_Mix_in_the_Dulles_section_of_Sterling%2C_Loudoun_County%2C_Virginia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 3024,
+      "height": 4032,
+      "sha1": "de68f84aecb6bcf7b7151b5cf58b2c2c88d837d8",
+      "metadata": {
+        "ImageDescription": "A bag of Kirkland Trail Mix in the Dulles section of Sterling, Loudoun County, Virginia",
+        "DateTimeOriginal": "2021-05-15 04:41:53",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:Famartin\" title=\"User:Famartin\">Famartin</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:2021-05-15 04 45 03 A sample of Kirkland Trail Mix in the Dulles section of Sterling, Loudoun County, Virginia.jpg",
+      "pageId": 105321938,
+      "source": "https://commons.wikimedia.org/wiki/File:2021-05-15_04_45_03_A_sample_of_Kirkland_Trail_Mix_in_the_Dulles_section_of_Sterling,_Loudoun_County,_Virginia.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/f/fd/2021-05-15_04_45_03_A_sample_of_Kirkland_Trail_Mix_in_the_Dulles_section_of_Sterling%2C_Loudoun_County%2C_Virginia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4032,
+      "height": 3024,
+      "sha1": "d78a0e140ed27b57f14f5d6075705529b66d78f4",
+      "metadata": {
+        "ImageDescription": "A sample of Kirkland Trail Mix in the Dulles section of Sterling, Loudoun County, Virginia",
+        "DateTimeOriginal": "2021-05-15 04:45:03",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:Famartin\" title=\"User:Famartin\">Famartin</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:2021-11-23 09 43 11 Several slices of a Kirkland Signature pumpkin pie in the Dulles section of Sterling, Loudoun County, Virginia.jpg",
+      "pageId": 112756405,
+      "source": "https://commons.wikimedia.org/wiki/File:2021-11-23_09_43_11_Several_slices_of_a_Kirkland_Signature_pumpkin_pie_in_the_Dulles_section_of_Sterling,_Loudoun_County,_Virginia.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/a/ae/2021-11-23_09_43_11_Several_slices_of_a_Kirkland_Signature_pumpkin_pie_in_the_Dulles_section_of_Sterling%2C_Loudoun_County%2C_Virginia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4032,
+      "height": 3024,
+      "sha1": "ecc61ae89681808e21e438770ba5dee532502423",
+      "metadata": {
+        "ImageDescription": "Several slices of a Kirkland Signature pumpkin pie in the Dulles section of Sterling, Loudoun County, Virginia",
+        "DateTimeOriginal": "2021-11-23 09:43:11",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:Famartin\" title=\"User:Famartin\">Famartin</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:2021-11-23 11 45 37 Half of a Kirkland Signature pumpkin pie in the Dulles section of Sterling, Loudoun County, Virginia.jpg",
+      "pageId": 112756406,
+      "source": "https://commons.wikimedia.org/wiki/File:2021-11-23_11_45_37_Half_of_a_Kirkland_Signature_pumpkin_pie_in_the_Dulles_section_of_Sterling,_Loudoun_County,_Virginia.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/68/2021-11-23_11_45_37_Half_of_a_Kirkland_Signature_pumpkin_pie_in_the_Dulles_section_of_Sterling%2C_Loudoun_County%2C_Virginia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4032,
+      "height": 3024,
+      "sha1": "b0d6e905e29a1b2e40118869edfec59f8253bcf8",
+      "metadata": {
+        "ImageDescription": "Half of a Kirkland Signature pumpkin pie in the Dulles section of Sterling, Loudoun County, Virginia",
+        "DateTimeOriginal": "2021-11-23 11:45:37",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:Famartin\" title=\"User:Famartin\">Famartin</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Blueberry muffin.JPG",
+      "pageId": 3789860,
+      "source": "https://commons.wikimedia.org/wiki/File:Blueberry_muffin.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/4/41/Blueberry_muffin.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 2181,
+      "height": 1704,
+      "sha1": "9fe91cf428cd1e42d5d5f434ff5bc6e2f1923c84",
+      "metadata": {
+        "ImageDescription": "A Kirkland Signature (Costco's store brand) blueberry muffin",
+        "DateTimeOriginal": "2008-03-02",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Bottled water (6972595593).jpg",
+      "pageId": 168671762,
+      "source": "https://commons.wikimedia.org/wiki/File:Bottled_water_(6972595593).jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Bottled_water_%286972595593%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 3648,
+      "height": 2736,
+      "sha1": "b115a6108272d86ca46ba96aa06aac7bd1534a89",
+      "metadata": {
+        "ImageDescription": "Bottles of Kirkland Premium Drinking Water.\u00a0<span class=\"mw-valign-text-top noprint\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:Bottled_water_(6972595593).jpg#ooui-php-4\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+        "DateTimeOriginal": "2012-03-10",
+        "Credit": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/thedigitelmyr/6972595593/\">Flickr</a>\u00a0<span class=\"mw-valign-text-top noprint\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:Bottled_water_(6972595593).jpg#P7482\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+        "Artist": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/thedigitelmyr/\">Myrtle Beach TheDigitel</a>\u00a0<span class=\"mw-valign-text-top noprint\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:Bottled_water_(6972595593).jpg#P170\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+        "LicenseShortName": "CC BY 2.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Chocolate muffin with chocolate chips.JPG",
+      "pageId": 3789855,
+      "source": "https://commons.wikimedia.org/wiki/File:Chocolate_muffin_with_chocolate_chips.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Chocolate_muffin_with_chocolate_chips.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 2272,
+      "height": 1704,
+      "sha1": "34d12e06cd176f6fad55c1544dc69fe71b08e7c7",
+      "metadata": {
+        "ImageDescription": "A Kirkland Signature (Costco's store brand) chocolate muffin with chocolate chips",
+        "DateTimeOriginal": "2008-03-02",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Creme Brulee by Costco.jpg",
+      "pageId": 74257637,
+      "source": "https://commons.wikimedia.org/wiki/File:Creme_Brulee_by_Costco.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Creme_Brulee_by_Costco.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4032,
+      "height": 3024,
+      "sha1": "b4ea61f94f1bde7a6dcaa112aaa83d3593039afb",
+      "metadata": {
+        "ImageDescription": "Creme Brulee sold by Costco",
+        "DateTimeOriginal": "2018-11-05 21:34:59",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:RightCowLeftCoast\" title=\"User:RightCowLeftCoast\">RightCowLeftCoast</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Cutekitty.jpg",
+      "pageId": 63498062,
+      "source": "https://commons.wikimedia.org/wiki/File:Cutekitty.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Cutekitty.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 640,
+      "height": 312,
+      "sha1": "3bf63e3af2a6480a8d3d6df32fdb787d3ba9e721",
+      "metadata": {
+        "ImageDescription": "Picture of my cat.",
+        "DateTimeOriginal": "2005-01-13 04:06:21",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:Beauty_School_Dropout\" title=\"User:Beauty School Dropout\">Beauty School Dropout</a>",
+        "LicenseShortName": "Public domain",
+        "AttributionRequired": "false",
+        "Restrictions": ""
+      },
+      "licenseCandidate": false,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Gas up at Costco in New Orleans, 17 January 2025 - 2.jpg",
+      "pageId": 158113891,
+      "source": "https://commons.wikimedia.org/wiki/File:Gas_up_at_Costco_in_New_Orleans,_17_January_2025_-_2.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/d/df/Gas_up_at_Costco_in_New_Orleans%2C_17_January_2025_-_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 3888,
+      "height": 5184,
+      "sha1": "8bf92f87b5919430ee43c7df1e4dbe7e9cede829",
+      "metadata": {
+        "ImageDescription": "Getting gasoline at Costco in New Orleans, 17 January 2025. Lots of people filling up, possibly in part because possible freeze expected in a couple days and uncertainty if incoming Trump administration tariffs may affect prices.",
+        "DateTimeOriginal": "2025-01-17 16:30:56",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:Infrogmation\" title=\"User:Infrogmation\">Infrogmation</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Itchy Miniskirt (1029859991).jpg",
+      "pageId": 180394156,
+      "source": "https://commons.wikimedia.org/wiki/File:Itchy_Miniskirt_(1029859991).jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Itchy_Miniskirt_%281029859991%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 1656,
+      "height": 2905,
+      "sha1": "90cf00e2a26bc6b1ec168da3e581b14e4ceeb705",
+      "metadata": {
+        "ImageDescription": "Itchy miniskirt in Bromont, Quebec.",
+        "DateTimeOriginal": "2007-08-04 13:57",
+        "Credit": "<a rel=\"nofollow\" class=\"external free\" href=\"https://www.flickr.com/photos/73416633@N00/1029859991/\">https://www.flickr.com/photos/73416633@N00/1029859991/</a>",
+        "Artist": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/73416633@N00\">Sandra Cohen-Rose and Colin Rose</a>",
+        "LicenseShortName": "CC BY 2.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Kirkland Milk Jug.JPG",
+      "pageId": 21084131,
+      "source": "https://commons.wikimedia.org/wiki/File:Kirkland_Milk_Jug.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Kirkland_Milk_Jug.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 1013,
+      "height": 1790,
+      "sha1": "164ea8a7b53561fdf27fad426a0cf3b8c34765e6",
+      "metadata": {
+        "ImageDescription": "A rectangular Kirkland Signature 2% milk jug, sold as the house brand in <a href=\"https://en.wikipedia.org/wiki/Costco\" class=\"extiw\" title=\"en:Costco\">Costco</a> stores and used to present how milk is sold in the United States.",
+        "DateTimeOriginal": "2010-11-01 04:57",
+        "Credit": "I (<span style=\"font-family: Myriad Web;\"><b><a href=\"https://en.wikipedia.org/wiki/User:Mrschimpf\" class=\"extiw\" title=\"en:User:Mrschimpf\"><span style=\"color:maroon\">Nate</span></a></b> <span style=\"color:dark blue\">\u2022</span> <small><i>(<a href=\"https://en.wikipedia.org/wiki/User_talk:Mrschimpf\" class=\"extiw\" title=\"en:User talk:Mrschimpf\"><span style=\"color:dodgerblue\">chatter</span></a>)</i></small></span>) created this work entirely by myself.",
+        "Artist": "<span style=\"font-family: Myriad Web;\"><b><a href=\"https://en.wikipedia.org/wiki/User:Mrschimpf\" class=\"extiw\" title=\"en:User:Mrschimpf\"><span style=\"color:maroon\">Nate</span></a></b> <span style=\"color:dark blue\">\u2022</span> <small><i>(<a href=\"https://en.wikipedia.org/wiki/User_talk:Mrschimpf\" class=\"extiw\" title=\"en:User talk:Mrschimpf\"><span style=\"color:dodgerblue\">chatter</span></a>)</i></small></span>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Kirkland Oxi Power Laundry Detergent Pod.jpg",
+      "pageId": 181658685,
+      "source": "https://commons.wikimedia.org/wiki/File:Kirkland_Oxi_Power_Laundry_Detergent_Pod.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Kirkland_Oxi_Power_Laundry_Detergent_Pod.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 2886,
+      "height": 2311,
+      "sha1": "40ef7e6099cc36c2461f7a67ba4e86926cba5cd3",
+      "metadata": {
+        "ImageDescription": "A Kirkland Oxi Power laundry detergent pod.",
+        "DateTimeOriginal": "2026-01-11 07:45:01",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:TaurusEmerald\" title=\"User:TaurusEmerald\">TaurusEmerald</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Kirkland Signature Drinking Water 1.5L 20050508.jpg",
+      "pageId": 3355259,
+      "source": "https://commons.wikimedia.org/wiki/File:Kirkland_Signature_Drinking_Water_1.5L_20050508.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/68/Kirkland_Signature_Drinking_Water_1.5L_20050508.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 960,
+      "height": 1280,
+      "sha1": "64d34717cfff3095038122f1b3f5ef30adff8a6f",
+      "metadata": {
+        "ImageDescription": "Kirkland Signature Drinking Water 1.5L.",
+        "DateTimeOriginal": "2005-05-08 21:27",
+        "Credit": "Transferred from <a class=\"external text\" data-mw-original-href=\"http://en.wikipedia.org\" href=\"https://en.wikipedia.org\">en.wikipedia</a>",
+        "Artist": "Original uploader was <a href=\"https://en.wikipedia.org/wiki/User:Jm51\" class=\"extiw\" title=\"en:User:Jm51\">Jm51</a> at <a class=\"external text\" data-mw-original-href=\"http://en.wikipedia.org\" href=\"https://en.wikipedia.org\">en.wikipedia</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Kirkland Signature Fat Free Milk.jpg",
+      "pageId": 4980585,
+      "source": "https://commons.wikimedia.org/wiki/File:Kirkland_Signature_Fat_Free_Milk.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/63/Kirkland_Signature_Fat_Free_Milk.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 2304,
+      "height": 3072,
+      "sha1": "291415c1599c44c5e7f12f83d350b5a1b56631d0",
+      "metadata": {
+        "ImageDescription": "Etiqueta de llet de vaca no tractada amb hormona recombinant, als EEUU",
+        "DateTimeOriginal": "Taken on\u00a012 October 2008",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:Daniel_Barcelona\" title=\"User:Daniel Barcelona\">Daniel Barcelona</a>",
+        "LicenseShortName": "Public domain",
+        "AttributionRequired": "false",
+        "Restrictions": ""
+      },
+      "licenseCandidate": false,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Kirkland Signature meat tag of Costco President Taiwan 20160827.jpg",
+      "pageId": 50958801,
+      "source": "https://commons.wikimedia.org/wiki/File:Kirkland_Signature_meat_tag_of_Costco_President_Taiwan_20160827.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Kirkland_Signature_meat_tag_of_Costco_President_Taiwan_20160827.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 1800,
+      "height": 2400,
+      "sha1": "fb9fccdc8da8320f8f988a583cd5d0cb6e66c267",
+      "metadata": {
+        "ImageDescription": "\u200b\u597d\u5e02\u591a\u79d1\u514b\u862d\u8089\u54c1\u6a19\u7c64\u3002",
+        "DateTimeOriginal": "2016-08-27",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:Solomon203\" title=\"User:Solomon203\">Solomon203</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Kirkland Signature Vodka.jpg",
+      "pageId": 168708872,
+      "source": "https://commons.wikimedia.org/wiki/File:Kirkland_Signature_Vodka.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Kirkland_Signature_Vodka.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 2592,
+      "height": 3888,
+      "sha1": "929aab8f7e33c2c563b4df64a94306d24a193869",
+      "metadata": {
+        "ImageDescription": "Giant bottle of vodka, relaxing\u00a0<span class=\"mw-valign-text-top noprint\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:Kirkland_Signature_Vodka.jpg#ooui-php-4\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+        "DateTimeOriginal": "2009-08-17",
+        "Credit": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/quinnanya/3835227169/\">Flickr</a>\u00a0<span class=\"mw-valign-text-top noprint\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:Kirkland_Signature_Vodka.jpg#P7482\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+        "Artist": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/quinnanya/\">Quinn Dombrowski</a>\u00a0<span class=\"mw-valign-text-top noprint\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:Kirkland_Signature_Vodka.jpg#P170\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+        "LicenseShortName": "CC BY-SA 2.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Kirkland Signature water bottles (11093157244).jpg",
+      "pageId": 168708470,
+      "source": "https://commons.wikimedia.org/wiki/File:Kirkland_Signature_water_bottles_(11093157244).jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Kirkland_Signature_water_bottles_%2811093157244%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4928,
+      "height": 3264,
+      "sha1": "564ac3169438a3e4dc81cd688f6a475818bc8593",
+      "metadata": {
+        "ImageDescription": "Kirkland Signature water bottles\u00a0<span class=\"mw-valign-text-top noprint\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:Kirkland_Signature_water_bottles_(11093157244).jpg#ooui-php-4\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+        "DateTimeOriginal": "2013-11-24",
+        "Credit": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/39908901@N06/11093157244/\">Flickr</a>\u00a0<span class=\"mw-valign-text-top noprint\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:Kirkland_Signature_water_bottles_(11093157244).jpg#P7482\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+        "Artist": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/39908901@N06/\">m01229</a>\u00a0<span class=\"mw-valign-text-top noprint\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:Kirkland_Signature_water_bottles_(11093157244).jpg#P170\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+        "LicenseShortName": "CC BY 2.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Kirkland Summit Roast Coffee Pod.jpg",
+      "pageId": 140002436,
+      "source": "https://commons.wikimedia.org/wiki/File:Kirkland_Summit_Roast_Coffee_Pod.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Kirkland_Summit_Roast_Coffee_Pod.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 2556,
+      "height": 2970,
+      "sha1": "44903db2e33a5ba253d3d18d2b4f4b5a6e31ea47",
+      "metadata": {
+        "ImageDescription": "A Kirkland brand Summit Roast coffee pod.",
+        "DateTimeOriginal": "2023-11-02 08:49:45",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:TaurusEmerald\" title=\"User:TaurusEmerald\">TaurusEmerald</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS California strawberry yogurt.JPG",
+      "pageId": 3471090,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_California_strawberry_yogurt.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/0/01/KS_California_strawberry_yogurt.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 2272,
+      "height": 1704,
+      "sha1": "925b4f1bc1eb21826df87e76356419a8e7d80911",
+      "metadata": {
+        "ImageDescription": "A cup of Kirkland Signature California strawberry yogurt.",
+        "DateTimeOriginal": "Taken on\u00a024 January 2008",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS chicken pot pie cooked 1.JPG",
+      "pageId": 11637037,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_chicken_pot_pie_cooked_1.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/2/28/KS_chicken_pot_pie_cooked_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4000,
+      "height": 3000,
+      "sha1": "8a499d3a48de1f97d9e91e50b77618acc2ee12c7",
+      "metadata": {
+        "ImageDescription": "A cooked chicken pot pie from Costco.",
+        "DateTimeOriginal": "2010-09-25",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS chicken pot pie cooked 2.JPG",
+      "pageId": 11637049,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_chicken_pot_pie_cooked_2.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/e/e2/KS_chicken_pot_pie_cooked_2.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4000,
+      "height": 3000,
+      "sha1": "349e0bed2e3a54891a0aa9ed6fbfd6febe161351",
+      "metadata": {
+        "ImageDescription": "A cooked chicken pot pie from Costco.",
+        "DateTimeOriginal": "2010-09-25",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS chicken pot pie uncooked 1.JPG",
+      "pageId": 11637062,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_chicken_pot_pie_uncooked_1.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/1/1a/KS_chicken_pot_pie_uncooked_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4000,
+      "height": 3000,
+      "sha1": "77ec2404d852e6455c42f77f80345e0beeb0e2d5",
+      "metadata": {
+        "ImageDescription": "An uncooked chicken pot pie from Costco.",
+        "DateTimeOriginal": "2010-09-25",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS chicken pot pie uncooked 2.JPG",
+      "pageId": 11637146,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_chicken_pot_pie_uncooked_2.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/5/5e/KS_chicken_pot_pie_uncooked_2.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4000,
+      "height": 3000,
+      "sha1": "23e54070975a4287d1775b5184cdde5c21319b46",
+      "metadata": {
+        "ImageDescription": "An uncooked chicken pot pie from Costco.",
+        "DateTimeOriginal": "2010-09-25",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS chocolate and blueberry muffins.JPG",
+      "pageId": 5908704,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_chocolate_and_blueberry_muffins.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/d/df/KS_chocolate_and_blueberry_muffins.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 3264,
+      "height": 2448,
+      "sha1": "b651879518aaf209a4e886f81debe0f3bd2079dd",
+      "metadata": {
+        "ImageDescription": "Chocolate and blueberry muffins baked in-house from Costco.",
+        "DateTimeOriginal": "2009-02-07",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS combo pizza.JPG",
+      "pageId": 3778300,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_combo_pizza.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/81/KS_combo_pizza.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 3264,
+      "height": 2448,
+      "sha1": "74fa2ca0202504b1cfff025500743477cf281fd6",
+      "metadata": {
+        "ImageDescription": "A Kirkland Signature (Costco's store brand) combination pizza",
+        "DateTimeOriginal": "2008-03-22",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS Dim Sum platter.JPG",
+      "pageId": 5671590,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_Dim_Sum_platter.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/2/24/KS_Dim_Sum_platter.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 3264,
+      "height": 2448,
+      "sha1": "1ae906a568a79d3ba3f75d1718a7cb3317629f78",
+      "metadata": {
+        "ImageDescription": "A dim sum platter by Kirkland Signature, Costco's in-house brand.  There are 3 different types of dim sum with soy sauce.",
+        "DateTimeOriginal": "2009-01-03",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS Gourmet Chocolate Chunk cookies 2.JPG",
+      "pageId": 11270620,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_Gourmet_Chocolate_Chunk_cookies_2.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/7/7e/KS_Gourmet_Chocolate_Chunk_cookies_2.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 3000,
+      "height": 4000,
+      "sha1": "23b5547892297f9ce593e98e372e1f20f3df1a9e",
+      "metadata": {
+        "ImageDescription": "Gourmet chocolate chip cookies at Costco.",
+        "DateTimeOriginal": "2010-06-20",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS Gourmet Chocolate Chunk cookies.JPG",
+      "pageId": 6055625,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_Gourmet_Chocolate_Chunk_cookies.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/4/48/KS_Gourmet_Chocolate_Chunk_cookies.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 3264,
+      "height": 2448,
+      "sha1": "518f569190bc2c1678d8e6fb8b9a73d85df5336e",
+      "metadata": {
+        "ImageDescription": "Kirkland Signature Gourmet Chocolate Chunk cookies",
+        "DateTimeOriginal": "2008-07-20",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS peeled rotisserie chicken 1.JPG",
+      "pageId": 9961325,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_peeled_rotisserie_chicken_1.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/d/d9/KS_peeled_rotisserie_chicken_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 3648,
+      "height": 2736,
+      "sha1": "1ed18b1264aeaa178d47c3b45e3795b9c1f6194e",
+      "metadata": {
+        "ImageDescription": "Rotisserie chicken that has been peeled, from Costco.",
+        "DateTimeOriginal": "2010-03-17",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS peeled rotisserie chicken 2.JPG",
+      "pageId": 9961331,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_peeled_rotisserie_chicken_2.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/1/14/KS_peeled_rotisserie_chicken_2.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 3648,
+      "height": 2736,
+      "sha1": "b2d8a0eadbd003f36b95274f644c59e07034cbe0",
+      "metadata": {
+        "ImageDescription": "Rotisserie chicken that has been peeled, from Costco.",
+        "DateTimeOriginal": "2010-03-17",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS pepperoni pizza.JPG",
+      "pageId": 5852773,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_pepperoni_pizza.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/1/1a/KS_pepperoni_pizza.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 2048,
+      "height": 1536,
+      "sha1": "fedb71f8ebc55520d1889cf69f74ae8215479a52",
+      "metadata": {
+        "ImageDescription": "Kirkland Signature pepperoni pizza",
+        "DateTimeOriginal": "2009-01-18",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS pork loin backribs.JPG",
+      "pageId": 10427616,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_pork_loin_backribs.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/3/3e/KS_pork_loin_backribs.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4000,
+      "height": 3000,
+      "sha1": "2200a3ef188fc7a218bbb6a37543963c4cf5fc0f",
+      "metadata": {
+        "ImageDescription": "Kirkland Signature pork loin backribs from Costco.",
+        "DateTimeOriginal": "2010-05-09",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS rotisserie chicken 1.JPG",
+      "pageId": 9961338,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_rotisserie_chicken_1.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/3/3d/KS_rotisserie_chicken_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 3648,
+      "height": 2736,
+      "sha1": "275a6093115805048d90e40e7e9f6a9b861d480d",
+      "metadata": {
+        "ImageDescription": "Rotisserie chicken from Costco.",
+        "DateTimeOriginal": "2010-03-17",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS Tequila A\u00f1ejo.jpg",
+      "pageId": 10427630,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_Tequila_A%C3%B1ejo.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/82/KS_Tequila_A%C3%B1ejo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 3648,
+      "height": 2048,
+      "sha1": "b54b8f4aef1d78eac204639470c0537e9d976ae3",
+      "metadata": {
+        "ImageDescription": "Kirkland Signature Tequila A\u00f1ejo from Costco.",
+        "DateTimeOriginal": "2010-05-02",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:KS turkey & swiss rollers.JPG",
+      "pageId": 5944788,
+      "source": "https://commons.wikimedia.org/wiki/File:KS_turkey_%26_swiss_rollers.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/f/fa/KS_turkey_%26_swiss_rollers.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 3264,
+      "height": 2448,
+      "sha1": "f68f72e2c05490393f86b0d287be7ef5f7eb6263",
+      "metadata": {
+        "ImageDescription": "A platter of Kirkland Signature turkey &amp; swiss rollers from Costco.",
+        "DateTimeOriginal": "2009-02-01",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Poppy seed muffin.JPG",
+      "pageId": 3789866,
+      "source": "https://commons.wikimedia.org/wiki/File:Poppy_seed_muffin.JPG",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Poppy_seed_muffin.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 2224,
+      "height": 1704,
+      "sha1": "975d885ace1f4048e9352b35faf0861c7c4e45bd",
+      "metadata": {
+        "ImageDescription": "A Kirkland Signature (Costco's store brand) poppy seed muffin",
+        "DateTimeOriginal": "2008-03-02",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:BrokenSphere\" title=\"User:BrokenSphere\">BrokenSphere</a>",
+        "LicenseShortName": "CC BY-SA 3.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:The Bushes Are Flowering (15577760318).jpg",
+      "pageId": 56972269,
+      "source": "https://commons.wikimedia.org/wiki/File:The_Bushes_Are_Flowering_(15577760318).jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/3/3b/The_Bushes_Are_Flowering_%2815577760318%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 3264,
+      "height": 2448,
+      "sha1": "3b51cbb14ac0f30fce78ec635846c721282be6a5",
+      "metadata": {
+        "ImageDescription": "These varieties of cedar are found mostly near college residence halls.",
+        "DateTimeOriginal": "2014-11-10 10:41:50",
+        "Credit": "<a rel=\"nofollow\" class=\"external free\" href=\"https://www.flickr.com/photos/cogdog/15577760318/\">https://www.flickr.com/photos/cogdog/15577760318/</a>",
+        "Artist": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/37996646802@N01\">cogdogblog</a>",
+        "LicenseShortName": "CC BY 2.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Tuesday afternoon, 12 January 2021 Walk to US Capitol & Supreme Court - Washington DC 07.HomelessTents.NE.WDC.12January2021 (50844592218).jpg",
+      "pageId": 98947619,
+      "source": "https://commons.wikimedia.org/wiki/File:Tuesday_afternoon,_12_January_2021_Walk_to_US_Capitol_%26_Supreme_Court_-_Washington_DC_07.HomelessTents.NE.WDC.12January2021_(50844592218).jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Tuesday_afternoon%2C_12_January_2021_Walk_to_US_Capitol_%26_Supreme_Court_-_Washington_DC_07.HomelessTents.NE.WDC.12January2021_%2850844592218%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 6000,
+      "height": 4000,
+      "sha1": "fb91795ea2cbd849db6b79b85b0bc2c930109cd8",
+      "metadata": {
+        "ImageDescription": "<p>Homeless Tents at Triangle Park along 2nd Street between Massachusetts Avenue and D Street, NE, Washington DC on Tuesday afternoon, 12 January 2021 by Elvert Barnes Photography\n</p><p>HOMELESSNESS IN AMERICA / STREET LIFE / Washington DC Series\n</p>\nElvert Barnes Tuesday afternoon, 12 January 2021 Presidential Inauguration Preparation at US Capitol Complex docu-project at &lt;a href=\"<a rel=\"nofollow\" class=\"external free\" href=\"https://elvertbarnes.com/12January2021\">https://elvertbarnes.com/12January2021</a>\" rel=\"noreferrer nofollow\"&gt;elvertbarnes.com/12January2021&lt;/a&gt;",
+        "DateTimeOriginal": "2021-01-12 13:06",
+        "Credit": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/perspective/50844592218/\">07.HomelessTents.NE.WDC.12January2021</a>",
+        "Artist": "<bdi><a href=\"https://www.wikidata.org/wiki/Q104713920\" class=\"extiw\" title=\"d:Q104713920\"><span title=\"photographer\">Elvert Barnes</span></a></bdi>",
+        "LicenseShortName": "CC BY-SA 2.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:Water Bottle Donation to LVMPD.jpg",
+      "pageId": 95627010,
+      "source": "https://commons.wikimedia.org/wiki/File:Water_Bottle_Donation_to_LVMPD.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Water_Bottle_Donation_to_LVMPD.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4272,
+      "height": 2848,
+      "sha1": "aa3ef58081d1d35bd4ef4c756c9e067f5111e4bd",
+      "metadata": {
+        "ImageDescription": "The night after the October 1st mass shooting in Las Vegas, scouts from Las Vegas Area Council's Boyscouts Troop 430 gathered bottled water and food to donate to officers of the Las Vegas Metropolitan Police Department. Officers were working extended shifts and needed snacks and water to keep them going. On October 3rd, A truck and trailer load of non-perishables was dropped off at LVMPD Northwest Area Command.",
+        "DateTimeOriginal": "2017-10-02 18:53:52",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:Noah_Wulf\" title=\"User:Noah Wulf\">Noah Wulf</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    },
+    {
+      "title": "File:\u30df\u30cb\u30af\u30ed\u30c9\u30c3\u30c8 \u30b3\u30b3\u30a2&\u30d1\u30fc\u30d7\u30eb \u30b3\u30b9\u30c8\u30b3\u5ddd\u5d0e\u5009\u5eab 2024\u5e7410\u670823\u65e5\u306e\u795e\u5948\u5ddd\u770c 202410231925 IMG 5264.jpg",
+      "pageId": 155923636,
+      "source": "https://commons.wikimedia.org/wiki/File:%E3%83%9F%E3%83%8B%E3%82%AF%E3%83%AD%E3%83%89%E3%83%83%E3%83%88_%E3%82%B3%E3%82%B3%E3%82%A2%26%E3%83%91%E3%83%BC%E3%83%97%E3%83%AB_%E3%82%B3%E3%82%B9%E3%83%88%E3%82%B3%E5%B7%9D%E5%B4%8E%E5%80%89%E5%BA%AB_2024%E5%B9%B410%E6%9C%8823%E6%97%A5%E3%81%AE%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C_202410231925_IMG_5264.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/9/9c/%E3%83%9F%E3%83%8B%E3%82%AF%E3%83%AD%E3%83%89%E3%83%83%E3%83%88_%E3%82%B3%E3%82%B3%E3%82%A2%26%E3%83%91%E3%83%BC%E3%83%97%E3%83%AB_%E3%82%B3%E3%82%B9%E3%83%88%E3%82%B3%E5%B7%9D%E5%B4%8E%E5%80%89%E5%BA%AB_2024%E5%B9%B410%E6%9C%8823%E6%97%A5%E3%81%AE%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C_202410231925_IMG_5264.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "width": 4032,
+      "height": 3024,
+      "sha1": "ccfb2e64d4cbe28a558dc70df2ac3b280b553835",
+      "metadata": {
+        "ImageDescription": "\u30df\u30cb\u30af\u30ed\u30c9\u30c3\u30c8 \u30b3\u30b3\u30a2&amp;\u30d1\u30fc\u30d7\u30eb 16pc<br>\n<p><a href=\"https://ja.wikipedia.org/wiki/%E3%82%B3%E3%82%B9%E3%83%88%E3%82%B3\" class=\"extiw\" title=\"ja:\u30b3\u30b9\u30c8\u30b3\">\u30b3\u30b9\u30c8\u30b3</a><a href=\"https://ja.wikipedia.org/wiki/%E5%B7%9D%E5%B4%8E%E5%B8%82\" class=\"extiw\" title=\"ja:\u5ddd\u5d0e\u5e02\">\u5ddd\u5d0e</a>\u5009\u5eab\u306b\u3066<br>\n\uff082024\u5e7410\u670823\u65e519\u664225\u5206\uff09<br>\n</p>\n<div style=\"display:table;width:auto;vertical-align:middle;direction:ltr;float:left;line-height:22px;height:24px;font-size:.96em;margin:0px;padding:2px 4px 2px 6px;color:inherit;background:var(--background-color-neutral-subtle,#f8f9fa);border:1px solid var(--border-color-base,#a2a9b1);border-collapse:separate;border-spacing:0px;\"><span typeof=\"mw:File\"><a href=\"//commons.wikimedia.org/wiki/File:IPhone_12_Pro_wordmark.svg\" class=\"mw-file-description\"><img src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/IPhone_12_Pro_wordmark.svg/120px-IPhone_12_Pro_wordmark.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"100\" height=\"13\" class=\"mw-file-element\" srcset=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/IPhone_12_Pro_wordmark.svg/250px-IPhone_12_Pro_wordmark.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail 2x\" data-file-width=\"1043\" data-file-height=\"131\"></a></span>\u00a0This <a href=\"https://en.wikipedia.org/wiki/photo\" class=\"extiw\" title=\"w:photo\">photo</a> was taken with iPhone 12 Pro</div>",
+        "DateTimeOriginal": "23 October 2024, 19:25:12",
+        "Credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "Artist": "<a href=\"//commons.wikimedia.org/wiki/User:%E3%82%A6%E3%82%A3%E8%B2%B4%E5%85%AC%E5%AD%90\" title=\"User:\u30a6\u30a3\u8cb4\u516c\u5b50\">\u30a6\u30a3\u8cb4\u516c\u5b50</a>",
+        "LicenseShortName": "CC BY-SA 4.0",
+        "AttributionRequired": "true",
+        "LicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "Restrictions": ""
+      },
+      "licenseCandidate": true,
+      "approved": false,
+      "reviewRequired": [
+        "exact product identity and pack size",
+        "packaging revision",
+        "third-party artwork rights",
+        "author and attribution",
+        "image suitability"
+      ]
+    }
+  ]
+}
