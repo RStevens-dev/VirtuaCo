@@ -40,8 +40,8 @@ export function applyScanThumbnail(p,texture){
 const thumbnailQueue=new Map(),active=new Map(),failed=new Set();let loading=0,photoLoading=0;
 export function streamExpansion(scene,slots,pos,status=()=>{}){
  const nearby=slots.filter(s=>s.expansion).map(s=>({s,d:Math.hypot(s.x-pos.x,s.z-pos.z)})).sort((a,b)=>a.d-b.d);
- const desired=new Set(nearby.filter(q=>q.d<12).slice(0,12).map(q=>q.s.id));
- for(const [id,holder] of active)if(!desired.has(id)){scene.remove(holder);holder.userData.slot.fallback.visible=true;holder.traverse(o=>{if(o.isMesh){o.geometry.dispose();for(const m of Array.isArray(o.material)?o.material:[o.material]){m.map?.dispose();m.dispose();}}});active.delete(id);}
+ const desired=new Set(nearby.filter(q=>q.d<18).slice(0,36).map(q=>q.s.id));
+ for(const [id,holder] of active)if(!desired.has(id)){scene.remove(holder);holder.userData.slot.fallback.visible=!holder.userData.slot.strict;status(id,'Local model · not currently rendered');holder.traverse(o=>{if(o.isMesh){o.geometry.dispose();for(const m of Array.isArray(o.material)?o.material:[o.material]){m.map?.dispose();m.dispose();}}});active.delete(id);}
  for(const {s,d} of nearby){
   if(d>22||photoLoading>=3)break;const q=thumbnailQueue.get(s.id);if(!q)continue;thumbnailQueue.delete(s.id);photoLoading++;
   const img=new Image();img.crossOrigin='anonymous';let done=false;const finish=()=>{if(!done){done=true;photoLoading--;}};img.onload=()=>{try{const c=q.texture.image,ctx=c.getContext('2d'),k=Math.min(c.width/img.width,c.height/img.height);ctx.fillStyle=q.p.color;ctx.fillRect(0,0,c.width,c.height);ctx.drawImage(img,(c.width-img.width*k)/2,(c.height-img.height*k)/2,img.width*k,img.height*k);q.texture.needsUpdate=true;}finally{finish();}};img.onerror=finish;setTimeout(finish,15000);img.src=models[s.id].thumb;
@@ -53,6 +53,6 @@ export function streamExpansion(scene,slots,pos,status=()=>{}){
    const root=gltf.scene,box=new T.Box3().setFromObject(root),size=box.getSize(new T.Vector3()),center=box.getCenter(new T.Vector3());
    if(!size.x||!size.y||!size.z)throw Error('Invalid dimensions');
    const holder=new T.Group();root.position.set(-center.x,-box.min.y,-center.z);holder.add(root);holder.scale.setScalar(Math.min(s.w/size.x,s.h/size.y,s.d/size.z));holder.position.set(s.x,s.y,s.z);holder.rotation.y=s.rot;holder.userData.slot=s;scene.add(holder);active.set(s.id,holder);s.fallback.visible=false;failed.delete(s.id);status(s.id,'3D model loaded');
-  }).catch(()=>status(s.id,'Download failed · fallback visible')).finally(()=>loading--);
+  }).catch(()=>status(s.id,s.strict?'Model failed to render · shelf left empty':'Download failed · fallback visible')).finally(()=>loading--);
  }
 }
