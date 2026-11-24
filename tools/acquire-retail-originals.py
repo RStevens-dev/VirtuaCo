@@ -8,7 +8,7 @@ Image.MAX_IMAGE_PIXELS=40_000_000
 def acquire(p):
     url=p.get('image') or ''
     m=PATTERN.fullmatch(url)
-    if not m or m[1].replace('/','')!=p['upc'] or p.get('imageLicense')!='CC-BY-SA-3.0':
+    if not m or m[1].replace('/','').lstrip('0')!=p['upc'].lstrip('0') or p.get('imageLicense')!='CC-BY-SA-3.0':
         return p['upc'],{'status':'invalid_source'}
     full=url.removesuffix('400.jpg')+'full.jpg'
     try:
@@ -29,9 +29,17 @@ def main():
     records=json.loads((ROOT/'data/open-food-facts.json').read_text())['products']
     candidates=sorted((p for p in records if p.get('image')),key=lambda p:p['upc'])
     OUT.mkdir(parents=True,exist_ok=True)
+    previous=json.loads((OUT/'index.json').read_text()).get('entries',{}) if (OUT/'index.json').exists() else {}
     entries={};total=0
+    pending=[]
+    for p in candidates:
+        e=previous.get(p['upc'],{})
+        if e.get('status')=='acquired' and e.get('catalogImage')==p['image'] and re.fullmatch(r'[a-f0-9]{24}\.webp',e.get('file','')) and (OUT/e['file']).is_file() and hashlib.sha256((OUT/e['file']).read_bytes()).hexdigest()[:24]+'.webp'==e['file']:
+            entries[p['upc']]=e;total+=e['bytes']
+        else:pending.append(p)
+    print('Reusing',len(entries),'verified files; retrying',len(pending),flush=True)
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
-        for result in pool.map(acquire,candidates):
+        for result in pool.map(acquire,pending):
             upc,entry,*payload=result
             if payload:
                 if total+entry['bytes']>100_000_000:
