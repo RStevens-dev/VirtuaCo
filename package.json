@@ -1,11 +1,11 @@
 {
   "name": "virtuaco",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
     "test": "node --test test/world.test.js",
-    "check": "node --check main.js && node --check world.js && npm test"
+    "check": "node --check main.js && node --check world.js && node --check assets.js && node --check photos.js && npm test"
   },
   "engines": {
     "node": ">=20"
