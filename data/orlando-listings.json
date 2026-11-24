@@ -1,0 +1,35 @@
+{
+  "warehouse": "1235",
+  "products": [
+    {
+      "regionalId": "orlando-florida-honey",
+      "name": "Kirkland Signature Florida Raw Unfiltered Honey",
+      "brand": "Kirkland Signature",
+      "size": "3 lb",
+      "category": "pantry",
+      "source": "https://www.ubereats.com/store/costco-wholesale-s-orlando/m3cagceGUDyF6OTBRRmr-g",
+      "listingObservedAt": "2026-11-24",
+      "listingType": "delivery storefront; not in-store inventory"
+    },
+    {
+      "regionalId": "orlando-water-40",
+      "name": "Kirkland Signature Purified Water",
+      "brand": "Kirkland Signature",
+      "size": "40 × 16.9 fl oz",
+      "category": "beverages",
+      "source": "https://www.ubereats.com/store/costco-wholesale-s-orlando/m3cagceGUDyF6OTBRRmr-g",
+      "listingObservedAt": "2026-11-24",
+      "listingType": "delivery storefront; not in-store inventory"
+    },
+    {
+      "regionalId": "orlando-cuisinart-immersion",
+      "name": "Cuisinart PrecisionPrep 3-in-1 Immersion Blending System",
+      "brand": "Cuisinart",
+      "size": "3-in-1 system",
+      "category": "appliances",
+      "source": "https://www.ubereats.com/store/costco-wholesale-s-orlando/m3cagceGUDyF6OTBRRmr-g",
+      "listingObservedAt": "2026-11-24",
+      "listingType": "delivery storefront; not in-store inventory"
+    }
+  ]
+}
