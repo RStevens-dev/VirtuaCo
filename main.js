@@ -253,7 +253,54 @@ let pos=new T.Vector3(SPAWN.x,1.68,SPAWN.z),yaw=SPAWN.yaw,pitch=0,started=false,
 const radius=.36;
 let stick={x:0,y:0},stickId=null,route=[],routeStops=[],tapWalk=false,battery=false,sensitivity=1,gyro=false,gyroBase=null,viewerCleanup=null;const audio=ambientAudio();
 const routeMarker=new T.Group();scene.add(routeMarker);
-const trolley=new T.Group(),trolleyWire=new T.MeshBasicMaterial({color:0x9da9b2,wireframe:true}),trolleyBody=new T.Mesh(new T.BoxGeometry(.58,.42,.72,5,3,6),trolleyWire);trolleyBody.position.y=.72;trolley.add(trolleyBody);const trolleyHandle=new T.Mesh(new T.BoxGeometry(.66,.045,.045),material('#bd3438'));trolleyHandle.position.set(0,.99,.45);trolley.add(trolleyHandle);for(const x of [-.25,.25])for(const z of [-.28,.28]){const wheel=new T.Mesh(new T.CylinderGeometry(.09,.09,.04,12),material('#26292d'));wheel.rotation.z=Math.PI/2;wheel.position.set(x,.11,z);trolley.add(wheel);}scene.add(trolley);trolley.visible=false;let showTrolley=false;const trolleyItems=new T.Group();trolley.add(trolleyItems);
+const trolley=new T.Group();
+// Real welded-wire basket: no triangle edges, no external textures.
+{
+ const steel=new T.MeshStandardMaterial({color:0xb9c2c7,metalness:.65,roughness:.32});
+ const rubber=new T.MeshStandardMaterial({color:0x22252a,roughness:.86});
+ const red=new T.MeshStandardMaterial({color:0xbc242b,roughness:.46});
+ const groups={wire:[],frame:[],handle:[]};
+ const v=(x,y,z)=>new T.Vector3(x,y,z);
+ const rod=(a,b,r,kind='wire')=>groups[kind].push({a,b,r});
+ const lerp=(a,b,t)=>a.clone().lerp(b,t);
+ const bottom=[v(-.27,.49,-.37),v(.27,.49,-.37),v(.32,.49,.34),v(-.32,.49,.34)];
+ const top=[v(-.32,.91,-.44),v(.32,.91,-.44),v(.39,.98,.42),v(-.39,.98,.42)];
+ for(let i=0;i<4;i++){
+  const j=(i+1)%4;
+  rod(bottom[i],bottom[j],.009,'frame');rod(top[i],top[j],.013,'frame');
+  rod(bottom[i],top[i],.011,'frame');
+  const count=i%2===0?12:15;
+  for(let k=1;k<count;k++)rod(lerp(bottom[i],bottom[j],k/count),lerp(top[i],top[j],k/count),.0038);
+  for(let k=1;k<=6;k++)rod(lerp(bottom[i],top[i],k/7),lerp(bottom[j],top[j],k/7),.0038);
+ }
+ for(let k=1;k<14;k++)rod(lerp(bottom[0],bottom[3],k/14),lerp(bottom[1],bottom[2],k/14),.004);
+ for(let k=1;k<11;k++)rod(lerp(bottom[0],bottom[1],k/11),lerp(bottom[3],bottom[2],k/11),.004);
+ // Lower platform, tubular undercarriage and rear handle uprights.
+ for(const sign of [-1,1]){
+  rod(v(sign*.26,.17,-.39),v(sign*.33,.17,.38),.019,'frame');
+  rod(v(sign*.26,.17,-.39),v(sign*.27,.49,-.31),.017,'frame');
+  rod(v(sign*.33,.17,.38),v(sign*.35,.98,.44),.019,'frame');
+  rod(v(sign*.35,.98,.44),v(sign*.35,1.04,.53),.017,'frame');
+  rod(v(sign*.30,.22,.33),v(sign*.26,.22,-.33),.011,'frame');
+ }
+ for(const z of [-.37,.36])rod(v(-.28,.17,z),v(.28,.17,z),.018,'frame');
+ for(let k=0;k<=9;k++){const z=-.33+k*.073;rod(v(-.27,.22,z),v(.27,.22,z),.006);}
+ for(let k=0;k<=6;k++){const x=-.26+k*.087;rod(v(x,.22,-.33),v(x,.22,.33),.006);}
+ rod(v(-.35,1.04,.53),v(.35,1.04,.53),.022,'frame');
+ rod(v(-.30,1.04,.53),v(.30,1.04,.53),.029,'handle');
+ const unit=new T.CylinderGeometry(1,1,1,8),dummy=new T.Object3D(),axis=v(0,1,0);
+ for(const [kind,segments] of Object.entries(groups)){
+  const mesh=new T.InstancedMesh(unit,kind==='handle'?red:steel,segments.length);
+  segments.forEach(({a,b,r},i)=>{const delta=b.clone().sub(a);dummy.position.copy(a).addScaledVector(delta,.5);dummy.quaternion.setFromUnitVectors(axis,delta.clone().normalize());dummy.scale.set(r,delta.length(),r);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});
+  mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();trolley.add(mesh);
+ }
+ const tireGeo=new T.CylinderGeometry(.079,.079,.045,20),hubGeo=new T.CylinderGeometry(.044,.044,.049,16),forkGeo=new T.BoxGeometry(.065,.075,.06);
+ for(const x of [-.28,.28])for(const z of [-.34,.34]){
+  for(const [geo,mat] of [[tireGeo,rubber],[hubGeo,steel]]){const wheel=new T.Mesh(geo,mat);wheel.rotation.z=Math.PI/2;wheel.position.set(x,.083,z);trolley.add(wheel);}
+  const fork=new T.Mesh(forkGeo,steel);fork.position.set(x,.145,z);trolley.add(fork);
+ }
+}
+scene.add(trolley);trolley.visible=false;let showTrolley=false;const trolleyItems=new T.Group();trolley.add(trolleyItems);
 function updateTrolley(){trolley.visible=showTrolley&&started&&!open;if(!trolley.visible)return;const x=pos.x-Math.sin(yaw)*.95,z=pos.z-Math.cos(yaw)*.95;trolley.position.set(x,0,z);trolley.rotation.y=yaw;}
 const seasonName=new Intl.DateTimeFormat('en',{month:'long'}).format(new Date());
 function showSeason(){const b=showPanel('Seasonal discoveries',seasonName.toUpperCase()+' / ROTATING PICKS','season');const month=new Date().getMonth(),pool=catalog.filter(p=>p.category==='season'||p.category==='home'||p.category==='misc');const ordered=[...pool.slice((month*17)%Math.max(1,pool.length)),...pool.slice(0,(month*17)%Math.max(1,pool.length))];for(const p of ordered.slice(0,12))b.append(productRow(p,()=>showProduct(p)));}
