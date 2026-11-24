@@ -1,0 +1,27 @@
+name: Import verified warehouse models
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/import-models.yml'
+permissions:
+  contents: write
+concurrency:
+  group: virtuaco-model-import
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and validate 500 GLB models
+        run: python3 tools/import_models.py --count 500
+      - name: Commit validated catalog and model files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/models assets/catalog.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Import 500 validated local product scans"
+          git push origin HEAD:main
