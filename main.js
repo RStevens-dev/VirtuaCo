@@ -335,7 +335,7 @@ function showProduct(p,zone){
  append(body,art,el('div','eyebrow',p.size+' / '+p.id.toUpperCase()),amount,status,info(nativeVisible.has(p.id)?'Locally generated 3D product geometry. Demo price and stock.':'Illustrative bulk product. Price and inventory are fictional and not connected to a retailer.'),...(p.scan?[info('3D scan: '+p.credit+' · '+p.license),(()=>{const a=el('a','text-button','Original scan and attribution');a.href=p.source;a.target='_blank';a.rel='noopener noreferrer';return a;})()]:photoManifest[p.id]?[info('Photo: '+photoManifest[p.id].credit+' · '+photoManifest[p.id].license),(()=>{const a=el('a','text-button','Original product photo record');a.href=photoManifest[p.id].source;a.target='_blank';a.rel='noopener noreferrer';return a;})()]:[]),add,el('hr'),el('h3','','Inventory visualizer'),info('Adjust simulated availability. The number of visible scan-derived units on bulk displays changes with inventory.'),quantity,button('Walk to this product',()=>{const l=productLocations.get(p.id)?.[0];if(l)navigate(l.x,l.z);}),button('Reset simulated stock',()=>{setStock(p.id,p.stock);quantity.value=p.stock;update();}));
 }
 function inspect(){if(hit&&!open&&byId[hit.p.id]?.kind==='retail')showProduct(hit.p,hit.zone);else if(!open)toast('Look at a product or price sign to inspect it');}
-function showRetailProduct(p,zone){const b=showPanel(p.name,'FLORIDA / '+(p.item?'ITEM '+p.item:p.upc?'UPC '+p.upc:'ORLANDO DELIVERY LISTING'),'product');if(p.model){const art=el('div','product-view');art.append(el('div','product-view-status','Loading verified matching scan…'));b.append(art);openProductViewer(art,p.model);}else if(p.image){const img=el('img','retail-photo');img.src=p.image;img.alt=p.name;img.loading='lazy';b.append(img,info('Product photo · Open Food Facts contributors · '+p.imageLicense));}else b.append(info('No verified matching visual asset.'));const link=el('a','text-button','Product source and attribution');link.href=p.source;link.target='_blank';link.rel='noopener noreferrer';append(b,el('div','price',priceLabel(p)),info(p.priceType==='unknown'?'No verified price':p.priceType+' price · USD'),info(availabilityLabel(p)),...(p.regionalListing?[info('South Orlando delivery listing observed '+p.listingObservedAt+'; not an in-store stock check.')]:[]),info(p.brand+' · '+p.size),info('Warehouse reference: South Orlando #1235. Catalogue listing does not establish local stock.'),link,button('Back to catalogue',showSearch),button('Add to planning basket',()=>addBasket(p),'primary'));const loc=productLocations.get(p.id)?.[0];if(loc)b.append(button('Walk to representative display',()=>navigate(loc.x,loc.z)));}
+function showRetailProduct(p,zone){const b=showPanel(p.name,'FLORIDA / '+(p.item?'ITEM '+p.item:p.upc?'UPC '+p.upc:'ORLANDO DELIVERY LISTING'),'product');if(p.model){const art=el('div','product-view');art.append(el('div','product-view-status','Loading verified matching scan…'));b.append(art);openProductViewer(art,p.model);}else if(p.image){const img=el('img','retail-photo');img.src=p.image;img.alt=p.name;img.loading='lazy';b.append(img,info('Product photo · Open Food Facts contributors · '+p.imageLicense));}else b.append(info('No verified matching visual asset.'));const link=el('a','text-button','Product source and attribution');link.href=p.source;link.target='_blank';link.rel='noopener noreferrer';append(b,el('div','price',priceLabel(p)),info(p.priceType==='unknown'?'No verified price':p.priceType+' price · USD'),info(availabilityLabel(p)),...(p.regionalListing?[info('South Orlando delivery listing observed '+p.listingObservedAt+'; not an in-store stock check.')]:[]),info(p.brand+' · '+p.size),info('Warehouse reference: South Orlando #1235. Catalogue listing does not establish local stock. Unbranded carton fullness is simulated.'),link,button('Back to catalogue',showSearch),button('Add to planning basket',()=>addBasket(p),'primary'));const loc=productLocations.get(p.id)?.[0];if(loc)b.append(button('Walk to representative display',()=>navigate(loc.x,loc.z)));}
 function productRow(p,fn){let row=el('button','product-row'),sw=el('span','swatch');sw.style.background=p.color;let left=append(el('span','product-text'),el('b','',p.name),el('small','',p.size+' · '+(p.regionalListing?'Orlando delivery listing':p.kind==='retail'?p.availability==='unknown'?'Availability unknown':p.availability:stockState(stock.get(p.id)))));append(row,sw,left,el('strong','',p.kind==='retail'?priceLabel(p):money(p.price)));row.onclick=fn;return row;}
 function renderModelList(){const body=$('panelBody');body.replaceChildren(info('Verified local files: '+catalog.length+' · currently rendered: '+[...modelStatus.values()].filter(s=>s==='3D model loaded').length+'. No procedural merchandise.'),info('Select a product to travel directly to a display.'));for(const id of nativeVisible){const p=byId[id],loc=productLocations.get(id)?.[0];body.append(productRow(p,()=>showProduct(p,loc?.zone)),info('Local 3D geometry · no external download'));if(loc)body.append(button('Go to product →',()=>{jump(loc.x,loc.z,loc.x,loc.z);pitch=Math.atan2(.6,Math.hypot(pos.x-loc.x,pos.z-loc.z));}));}for(const [id,asset] of Object.entries(models).filter(([id,a])=>modelStatus.has(id)).slice(0,100)){const p=byId[id],slot=modelSlots.find(s=>s.id===id);if(!p)continue;body.append(productRow(p,()=>showProduct(p)));body.append(info(modelStatus.get(id)||'Waiting for download'));if(slot)body.append(button('Go to model →',()=>{jump(slot.x,slot.z,slot.x,slot.z);pitch=Math.atan2(slot.y+slot.h/2-1.68,Math.hypot(pos.x-slot.x,pos.z-slot.z));}));else body.append(info('No dedicated model placement'));}}
 function showModels(){showPanel('Real product models','ASSET STATUS / FIND A DISPLAY','models');renderModelList();}
@@ -401,11 +401,38 @@ async function expandWarehouse(){
   // Catalogue is unlimited; physical space is finite. Leave excess items searchable.
   // Prefer exact models, then licensed images, then sourced name-only placards.
   for(const p of [...retail].sort((a,b)=>Number(b.regionalListing)-Number(a.regionalListing)||Number(!!b.model)-Number(!!a.model)||Number(!!b.image)-Number(!!a.image))){
-   const matching=racks.filter(f=>f.zone.category===p.category),pool=(matching.length?matching:racks).filter(f=>(assignments.get(f)?.length||0)<3);
+   const matching=racks.filter(f=>f.zone.category===p.category&&(assignments.get(f)?.length||0)<3),pool=(matching.length?matching:racks.filter(f=>(assignments.get(f)?.length||0)<3));
    if(!pool.length)continue;const f=pool.reduce((a,b)=>(assignments.get(a)?.length||0)<=(assignments.get(b)?.length||0)?a:b);
    if(!assignments.has(f))assignments.set(f,[]);assignments.get(f).push(p);
   }
-  const photoQueue=[],shelfCards=[];
+  // Fill every physical merchandising fixture with unbranded shipping cartons.
+  // This is simulated display density, never a claim about Costco inventory.
+  const cartonColors=['#ba9466','#c4a47c','#ad8961','#d0b99b','#e1ded1','#aaa99e'];
+  for(const f of racks){
+   const alongX=f.alongX??f.w>=f.d,w=alongX?f.w:f.d,d=alongX?f.d:f.w,r=rng(8371+Math.round(f.x*197+f.z*311)),rack=f.type==='rack';
+   const bays=Math.max(1,Math.round(w/1.05)),bw=(w-.17)/bays,depth=d-.18;
+   if(depth<=.08||bw<=.08)continue;
+   for(let j=0;j<bays;j++){
+    const u=-w/2+.085+(j+.5)*bw,products=assignments.get(f)||[],p=products[Math.min(products.length-1,Math.floor(j*products.length/bays))];
+    const known=p?.stockQuantity,quantity=known==null?null:Math.max(0,known);
+    if(quantity===0||p?.availability==='unavailable')continue;
+    const full=quantity==null?.65+r()*.35:Math.min(1,quantity/48),layers=Math.max(1,Math.round(full*(rack?4:2))),h=rack?.32:.29;
+    const cols=2,rows=depth>.95?2:1,cw=bw*.94/cols,cd=depth*.94/rows,base=rack?.17:f.type==='cold'?.82:.92;
+    if(rack){for(let k=0;k<4;k++)lb({...f,alongX},u+(k-1.5)*bw*.23,.115,0,bw*.20,.075,depth,wood);}
+    const color=cartonColors[Math.floor(r()*cartonColors.length)];
+    for(let l=0;l<layers;l++)for(let a=0;a<cols;a++)for(let b=0;b<rows;b++){
+     if(l===layers-1&&a===1&&b===rows-1&&r()<.22)continue;
+     const x=u+(a-.5)*cw,z=(b-(rows-1)/2)*cd,y=base+(l+.5)*h;
+     lb({...f,alongX},x,y,z,cw*.975,h*.975,cd*.975,color);
+     lb({...f,alongX},x,y+h*.493,z,cw*.17,.006,cd*.96,'#e0c69e');
+     for(const side of [-1,1])lb({...f,alongX},x-cw*.19,y+h*.12,z+side*cd*.49,cw*.29,h*.21,.006,'#eee8db');
+    }
+    // Middle display stock behind the genuine product image/placard, without invented branding.
+    if(rack){const midH=.47+r()*.27;lb({...f,alongX},u,1.80+midH/2,0,bw*.90,midH,depth*.78,color);lb({...f,alongX},u,1.80+midH+.004,0,bw*.13,.008,depth*.78,'#e0c69e');}
+   }
+  }
+  for(const {geo,mat,matrices} of batches.values()){const mesh=new T.InstancedMesh(geo,mat,matrices.length);matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));mesh.instanceMatrix.needsUpdate=true;scene.add(mesh);}batches.clear();
+  const photoQueue=[],shelfCards=[]; const baseCanvas=document.createElement('canvas');baseCanvas.width=2048;baseCanvas.height=2048;const baseCtx=baseCanvas.getContext('2d'),baseTex=new T.CanvasTexture(baseCanvas);baseTex.colorSpace=T.SRGBColorSpace;baseTex.generateMipmaps=false;baseTex.minFilter=T.LinearFilter;const baseMat=new T.MeshBasicMaterial({map:baseTex,side:T.DoubleSide});
   // One atlas for all sourced shelf signs; avoid hundreds of individual GPU textures.
   const tileW=256,tileH=128,columns=8,perAtlas=128,atlasCanvases=[];
   for(const [f,products] of assignments){
@@ -423,9 +450,7 @@ async function expandWarehouse(){
     const sign=new T.Mesh(geo,atlas.mat);sign.position.set(x+Math.sin(rot)*depth*.43,y+.12,z+Math.cos(rot)*depth*.43);sign.rotation.y=rot;scene.add(sign);shelfCards.push(sign);
     proxy(p,x,y+.42,z,size,.84,size,f.zone,f);displayed.add(p.id);
     if(p.model){models[p.id]={...p.model};modelSlots.push({id:p.id,assetId:p.assetId,x,y,z,w:size,h:.85,d:size,rot,bulk:false});}
-    else if(p.image){const mat=new T.MeshBasicMaterial({color:0xffffff,side:T.DoubleSide});const photo=new T.Mesh(new T.PlaneGeometry(size,.70),mat);photo.position.set(x,y+.62,z);photo.rotation.y=rot;photo.visible=false;scene.add(photo);const back=new T.Mesh(boxGeo,material('#e4e1db'));back.scale.set(size*.94,.72,.045);back.position.set(x-Math.sin(rot)*.03,y+.62,z-Math.cos(rot)*.03);back.rotation.y=rot;back.visible=false;scene.add(back);photoQueue.push({p,photo,mat,x,z,back,size});}
-    // Unknown stock remains empty: no invented stock count. Verified quantities fill neutral cartons.
-    if(rack&&p.stockQuantity>0){const n=Math.min(12,Math.ceil(p.stockQuantity/4)),bw=size*.44,bd=Math.min(depth*.37,.38),bh=.27;for(let k=0;k<n;k++){const col=k%2,row=Math.floor(k/2)%2,layer=Math.floor(k/4),mesh=new T.Mesh(boxGeo,kraft);mesh.scale.set(bw,bh,bd);mesh.position.set(x+(col-.5)*bw,.17+(layer+.5)*bh,z+(row-.5)*bd);scene.add(mesh);}}
+    else if(p.image){const mat=new T.MeshBasicMaterial({color:0xffffff,side:T.DoubleSide});const photo=new T.Mesh(new T.PlaneGeometry(size,.70),mat);photo.position.set(x+Math.sin(rot)*depth*.45,y+.62,z+Math.cos(rot)*depth*.45);photo.rotation.y=rot;photo.visible=false;scene.add(photo);const back=new T.Mesh(boxGeo,material('#e4e1db'));back.scale.set(size*.94,.72,.045);back.position.copy(photo.position);back.position.x-=Math.sin(rot)*.03;back.position.z-=Math.cos(rot)*.03;back.rotation.y=rot;back.visible=false;scene.add(back);const idx=photoQueue.length,cell=96,ax=(idx%21)*cell,ay=Math.floor(idx/21)*cell;const g=new T.PlaneGeometry(size,.70),uv2=g.attributes.uv;for(let k=0;k<uv2.count;k++)uv2.setXY(k,(ax+uv2.getX(k)*cell)/2048,1-(ay+(1-uv2.getY(k))*cell)/2048);const low=new T.Mesh(g,baseMat);low.position.copy(photo.position);low.position.x-=Math.sin(rot)*.006;low.position.z-=Math.cos(rot)*.006;low.rotation.y=rot;low.visible=false;scene.add(low);photoQueue.push({p,photo,mat,x,z,back,size,low,ax,ay,cell});}
    }
   }
   for(const a of atlasCanvases)a.texture.needsUpdate=true;
@@ -440,12 +465,18 @@ async function expandWarehouse(){
    const ranked=photoQueue.map(e=>({...e,d:Math.hypot(e.x-pos.x,e.z-pos.z)})).sort((a,b)=>a.d-b.d),near=ranked.filter(e=>e.d<=30&&!photoFailed.has(e.p.id)).slice(0,photoLimit);
    for(const e of near){if(photoResidents.has(e.p.id))continue;const distant=[...photoResidents.values()].sort((a,b)=>Math.hypot(b.x-pos.x,b.z-pos.z)-Math.hypot(a.x-pos.x,a.z-pos.z))[0];if(photoResidents.size>=photoLimit&&(!distant||Math.hypot(distant.x-pos.x,distant.z-pos.z)<e.d+10))continue;
     try{const img=new Image();img.crossOrigin='anonymous';img.src=e.p.image;await img.decode();const c=document.createElement('canvas');const scale=Math.min(1,192/Math.max(img.naturalWidth,img.naturalHeight));c.width=Math.max(1,Math.round(img.naturalWidth*scale));c.height=Math.max(1,Math.round(img.naturalHeight*scale));c.getContext('2d').drawImage(img,0,0,c.width,c.height);const tx=new T.CanvasTexture(c);tx.colorSpace=T.SRGBColorSpace;tx.generateMipmaps=false;tx.minFilter=T.LinearFilter;
-    if(photoResidents.size>=photoLimit&&distant){distant.photo.visible=false;distant.back.visible=false;distant.mat.map.dispose();distant.mat.map=null;distant.mat.needsUpdate=true;photoResidents.delete(distant.p.id);}
-    e.mat.map=tx;e.mat.needsUpdate=true;const aspect=c.width/c.height;const fitW=Math.min(e.size,.70*aspect),fitH=fitW/aspect;e.photo.scale.set(fitW/e.size,fitH/.70,1);e.back.scale.set(fitW,fitH,.045);e.photo.visible=true;e.back.visible=true;photoResidents.set(e.p.id,e);
+    if(photoResidents.size>=photoLimit&&distant){distant.photo.visible=false;distant.back.visible=false;if(distant.low)distant.low.visible=true;distant.mat.map.dispose();distant.mat.map=null;distant.mat.needsUpdate=true;photoResidents.delete(distant.p.id);}
+    e.mat.map=tx;e.mat.needsUpdate=true;const aspect=c.width/c.height;const fitW=Math.min(e.size,.70*aspect),fitH=fitW/aspect;e.photo.scale.set(fitW/e.size,fitH/.70,1);e.back.scale.set(fitW,fitH,.045);e.photo.visible=true;e.back.visible=true;if(e.low)e.low.visible=false;photoResidents.set(e.p.id,e);
     }catch{photoFailed.add(e.p.id);}await new Promise(r=>setTimeout(r,40));}
   }finally{photoBusy=false;}}
   const photoTimer=setInterval(photos,1500);
-  expansionState=retail.length.toLocaleString()+' sourced US products · '+modelSlots.length+' exact model displays · '+displayed.size+' physical listings. South Orlando stock is not implied.';
+  // Persistent low-resolution thumbnails populate the whole warehouse in distance order.
+  // One 16 MiB atlas, rather than hundreds of standalone textures.
+  let baseDirty=false;setInterval(()=>{if(baseDirty){baseTex.needsUpdate=true;baseDirty=false;}},500);
+  const baseQueue=[...photoQueue].sort((a,b)=>Math.hypot(a.x-SPAWN.x,a.z-SPAWN.z)-Math.hypot(b.x-SPAWN.x,b.z-SPAWN.z));let baseCursor=0;
+  async function loadBase(){while(baseCursor<baseQueue.length){const e=baseQueue[baseCursor++];if(e.ay+e.cell>2048)continue;try{const img=new Image();img.crossOrigin='anonymous';img.src=e.p.image;await img.decode();const ratio=img.naturalWidth/img.naturalHeight,w=ratio>=1?e.cell:e.cell*ratio,h=ratio>=1?e.cell/ratio:e.cell;baseCtx.fillStyle='#faf9f3';baseCtx.fillRect(e.ax,e.ay,e.cell,e.cell);baseCtx.drawImage(img,e.ax+(e.cell-w)/2,e.ay+(e.cell-h)/2,w,h);e.low.visible=!photoResidents.has(e.p.id);baseDirty=true;}catch{}await new Promise(r=>setTimeout(r,60));}}
+  loadBase();loadBase();
+  expansionState=retail.length.toLocaleString()+' sourced US products · '+modelSlots.length+' exact model displays · '+displayed.size+' physical listings. Decorative carton fullness is simulated; South Orlando stock is not implied.';
   $('preloadBar').value=100;$('preloadPercent').textContent='100%';$('preloadStatus').textContent='Warehouse ready';$('preloadDetail').textContent=expansionState;$('preloader').dataset.ready='true';warehouseReady=true;$('start').disabled=false;$('start').textContent='Enter the warehouse →';
   photos();if(mode==='search')showSearch();
  }catch(error){expansionState='Warehouse preload failed · '+error.message;$('preloadStatus').textContent='Loading unsuccessful';$('loadError').textContent=error.message;$('start').disabled=false;$('start').textContent='Retry loading';$('start').onclick=()=>location.reload();console.warn(error);}
