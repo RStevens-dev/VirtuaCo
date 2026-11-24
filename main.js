@@ -8,7 +8,7 @@ import {nativeIds,sculpt} from './native-models.js';
 const random=rng(32701), scene=new T.Scene(), camera=new T.PerspectiveCamera(73,innerWidth/innerHeight,.06,160);
 scene.background=new T.Color('#bfc8cf');scene.fog=new T.Fog('#bfc8cf',75,155);
 const renderer=new T.WebGLRenderer({antialias:true,powerPreference:'high-performance'});
-renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.25;
+renderer.setPixelRatio(Math.min(devicePixelRatio,matchMedia('(pointer:coarse)').matches?1:1.4));renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.25;
 $('viewport').appendChild(renderer.domElement);
 scene.add(new T.HemisphereLight(0xf4f8ff,0xa49a86,2.0));
 const sun=new T.DirectionalLight(0xfff7e6,1.5);sun.position.set(25,35,10);scene.add(sun);
@@ -265,6 +265,7 @@ function showMap(){let body=showPanel('Warehouse map','FLOOR PLAN / SELECT A DES
 function showLoadingSettings(){
  const b=showPanel('Loading distances','PERFORMANCE / STREAMING','loading');
  append(b,info('Control the detailed model loading area relative to your view and movement. Nearby models are prioritized; memory limits still apply.'));
+ performanceLine=el('p','muted','Collecting live performance metrics…');b.append(performanceLine);
  const controls=[];
  for(const [key,name] of [['forward','Forward distance'],['side','Side distance (each direction)']]){
   const label=el('label','stream-label'),value=el('strong','',loadingTolerance[key]+' m'),input=el('input');input.type='range';input.min=0;input.max=WIDTH;input.step=1;input.value=loadingTolerance[key];input.setAttribute('aria-label',name);
@@ -277,6 +278,7 @@ function showLoadingSettings(){
 function showHelp(){let b=showPanel('Make yourself at home','CONTROLS / ABOUT','help');append(b,info('Desktop: WASD or arrows to move, mouse to look, Shift to walk faster. Click or press E to inspect an item. Escape releases the mouse.'),info('Touch: drag the warehouse view to look; use the direction buttons to move, and Inspect to open the targeted product.'),info('M opens the map, F finds products, B opens the basket, H opens this help. Product inventory can be adjusted in the detail panel.'),info('VirtuaCo is an independent fictional warehouse simulator, not affiliated with Costco. All packaging, prices and inventory are illustrative. No accounts, payments or tracking.'),button('Back to entrance',()=>jump(SPAWN.x,SPAWN.z,SPAWN.x-10,SPAWN.z)));}
 $('streamBtn').onclick=showLoadingSettings;$('mapBtn').onclick=showMap;$('searchBtn').onclick=showSearch;$('cartBtn').onclick=showBasket;$('helpBtn').onclick=showHelp;$('mini').onclick=showMap;
 let prev=performance.now(),lastScan=0,lastMap=0,lastStream=0;
+let fps=60,frameCount=0,fpsStart=performance.now(),lastQuality=0,pixelRatio=renderer.getPixelRatio(),performanceLine=null;
 function frame(now){
  requestAnimationFrame(frame);let dt=Math.min(.045,(now-prev)/1000);prev=now;
  if(started&&!open){
@@ -291,7 +293,7 @@ function frame(now){
  }
  if(now-lastMap>220){lastMap=now;let q=zones.reduce((best,q)=>{let d=Math.hypot(Math.max(q.x-pos.x,0,pos.x-q.x-q.w),Math.max(q.z-pos.z,0,pos.z-q.z-q.d));return d<best.d?{q,d}:best;},{d:Infinity,q:null});$('where').textContent=q.d<4?q.q.name:'Main aisle';$('coords').textContent=Math.round(pos.x)+' / '+Math.round(pos.z);drawMap($('mini'));}
  if(warehouseReady&&sectionStreamer&&now-lastStream>250){const elapsed=Math.max(.25,(now-lastStream)/1000);sectionStreamer.update(pos,yaw,{x:(pos.x-streamX)/elapsed,z:(pos.z-streamZ)/elapsed});streamX=pos.x;streamZ=pos.z;lastStream=now;const stats=sectionStreamer.stats();$('coords').textContent=stats.resident+' / '+stats.limit+' 3D · '+stats.eligible+' eligible · '+Math.round(stats.bytes/1048576)+' MB';}
- if(warehouseReady)renderer.render(scene,camera);
+ if(warehouseReady){renderer.render(scene,camera);frameCount++;if(now-fpsStart>=2000){fps=frameCount*1000/(now-fpsStart);frameCount=0;fpsStart=now;if(now-lastQuality>8000){let target=pixelRatio;if(fps<28)target=Math.max(.65,pixelRatio-.15);else if(fps>55)target=Math.min(1.6,devicePixelRatio,pixelRatio+.05);if(target!==pixelRatio){pixelRatio=target;renderer.setPixelRatio(pixelRatio);lastQuality=now;}}if(performanceLine?.isConnected){const st=sectionStreamer.stats(),r=renderer.info;performanceLine.textContent=Math.round(fps)+' FPS · '+r.render.calls+' draw calls · '+r.render.triangles.toLocaleString()+' triangles · '+r.memory.textures+' textures · '+st.resident+' detailed / '+st.baseReady+' low-detail models · '+st.pending+' loading · '+st.evictions+' evictions · '+Math.round(st.bytes/1048576)+' MiB detailed estimate · '+(st.hasLOD?'Optimized assets active':'Original assets active');}}}
 }
 window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
 requestAnimationFrame(frame);
