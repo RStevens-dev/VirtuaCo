@@ -1,0 +1,38 @@
+name: Acquire high resolution product art
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/retail-originals.yml
+permissions:
+  contents: write
+concurrency:
+  group: retail-originals
+  cancel-in-progress: false
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow==11.3.0
+      - run: python tools/acquire-retail-originals.py
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/retail-source
+          git diff --cached --quiet && exit 0
+          git commit -m "Publish high resolution sourced product photos"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 5
+          done
+          exit 1
