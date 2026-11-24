@@ -28,25 +28,49 @@ export function merchDepartment(p){
  if(/paper towels|toilet paper|bath tissue/.test(n))return 'paper';
  if(/purified water|bottled water|agua purificada/.test(n))return 'water';
  if(/sauvignon|chardonnay|cabernet|pinot|merlot|prosecco|wine|vodka|whiskey|whisky|tequila|bourbon|sangria|champagne|orange juice|sparkling|soda/.test(n))return 'drinks';
- if(/popsicle|ice pop|freezer pop|hummus/.test(n))return /hummus/.test(n)?'dairy':'frozen';
+ if(/popsicle|ice pop|freezer pop/.test(n))return 'frozen';
+ if(/hummus|roller tray/.test(n))return 'fresh';
  if(/honey roasted.*nuts|macadamia nuts/.test(n))return 'snacks';
  if(/breaded chicken.*chunks|breaded cod/.test(n))return 'frozen';
  if(/olive oil|avocado oil|honey|spread|jam|rice|flour|vinegar/.test(n))return 'pantry';
  if(/muffin|croissant|pecan pie|bread|bagel|cake/.test(n))return 'bakery';
  if(/ahi tuna.*poke|spicy poke|breaded chicken.*chunks|roller tray|sliced.*(turkey|ham)|ground.*beef|chicken wings|salmon/.test(n))return 'meat';
  if(/whey protein|protein powder/.test(n))return 'health';
+ if(/protein bars?|snack bars?/.test(n))return 'snacks';
  if(/nuts|almonds|cashews|pretzel|chips|chocolate|popcorn|trail mix/.test(n))return 'snacks';
  if(/milk|butter|cheese|yogurt/.test(n))return 'dairy';
  if(/gummies|vitamin|supplement/.test(n))return 'health';
  if(/blender|blending system|air fryer|microwave/.test(n))return 'appliances';
  return ({beverages:'drinks',household:'clean',produce:'produce'})[c]||c||'misc';
 }
+// Prefer the actual aisle purpose, not merely its broad department.
+export function aisleAffinity(p,f){
+ const n=(p.name||'').toLowerCase(),z=(f.zone.name||'').toLowerCase();
+ if(merchDepartment(p)==='frozen')return f.type==='cold'||/freezer/.test(z)?10:0;
+ const rules=[
+ [/sauvignon|chardonnay|cabernet|pinot|merlot|wine|sangria|vodka|whisk|tequila|champagne/,/^drinks$/],
+ [/orange juice|sparkling|soda|lemonade/,/soft drinks|^drinks$/],
+ [/coffee|\btea\b/,/coffee \/ tea/],
+ [/hummus|roller tray/,/deli|^fridge$/],
+ [/milk(?! powder)|yogurt|cheese|butter/,/dairy fridge/],
+ [/tuna.*poke|salmon|seafood|shrimp/,/seafood/],
+ [/chicken|turkey/,/poultry/],
+ [/olive oil|avocado oil|flour/,/oils \/ baking/],
+ [/spread|jam|syrup|honey/,/spreads \/ syrups/],
+ [/nuts|almonds|cashews|pretzel/,/nuts \/ confectionery|dried fruit \/ nuts/],
+ [/protein bars?|snack bars?/,/protein \/ snack/],
+ [/chips|popcorn/,/energy drinks \/ chips/],
+ [/whey protein|protein powder|vitamin/,/health \/ beauty/]
+ ];
+ for(const [product,aisle] of rules)if(product.test(n))return aisle.test(z)?10:-1;
+ return 0;
+}
 export function assignMerchandise(products,fixtures){
  const output=new Map(),byDept=new Map();
  for(const f of fixtures){const c=f.zone.category;if(!byDept.has(c))byDept.set(c,[]);byDept.get(c).push(f);}
  const score=p=>Number(!!p.regionalListing)*8+Number(!!p.model)*4+Number(!!p.image)*2;
  for(const p of [...products].filter(p=>p.model||p.image||p.regionalListing).sort((a,b)=>score(b)-score(a))){
-  const dept=merchDepartment(p),pool=(byDept.get(dept)||[]).filter(f=>(output.get(f)?.length||0)<3);
+  const dept=merchDepartment(p),candidates=(byDept.get(dept)||[]).filter(f=>(output.get(f)?.length||0)<3),preferred=candidates.filter(f=>aisleAffinity(p,f)>0),pool=preferred.length?preferred:candidates.filter(f=>aisleAffinity(p,f)>=0||!f.zone.name);
   if(!pool.length)continue;const f=pool.reduce((a,b)=>(output.get(a)?.length||0)<=(output.get(b)?.length||0)?a:b);
   if(!output.has(f))output.set(f,[]);output.get(f).push(p);
  }
@@ -59,3 +83,6 @@ export function packageLayout(type,width,depth,hero=false){
  const pitch=Math.min(w*1.05,(width-w)/Math.max(1,n-1));
  return {w,h,d,offsets:Array.from({length:n},(_,i)=>(i-(n-1)/2)*pitch)};
 }
+
+// Depth rows are bounded and leave a small gap between packages.
+export function depthRows(itemDepth,usableDepth){const pitch=itemDepth*1.08;const n=Math.max(1,Math.min(3,1+Math.floor(Math.max(0,usableDepth-itemDepth)/pitch)));return Array.from({length:n},(_,i)=>-i*pitch);}
