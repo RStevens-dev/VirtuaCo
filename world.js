@@ -819,7 +819,7 @@ export const zones = [
   ""
  ]
 ].map(([name,x,z,w,d,kind,category,aisle,face],i)=>({id:aisle||'D'+(i+1),name,x,z,w,d,kind,category,aisle,face}));
-export const WIDTH=132, DEPTH=77, SPAWN={x:111.5,z:3,yaw:0};
+export const WIDTH=132, DEPTH=77, SPAWN={x:111.5,z:3,yaw:Math.PI};
 export const colors={rack:'#df923b',cold:'#62b8ce',display:'#62a581',counter:'#d76558',checkout:'#d76558',service:'#8797a5'};
 const groups={
  water:[['Spring water','40 × 500 mL',5.49,'#3c92c6','bottle'],['Sparkling mineral water','24 × 330 mL',14.99,'#357e67','can']],
@@ -848,7 +848,7 @@ const groups={
  appliances:[['Countertop air fryer','8 qt',69.99,'#424d59'],['Stand mixer','5 qt',229.99,'#b94b49'],['Robot vacuum','Wi-Fi',199.99,'#66717e']],
  food:[['Hot dog & soda','Combo',1.50,'#d54b42','tub'],['Pizza slice','Cheese',1.99,'#df9d42','tub'],['Berry sundae','12 oz',2.49,'#bf6b9b','tub']]
 };
-export const catalog=Object.entries(groups).flatMap(([category,items])=>items.map(([name,size,price,color,shape='box'],i)=>({id:category+'-'+(i+1),category,name,size,price,color,shape,stock:[96,48,14,0,72,33][(i+category.length)%6]})));
+export const catalog=Object.entries(groups).filter(([category])=>zones.some(z=>z.category===category)).flatMap(([category,items])=>items.map(([name,size,price,color,shape='box'],i)=>({id:category+'-'+(i+1),category,name,size,price,color,shape,stock:[96,48,14,0,72,33][(i+category.length)%6]})));
 export const byCategory=Object.fromEntries(Object.keys(groups).map(k=>[k,catalog.filter(p=>p.category===k)]));
 export const byId=Object.fromEntries(catalog.map(p=>[p.id,p]));
 export const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n);
@@ -875,7 +875,7 @@ export function planFixtures(){
   const bay=usable/count;
   for(let r=0;r<rows;r++)for(let i=0;i<count;i++){
    const a=.35+i*bay,b=(cross-(rows*depth+(rows-1)*2.7))/2+r*(depth+2.7);
-   out.push({zone:q,type:q.kind,x:q.x+(alongX?a:b),z:q.z+(alongX?b:a),w:alongX?bay-.12:depth,d:alongX?depth:bay-.12,alongX,index:r*count+i,narrow});
+   out.push({zone:q,type:q.kind,x:q.x+(alongX?a:b),z:q.z+(alongX?b:a),w:alongX?bay-.12:depth,d:alongX?depth:bay-.12,alongX,index:r*count+i+(q.aisle?Number(q.aisle):zones.indexOf(q)),narrow});
   }
  }
  return out;
