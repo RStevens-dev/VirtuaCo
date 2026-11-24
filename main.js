@@ -1,4 +1,5 @@
 import * as T from 'three';
+import {runViews,listRuns,exportRun,deleteRun,selectCases} from './visual-tests.js';
 import {fitProduct,shelfFace,productFacings,atlasCell,packageType,merchDepartment,assignMerchandise,packageLayout} from './product-render.js';
 import {warehouse,loadRetailCatalogue,priceLabel,availabilityLabel} from './retail.js';
 import {routeGrid,analog,orderStops,ambientAudio} from './experience.js';
@@ -20,7 +21,7 @@ const sun=new T.DirectionalLight(0xfff7e6,1.5);sun.position.set(25,35,10);scene.
 const mats=new Map(), batches=new Map(), colliders=[], targets=[], fixtures=planFixtures(), productLocations=new Map(), stock=new Map(catalog.map(p=>[p.id,p.stock]));
 const boxGeo=new T.BoxGeometry(1,1,1), cylGeo=new T.CylinderGeometry(.5,.5,1,12), sphereGeo=new T.SphereGeometry(.5,12,8);
 const torusGeo=new T.TorusGeometry(.38,.10,8,20);
-const nativeVisible=new Set();
+const nativeVisible=new Set(),visualDisplays=[];let visualRunController=null;
 const temp=new T.Object3D(), dummy=new T.Object3D(), ray=new T.Raycaster();ray.far=8;
 const invisible=new T.MeshBasicMaterial({visible:false});
 function material(color,metal=0,rough=.8){let key=color+'|'+metal+'|'+rough;if(!mats.has(key))mats.set(key,new T.MeshStandardMaterial({color,metalness:metal,roughness:rough}));return mats.get(key);}
@@ -349,11 +350,48 @@ function drawMap(canvas,full=false){let c=canvas.getContext('2d'),w=canvas.width
  if(full){c.fillStyle='#fff';c.font='bold 12px sans-serif';c.fillText('ENTRANCE',w-85,12);}
  c.fillStyle='#ffffff';c.beginPath();c.arc(pos.x*sx,pos.z*sz,full?5:3,0,Math.PI*2);c.fill();c.strokeStyle='#fff';c.lineWidth=2;c.beginPath();c.moveTo(pos.x*sx,pos.z*sz);c.lineTo(pos.x*sx-Math.sin(yaw)*11,pos.z*sz-Math.cos(yaw)*11);c.stroke();}
 function showMap(){let body=showPanel('Warehouse map','FLOOR PLAN / SELECT A DESTINATION','map'),can=el('canvas','full-map');can.width=738;can.height=462;drawMap(can,true);can.setAttribute('aria-label','Warehouse map: click to teleport to an aisle');can.onclick=e=>{let r=can.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*WIDTH,z=(e.clientY-r.top)/r.height*DEPTH;navigate(x,z);};append(body,can,info('Select the map or a department to move to its nearest walkable aisle. The entrance is at the upper right, matching the Coomera reference.'),button('Return to entrance',()=>navigate(SPAWN.x,SPAWN.z)),button('Plan basket route',()=>{routeStops=orderStops(pos,Object.keys(basket).map(id=>productLocations.get(id)?.[0]).filter(Boolean));nextStop();}));let list=el('div','department-list');for(const q of zones)list.append(button(q.name,()=>jump(q.x+q.w/2,q.z+q.d/2,q.x+q.w/2,q.z+q.d/2),'department'));body.append(list);}
+// Capture the existing scene using a separate camera, never another WebGL context.
+async function captureProductView(d,v){
+ const bounds=new T.Box3().setFromObject(d.group);if(bounds.isEmpty())throw Error('Product geometry is empty');
+ const center=bounds.getCenter(new T.Vector3()),extent=bounds.getSize(new T.Vector3());
+ const cam=new T.PerspectiveCamera(43,camera.aspect,.035,160),angle=v.angle*Math.PI/180,elev=v.elevation*Math.PI/180;
+ const distance=Math.max(.8,Math.max(extent.x,extent.z,extent.y)*1.65)*v.distance;
+ const nx=d.face.nx*Math.cos(angle)+d.face.nz*Math.sin(angle),nz=d.face.nz*Math.cos(angle)-d.face.nx*Math.sin(angle);
+ cam.position.set(center.x+nx*distance*Math.cos(elev),center.y+distance*Math.sin(elev),center.z+nz*distance*Math.cos(elev));cam.lookAt(center);cam.updateMatrixWorld();
+ // Capture synchronously before the normal animation loop clears the drawing buffer.
+ renderer.render(scene,cam);const source=renderer.domElement,canvas=document.createElement('canvas'),scale=Math.min(1,1280/source.width,960/source.height);
+ canvas.width=Math.max(1,Math.round(source.width*scale));canvas.height=Math.max(1,Math.round(source.height*scale));
+ canvas.getContext('2d').drawImage(source,0,0,canvas.width,canvas.height);
+ const stats={drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,textures:renderer.info.memory.textures};
+ const blob=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error('Screenshot encoding failed')),'image/jpeg',.88));
+ return {blob,width:canvas.width,height:canvas.height,camera:{position:cam.position.toArray(),target:center.toArray(),angle:v.angle,elevation:v.elevation},stats};
+}
+async function showVisualTests(){
+ const b=showPanel('Product view tests','VISUAL QA / LOCAL DATA','visual-tests');
+ const status=info('Checking local test storage…');status.setAttribute('role','status');
+ const start=button('Run 10 products × 5 angles',async()=>{
+  if(visualRunController)return;
+  visualRunController=new AbortController();start.disabled=true;cancel.disabled=false;
+  try{const run=await runViews({displays:visualDisplays,capture:captureProductView,signal:visualRunController.signal,revision:'visual-qa-v1',onProgress:(r,d,v)=>{status.textContent=(r.shots.length+r.errors.length)+' / '+r.planned+' · '+d.product.name+' · '+v.id;progress.max=r.planned||1;progress.value=r.shots.length+r.errors.length;}});
+   status.textContent=run.status+' · '+run.shots.length+' screenshots saved locally · '+run.errors.length+' errors';
+  }catch(e){status.textContent='Test run failed: '+e.message;}
+  finally{visualRunController=null;start.disabled=false;cancel.disabled=true;await refresh();}
+ },'primary');
+ const cancel=button('Stop after current screenshot',()=>visualRunController?.abort());cancel.disabled=!visualRunController;start.disabled=!!visualRunController;
+ const progress=el('progress');progress.max=50;progress.value=0;progress.setAttribute('aria-label','Capture progress');
+ const history=el('div','results');
+ async function refresh(){try{history.replaceChildren(info('Saved runs on this device'));for(const run of await listRuns()){
+  const row=el('div','visual-run');append(row,el('b','',new Date(run.created).toLocaleString()),info(run.status+' · '+run.shots.length+'/50 screenshots'));
+  const exp=button('Export report',async()=>{exp.disabled=true;try{const blob=await exportRun(run),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='VirtuaCo-product-views-'+run.created.replace(/[:.]/g,'-')+'.html';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}catch(e){status.textContent='Export failed: '+e.message;}finally{exp.disabled=false;}});
+  const del=button('Delete local run',async()=>{if(!confirm('Delete this saved test run and its screenshots?'))return;try{await deleteRun(run);await refresh();}catch(e){status.textContent=e.message;}});del.disabled=run.status==='running';append(row,exp,del);history.append(row);
+ }}catch(e){status.textContent='Local storage unavailable: '+e.message;start.disabled=true;}}
+ append(b,info('Captures actual rendered products from five repeatable camera angles. Saves each image to IndexedDB before moving to the next. No uploads. Export a single offline HTML report.'),info('Ready: '+selectCases(visualDisplays).length+'/10 distinct photo-backed products. Missing archetypes are replaced by other real products.'),start,cancel,progress,status,history);await refresh();if(!visualRunController)status.textContent='Ready to capture. Keep this tab visible during the run.';
+}
 function showLoadingSettings(){
  const b=showPanel('Loading distances','PERFORMANCE / STREAMING','loading');
  append(b,info('Control the detailed model loading area relative to your view and movement. Nearby models are prioritized; memory limits still apply.'));
  performanceLine=el('p','muted','Collecting live performance metrics…');b.append(performanceLine);
- const trolleyButton=button('Shopping trolley: '+(showTrolley?'On':'Off'),()=>{showTrolley=!showTrolley;trolleyButton.textContent='Shopping trolley: '+(showTrolley?'On':'Off');});append(b,trolleyButton,button('Seasonal discoveries',showSeason),button('Sample station',showSamples));
+ const trolleyButton=button('Shopping trolley: '+(showTrolley?'On':'Off'),()=>{showTrolley=!showTrolley;trolleyButton.textContent='Shopping trolley: '+(showTrolley?'On':'Off');});append(b,button('Product view tests',showVisualTests,'primary'),trolleyButton,button('Seasonal discoveries',showSeason),button('Sample station',showSamples));
  const batteryButton=button('Battery saver: '+(battery?'On':'Off'),()=>{battery=!battery;batteryButton.textContent='Battery saver: '+(battery?'On':'Off');});const audioButton=button('Toggle warehouse ambience',()=>toast(audio.toggle()?'Ambient audio on':'Ambient audio off'));const gyroButton=button('Motion viewing: '+(gyro?'On':'Off'),async()=>{try{if(!gyro&&typeof globalThis.DeviceOrientationEvent?.requestPermission==='function'&&await DeviceOrientationEvent.requestPermission()!=='granted')return;gyro=!gyro;gyroBase=null;gyroButton.textContent='Motion viewing: '+(gyro?'On':'Off');}catch{toast('Motion viewing unavailable');}});const sense=el('input');sense.type='range';sense.min=.4;sense.max=2.5;sense.step=.1;sense.value=sensitivity;sense.setAttribute('aria-label','Look sensitivity');sense.oninput=()=>sensitivity=Number(sense.value);append(b,batteryButton,audioButton,gyroButton,info('Look sensitivity'),sense);
  const controls=[];
  for(const [key,name] of [['forward','Forward distance'],['side','Side distance (each direction)']]){
@@ -464,6 +502,7 @@ async function expandWarehouse(){
    // Shallow merchandising tray grounds bottle rows and small jars without obscuring labels.
    if(['wine','bottle','jar','can'].includes(type)){const span=offsets.at(-1)-offsets[0]+fit.w;part(boxGeo,kraft,0,.025,0,span+.025,.05,fit.d*1.12);}
    for(const {geo,mat,matrices} of pieces.values()){const mesh=new T.InstancedMesh(geo,mat,matrices.length);matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));mesh.instanceMatrix.needsUpdate=true;e.group.add(mesh);}
+   visualDisplays.push({product:e.p,type,group:e.group,fit,face:e.face,zone:e.zone||merchDepartment(e.p),ready:true});
   }
   // One atlas for all sourced shelf signs; avoid hundreds of individual GPU textures.
   const tileW=256,tileH=128,columns=8,perAtlas=128,atlasCanvases=[];
@@ -482,7 +521,7 @@ async function expandWarehouse(){
     const sign=new T.Mesh(geo,atlas.mat);sign.position.set(x+face.nx*depth*.49,y-.06,z+face.nz*depth*.49);sign.rotation.y=rot;scene.add(sign);shelfCards.push(sign);
     proxy(p,x+face.nx*depth*.40,y+.42,z+face.nz*depth*.40,alongX?size:.30,.84,alongX?.30:size,f.zone,f);displayed.add(p.id);
     if(p.model){models[p.id]={...p.model};modelSlots.push({id:p.id,assetId:p.assetId,x,y,z,w:size,h:.85,d:size,rot,bulk:false});}
-    else if(p.image){const group=new T.Group();scene.add(group);const a=localArt?.entries?.[p.id];if(a&&a.image===p.image&&a.license===p.imageLicense&&localPages[a.page]&&a.x>=0&&a.y>=0&&a.w>0&&a.h>0&&a.x+a.w<=2048&&a.y+a.h<=2048){placePhoto({p,x,y,z,size,depth,face,cell:a,page:localPages[a.page],group,local:a},a.w,a.h);}else{const cell=atlasCell(photoQueue.length),page=photoPage(cell.page);photoQueue.push({p,x,y,z,size,depth,face,cell,page,group});}}
+    else if(p.image){const group=new T.Group();scene.add(group);const a=localArt?.entries?.[p.id];if(a&&a.image===p.image&&a.license===p.imageLicense&&localPages[a.page]&&a.x>=0&&a.y>=0&&a.w>0&&a.h>0&&a.x+a.w<=2048&&a.y+a.h<=2048){placePhoto({p,x,y,z,size,depth,face,zone:f.zone.name,cell:a,page:localPages[a.page],group,local:a},a.w,a.h);}else{const cell=atlasCell(photoQueue.length),page=photoPage(cell.page);photoQueue.push({p,x,y,z,size,depth,face,zone:f.zone.name,cell,page,group});}}
 
    }
   }
