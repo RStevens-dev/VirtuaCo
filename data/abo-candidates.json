@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "source": "https://amazon-berkeley-objects.s3.amazonaws.com/index.html",
+  "license": "CC-BY-4.0",
+  "summary": {
+    "scanned": 92320,
+    "archiveMembers": [
+      "listings/metadata/listings_7.json.gz",
+      "listings/metadata/listings_4.json.gz",
+      "listings/metadata/listings_2.json.gz",
+      "listings/metadata/listings_6.json.gz",
+      "listings/metadata/listings_0.json.gz",
+      "listings/metadata/listings_9.json.gz",
+      "listings/metadata/listings_1.json.gz",
+      "listings/metadata/listings_5.json.gz",
+      "listings/metadata/listings_3.json.gz",
+      "listings/metadata/listings_8.json.gz"
+    ],
+    "coverageNote": "Count reflects actual listing archive; not assumed equal to all dataset items",
+    "retailRecords": 757,
+    "brandHits": 0,
+    "candidates": 0,
+    "approved": 0
+  },
+  "candidates": []
+}
