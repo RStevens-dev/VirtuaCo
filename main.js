@@ -3,6 +3,7 @@ import {zones,WIDTH,DEPTH,SPAWN,colors,catalog,byCategory,byId,money,stockState,
 const $=id=>document.getElementById(id);
 import {installProductModels,models,applyScanThumbnail} from './assets.js';
 import {applyProductPhoto,photoManifest} from './photos.js';
+import {fetchExpansion,registerExpansion} from './expansion.js';
 const random=rng(32701), scene=new T.Scene(), camera=new T.PerspectiveCamera(73,innerWidth/innerHeight,.06,160);
 scene.background=new T.Color('#bfc8cf');scene.fog=new T.Fog('#bfc8cf',75,155);
 const renderer=new T.WebGLRenderer({antialias:true,powerPreference:'high-performance'});
@@ -61,6 +62,7 @@ function crate(x,y,z,w,h,d,open=false){
 function pallet(x,z,w,d){for(let i=0;i<5;i++)B(x-w/2+w*(i+.5)/5,.115,z,w*.17,.075,d,wood);for(let i=0;i<3;i++)B(x,.045,z-d/2+d*(i+.5)/3,w,.09,d*.15,darkKraft);}
 const stockGroups=new Map(),stockMeshes=new Map();
 const modelSlots=[];
+let expansionState='Loading 500 additional scans…';
 const modelStatus=new Map();
 function makeStock(p,x,z,w,d,seed){
  const slot={p,x,z,w,d,seed};if(!stockGroups.has(p.id))stockGroups.set(p.id,[]);stockGroups.get(p.id).push(slot);
@@ -232,9 +234,9 @@ function showProduct(p,zone){
 }
 function inspect(){if(hit&&!open)showProduct(hit.p,hit.zone);else if(!open)toast('Look at a product or price sign to inspect it');}
 function productRow(p,fn){let row=el('button','product-row'),sw=el('span','swatch');sw.style.background=p.color;let left=append(el('span','product-text'),el('b','',p.name),el('small','',p.size+' · '+stockState(stock.get(p.id))));append(row,sw,left,el('strong','',money(p.price)));row.onclick=fn;return row;}
-function renderModelList(){const body=$('panelBody');body.replaceChildren(info('Select a product to travel directly to a display with a configured 3D model. Status shows whether the browser actually downloaded it.'));for(const [id,asset] of Object.entries(models)){const p=byId[id],slot=modelSlots.find(s=>s.id===id);if(!p)continue;body.append(productRow(p,()=>showProduct(p)));body.append(info(modelStatus.get(id)||'Waiting for download'));if(slot)body.append(button('Go to model →',()=>{jump(slot.x,slot.z,slot.x,slot.z);pitch=Math.atan2(slot.y+slot.h/2-1.68,Math.hypot(pos.x-slot.x,pos.z-slot.z));}));else body.append(info('No dedicated model placement'));}}
+function renderModelList(){const body=$('panelBody');body.replaceChildren(info('Select a product to travel directly to a display with a configured 3D model. Status shows whether the browser actually downloaded it.'));for(const [id,asset] of Object.entries(models).filter(([id,a])=>!a.expansion)){const p=byId[id],slot=modelSlots.find(s=>s.id===id);if(!p)continue;body.append(productRow(p,()=>showProduct(p)));body.append(info(modelStatus.get(id)||'Waiting for download'));if(slot)body.append(button('Go to model →',()=>{jump(slot.x,slot.z,slot.x,slot.z);pitch=Math.atan2(slot.y+slot.h/2-1.68,Math.hypot(pos.x-slot.x,pos.z-slot.z));}));else body.append(info('No dedicated model placement'));}}
 function showModels(){showPanel('Real product models','ASSET STATUS / FIND A DISPLAY','models');renderModelList();}
-function showSearch(){let body=showPanel('Find a product','CATALOG / '+catalog.length+' DEMO PRODUCTS','search'),input=el('input','search-input');input.placeholder='Search products or departments';input.setAttribute('aria-label','Search products or departments');let results=el('div','results');function render(){let query=input.value.trim().toLowerCase();results.replaceChildren();let items=catalog.filter(p=>(p.name+' '+p.category+' '+p.size+' '+(productLocations.get(p.id)||[]).map(v=>v.zone.name).join(' ')).toLowerCase().includes(query));if(!items.length)results.append(info('No matching products.'));for(const p of items){let loc=productLocations.get(p.id)?.[0];let row=productRow(p,()=>showProduct(p,loc?.zone));results.append(row);if(loc){let b=button('Go to '+loc.zone.name+' →',()=>jump(loc.x,loc.z,loc.x,loc.z),'text-button');results.append(b);}}}input.oninput=render;append(body,button('Find real 3D models / download status',showModels),input,results);render();input.focus();}
+function showSearch(){let body=showPanel('Find a product','CATALOG / '+catalog.length+' DEMO PRODUCTS','search'),input=el('input','search-input');input.placeholder='Search products or departments';input.setAttribute('aria-label','Search products or departments');let results=el('div','results');function render(){let query=input.value.trim().toLowerCase();results.replaceChildren();let items=catalog.filter(p=>(p.name+' '+p.category+' '+p.size+' '+(productLocations.get(p.id)||[]).map(v=>v.zone.name).join(' ')).toLowerCase().includes(query));if(!items.length)results.append(info('No matching products.'));if(items.length>100)results.append(info(items.length+' matches · showing first 100. Narrow your search.'));for(const p of items.slice(0,100)){let loc=productLocations.get(p.id)?.[0];let row=productRow(p,()=>showProduct(p,loc?.zone));results.append(row);if(loc){let b=button('Go to '+loc.zone.name+' →',()=>jump(loc.x,loc.z,loc.x,loc.z),'text-button');results.append(b);}}}input.oninput=render;append(body,button('Find real 3D models / download status',showModels),info(expansionState),input,results);render();input.focus();}
 function showBasket(){let body=showPanel('Your basket','DEMO SHOPPING / NO CHECKOUT','basket');let ids=Object.keys(basket);if(!ids.length)body.append(info('Your basket is empty. Find a product and add it while exploring.'));let total=0;for(let id of ids){let p=byId[id],n=basket[id];total+=p.price*n;let row=productRow(p,()=>showProduct(p));let controls=el('div','qty');append(controls,button('−',()=>{if(--basket[id]<=0)delete basket[id];saveBasket();showBasket();}),el('span','',String(n)),button('+',()=>{addBasket(p);showBasket();}),button('Remove',()=>{delete basket[id];saveBasket();showBasket();},'text-button'));append(body,row,controls);}append(body,el('hr'),el('div','price',money(total)),info('Estimated demo total before tax. Items are not available for purchase. Basket is saved on this device.'),button('Empty basket',()=>{basket={};saveBasket();showBasket();}));}
 function drawMap(canvas,full=false){let c=canvas.getContext('2d'),w=canvas.width,h=canvas.height,sx=w/WIDTH,sz=h/DEPTH;c.fillStyle='#172733';c.fillRect(0,0,w,h);for(let q of zones){c.fillStyle=colors[q.kind]+'bb';c.fillRect(q.x*sx,q.z*sz,q.w*sx,q.d*sz);c.strokeStyle='#111c25';c.lineWidth=full?2:1;c.strokeRect(q.x*sx,q.z*sz,q.w*sx,q.d*sz);if(full&&q.w*sx>56&&q.d*sz>23){c.fillStyle='#fff';c.font='bold 11px sans-serif';let ls=lines(c,q.name,q.w*sx-6).slice(0,2);ls.forEach((s,i)=>c.fillText(s,q.x*sx+3,q.z*sz+12+12*i));}}
  if(full){c.fillStyle='#fff';c.font='bold 12px sans-serif';c.fillText('ENTRANCE',w-85,12);}
@@ -260,3 +262,32 @@ function frame(now){
 }
 window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
 requestAnimationFrame(frame);
+
+// Add unique scan displays to existing rack shelves without moving fixtures.
+// Each scan gets an independently searchable location, its own price and stock signal.
+async function expandWarehouse(){
+ try{
+  const items=await fetchExpansion(catalog);registerExpansion(items,catalog,byCategory,byId,models);
+  const racks=fixtures.filter(f=>f.type==='rack'), assignments=new Map();
+  for(const p of items){
+   stock.set(p.id,p.stock);
+   const matching=racks.filter(f=>f.zone.category===p.category), pool=matching.length?matching:racks;
+   const f=pool.reduce((a,b)=>(assignments.get(a)?.length||0)<=(assignments.get(b)?.length||0)?a:b);
+   if(!assignments.has(f))assignments.set(f,[]);assignments.get(f).push(p);
+  }
+  for(const [f,products] of assignments){
+   const width=f.alongX?f.w:f.d, depth=f.alongX?f.d:f.w;
+   const side=f.zone.face==='left'?-1:f.zone.face==='right'?1:1;
+   for(let i=0;i<products.length;i++){
+    const p=products[i],col=i%5,row=Math.floor(i/5),u=(col-2)*width*.17,v=side*(depth/2-.13),[x,z]=local(f,u,v),y=2.83+row*.25;
+    const mat=label(p),mesh=new T.Mesh(boxGeo,mat);mesh.position.set(x,y+.10,z);mesh.scale.set(Math.min(.29,width*.15),.23,.20);mesh.rotation.y=f.alongX?0:Math.PI/2;scene.add(mesh);
+    const slot={id:p.id,x,y,z,w:.30,h:.25,d:.20,rot:f.alongX?0:Math.PI/2,fallback:mesh,expansion:true};
+    modelSlots.push(slot);
+    proxy(p,x,y+.10,z,.31,.25,.25,f.zone,f);
+   }
+  }
+  expansionState=items.length+' additional scanned products available · '+catalog.length+' total';
+  if(mode==='search')showSearch();
+ }catch(error){expansionState='Additional scan catalog unavailable: '+error.message;console.warn(error);if(mode==='search')showSearch();}
+}
+expandWarehouse();
