@@ -1,0 +1,41 @@
+name: Optimize warehouse asset library
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/optimize-models.yml'
+      - 'tools/optimize-models.mjs'
+permissions:
+  contents: write
+concurrency:
+  group: virtuaco-optimize
+  cancel-in-progress: false
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install offline optimization tools
+        run: npm install --no-save --package-lock=false @gltf-transform/core@4.2.1 @gltf-transform/extensions@4.2.1 @gltf-transform/functions@4.2.1 meshoptimizer@0.23.0 sharp@0.33.5
+      - run: node tools/optimize-models.mjs
+      - name: Verify and publish optimized models
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/lod assets/lod-index.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Publish optimized scan LOD library"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 5))
+          done
+          exit 1
