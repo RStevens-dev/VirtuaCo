@@ -6,9 +6,8 @@ export function validGTIN(value){const s=String(value);if(!/^\d{8}$|^\d{12,14}$/
 export function validateRecord(raw){
  if(!raw||typeof raw.name!=='string'||!raw.name.trim()||!raw.source||!/^https:\/\//.test(raw.source))return null;
  const upc=String(raw.upc??'').trim(),item=String(raw.item??'').trim();
- let url;try{url=new URL(raw.source);}catch{return null;}
- const official=['www.costco.com','costco.com'].includes(url.hostname)&&/^\d{3,12}$/.test(item);
- const open=url.hostname==='world.openfoodfacts.org'&&url.pathname==='/product/'+upc&&validGTIN(upc)&&raw.sourceLicense==='ODbL-1.0'&&/kirkland/i.test(raw.brand||'');
+ const official=/^https:\/\/(?:www\.)?costco\.com\//.test(raw.source)&&/^\d{3,12}$/.test(item);
+ const open=raw.source==='https://world.openfoodfacts.org/product/'+upc&&validGTIN(upc)&&raw.sourceLicense==='ODbL-1.0'&&/kirkland/i.test(raw.brand||'');
  if(!official&&!open)return null;
  const observed=raw.warehouse===warehouse.id&&raw.observedAt&&Number.isFinite(Date.parse(raw.observedAt));
  const price=Number.isFinite(raw.price)&&raw.price>=0&&['warehouse','online','delivery'].includes(raw.priceType)&&raw.priceObservedAt&&Number.isFinite(Date.parse(raw.priceObservedAt))&&(raw.priceType!=='warehouse'||observed)?raw.price:null;
