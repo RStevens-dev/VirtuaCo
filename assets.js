@@ -39,7 +39,7 @@ export function applyScanThumbnail(p,texture){
 
 
 
-import {rankSlots,residentPlan} from './sections.js';
+import {rankSlots,residentPlan,evictionPlan} from './sections.js';
 export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
  const low=matchMedia('(pointer:coarse)').matches||(navigator.deviceMemory||4)<=4;
  const limit=low?24:48,byteLimit=low?9_000_000:20_000_000,gpuLimit=low?64*1024*1024:144*1024*1024,workers=low?2:3;
@@ -79,8 +79,11 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
     const bytes=estimate(root);
     // Avoid evicting a closer product to admit a farther one.
     // Never evict an established model to admit another during a stationary look.
-    if(used()+bytes>gpuLimit||resident.size>=limit){dispose(root);blockedUntil.set(id,performance.now()+15000);status(id,'Scan image · memory budget');return;}
+    const victims=evictionPlan(resident,lastRank,id,bytes,{limit,gpuLimit,byteLimit,bytesOf:key=>models[key]?.bytes||250000,protectRadius:12,margin:8});
+    if(victims===null){dispose(root);blockedUntil.set(id,performance.now()+15000);status(id,'Scan image · memory budget');return;}
     const holder=new T.Group();root.position.sub(new T.Vector3(center.x,bounds.min.y,center.z));holder.add(root);holder.scale.setScalar(Math.min(slot.w/size.x,slot.h/size.y,slot.d/size.z));holder.position.set(slot.x,slot.y,slot.z);holder.rotation.y=slot.rot||0;
+    // Commit the replacement only after the incoming model is ready to display.
+    for(const victim of victims)evict(victim);
     scene.add(holder);resident.set(id,{holder,bytes});const sprite=impostors.get(id);if(sprite)sprite.visible=false;status(id,'3D model loaded');
    }).catch(e=>{failed.add(id);status(id,impostors.has(id)?'Scan image · model failed':'Model failed to load');console.warn(id,e);}).finally(()=>{pending.delete(id);running--;pump();});
   }
@@ -90,9 +93,10 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
   const moved=!anchor||Math.hypot(pos.x-anchor.x,pos.z-anchor.z)>=4;
   if(moved||dirty){
    anchor={x:pos.x,z:pos.z};dirty=false;lastRank=rankSlots(slots,pos,yaw,velocity,tolerance);
-   const retention=Math.max(16,Math.min(32,Math.max(tolerance.side,tolerance.forward*.5)));
-   desired=residentPlan(lastRank,resident,{limit,byteLimit,keepRadius:retention,bytesOf:id=>models[id]?.bytes||250000});
-   for(const id of resident.keys())if(!desired.has(id))evict(id);
+   desired=residentPlan(lastRank,new Map(),{limit,byteLimit,bytesOf:id=>models[id]?.bytes||250000});
+   // Existing residents are protected from speculative decoding unless replacement is plausible.
+   for(const id of [...desired])if(!resident.has(id)&&evictionPlan(resident,lastRank,id,0,{limit,gpuLimit,byteLimit,bytesOf:key=>models[key]?.bytes||250000,protectRadius:12,margin:8})===null)desired.delete(id);
+   // Keep all residents, even outside the requested loading area. Eviction is admission-driven only.
    queue=lastRank.filter(r=>desired.has(r.slot.id)&&!resident.has(r.slot.id)&&!pending.has(r.slot.id)&&!failed.has(r.slot.id)&&(blockedUntil.get(r.slot.id)||0)<=performance.now()).map(r=>r.slot);
   }
   // Rotate only distant scan images toward the viewer, never full meshes.
