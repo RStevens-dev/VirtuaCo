@@ -1,0 +1,20 @@
+{
+  "catalogueRecords": 754,
+  "withImage": 305,
+  "withoutImage": 449,
+  "atlasEntries": 305,
+  "atlasBytes": 1061212,
+  "sourceSizes": {
+    "368": 1,
+    "398": 1,
+    "400": 303
+  },
+  "sourceUrlSuffixes": {
+    "400": 305
+  },
+  "notInAtlas": [],
+  "notes": [
+    "Original dimensions in current atlas are recorded after resizing and cropping; not full source dimensions.",
+    "Exact 3D match registry is empty."
+  ]
+}
