@@ -41,9 +41,11 @@ export function applyScanThumbnail(p,texture){
 
 import {rankSlots,residentPlan,evictionPlan} from './sections.js';
 export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
- const low=matchMedia('(pointer:coarse)').matches||(navigator.deviceMemory||4)<=4;
+ const low=matchMedia('(pointer:coarse)').matches||(navigator.deviceMemory||8)<=4;
+ let lods={};try{const r=await fetch('./assets/lod-index.json');if(r.ok){const j=await r.json();if(j.count===slots.length)lods=j.variants;}}catch{}
+ const hasLOD=Object.keys(lods).length===slots.length;
  const limit=low?24:48,byteLimit=low?9_000_000:20_000_000,gpuLimit=low?64*1024*1024:144*1024*1024,workers=low?2:3;
- const resident=new Map(),pending=new Set(),failed=new Set(),impostors=new Map();let desired=new Set(),running=0,queue=[],lastRank=[],atlas=null,tolerance={forward:36,side:18},anchor=null,dirty=true,blockedUntil=new Map();
+ const resident=new Map(),pending=new Set(),failed=new Set(),impostors=new Map();let desired=new Set(),running=0,queue=[],lastRank=[],atlas=null,tolerance={forward:36,side:18},anchor=null,dirty=true,blockedUntil=new Map(),baseMeshes=new Map(),basePending=0,baseReady=0,evictions=0,upgrades=0;
  // One shared atlas, per-product UVs; the billboard is an actual scan render, never a fabricated carton.
  try{
   const response=await fetch('./assets/merch-atlas.json');if(!response.ok)throw Error('Atlas not published');
@@ -65,14 +67,15 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
  function estimate(root){
   const geos=new Set(),textures=new Set();let bytes=0;root.traverse(o=>{if(!o.isMesh)return;if(!geos.has(o.geometry)){geos.add(o.geometry);for(const a of Object.values(o.geometry.attributes))bytes+=(a.array||a.data?.array)?.byteLength||0;bytes+=o.geometry.index?.array?.byteLength||0;}for(const m of Array.isArray(o.material)?o.material:[o.material])for(const v of Object.values(m))if(v?.isTexture&&!textures.has(v)){textures.add(v);bytes+=(v.image?.width||512)*(v.image?.height||512)*4*1.34;} });return bytes;
  }
- function evict(id){const record=resident.get(id);if(!record)return;const sprite=impostors.get(id);if(sprite)sprite.visible=true;scene.remove(record.holder);dispose(record.holder);resident.delete(id);status(id,sprite?'Scan image · distant':'Local model · outside active sections');}
+ function evict(id){const record=resident.get(id);if(!record)return;evictions++;const sprite=impostors.get(id),base=baseMeshes.get(id);if(base)base.visible=true;else if(sprite)sprite.visible=true;scene.remove(record.holder);dispose(record.holder);resident.delete(id);status(id,sprite?'Scan image · distant':'Local model · outside active sections');}
  function used(){return [...resident.values()].reduce((a,r)=>a+r.bytes,0);}
  function pump(){
   while(running<workers&&queue.length){
    const slot=queue.shift(),id=slot.id;if(!desired.has(id)||resident.has(id)||pending.has(id)||failed.has(id)||(blockedUntil.get(id)||0)>performance.now())continue;
    pending.add(id);running++;status(id,'Loading local model…');
    // Do not use the old promise cache: it retains decoded meshes indefinitely.
-   loader.loadAsync(models[id].url).then(gltf=>{
+   const distance=lastRank.find(r=>r.slot.id===id)?.d??30;const variant=lods[id]?.[distance<8?'high':'medium'];
+   loader.loadAsync(variant?.url||models[id].url).then(gltf=>{
     const root=gltf.scene,bounds=new T.Box3().setFromObject(root),size=bounds.getSize(new T.Vector3()),center=bounds.getCenter(new T.Vector3());
     if(![size.x,size.y,size.z].every(v=>Number.isFinite(v)&&v>0)){dispose(root);throw Error('Invalid bounds');}
     if(!desired.has(id)){dispose(root);return;}
@@ -84,7 +87,7 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
     const holder=new T.Group();root.position.sub(new T.Vector3(center.x,bounds.min.y,center.z));holder.add(root);holder.scale.setScalar(Math.min(slot.w/size.x,slot.h/size.y,slot.d/size.z));holder.position.set(slot.x,slot.y,slot.z);holder.rotation.y=slot.rot||0;
     // Commit the replacement only after the incoming model is ready to display.
     for(const victim of victims)evict(victim);
-    scene.add(holder);resident.set(id,{holder,bytes});const sprite=impostors.get(id);if(sprite)sprite.visible=false;status(id,'3D model loaded');
+    scene.add(holder);resident.set(id,{holder,bytes});upgrades++;const sprite=impostors.get(id),base=baseMeshes.get(id);if(sprite)sprite.visible=false;if(base)base.visible=false;status(id,'3D model loaded');
    }).catch(e=>{failed.add(id);status(id,impostors.has(id)?'Scan image · model failed':'Model failed to load');console.warn(id,e);}).finally(()=>{pending.delete(id);running--;pump();});
   }
  }
@@ -93,6 +96,7 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
   const moved=!anchor||Math.hypot(pos.x-anchor.x,pos.z-anchor.z)>=4;
   if(moved||dirty){
    anchor={x:pos.x,z:pos.z};dirty=false;lastRank=rankSlots(slots,pos,yaw,velocity,tolerance);
+   const predict={x:pos.x+velocity.x*2.5,z:pos.z+velocity.z*2.5};for(const r of lastRank)r.priority-=Math.max(0,r.d-Math.hypot(r.slot.x-predict.x,r.slot.z-predict.z))*.65;lastRank.sort((a,b)=>a.priority-b.priority);
    desired=residentPlan(lastRank,new Map(),{limit,byteLimit,bytesOf:id=>models[id]?.bytes||250000});
    // Existing residents are protected from speculative decoding unless replacement is plausible.
    for(const id of [...desired])if(!resident.has(id)&&evictionPlan(resident,lastRank,id,0,{limit,gpuLimit,byteLimit,bytesOf:key=>models[key]?.bytes||250000,protectRadius:12,margin:8})===null)desired.delete(id);
@@ -103,6 +107,13 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
   for(const [id,sprite] of impostors)if(sprite.visible)sprite.rotation.y=Math.atan2(pos.x-sprite.position.x,pos.z-sprite.position.z);
   pump();
  }
+ async function prepareBase(){
+  if(!hasLOD)return;
+  // Permanent low tier, bounded by measured decoded footprint; atlas remains if budget is exhausted.
+  let next=0,usedBase=0;const budget=(low?32:64)*1048576;
+  async function worker(){while(next<slots.length){const slot=slots[next++],asset=lods[slot.id]?.low;if(!asset||usedBase>=budget)continue;basePending++;try{const gltf=await loader.loadAsync(asset.url),root=gltf.scene,bounds=new T.Box3().setFromObject(root),size=bounds.getSize(new T.Vector3()),center=bounds.getCenter(new T.Vector3()),bytes=estimate(root);if(![size.x,size.y,size.z].every(v=>Number.isFinite(v)&&v>0)||usedBase+bytes>budget){dispose(root);continue;}usedBase+=bytes;const holder=new T.Group();root.position.sub(new T.Vector3(center.x,bounds.min.y,center.z));holder.add(root);holder.scale.setScalar(Math.min(slot.w/size.x,slot.h/size.y,slot.d/size.z));holder.position.set(slot.x,slot.y,slot.z);holder.rotation.y=slot.rot||0;holder.visible=!resident.has(slot.id);scene.add(holder);baseMeshes.set(slot.id,holder);baseReady++;impostors.get(slot.id).visible=false;}catch(e){console.warn('Low LOD unavailable',slot.id,e);}finally{basePending--;}await new Promise(r=>setTimeout(r,20));}}
+  await worker();
+ }
  async function initial(pos,yaw,progress){
   update(pos,yaw);const initialIds=new Set(desired);const total=initialIds.size;
   if(!total)throw Error('No merchandise near entry');
@@ -110,9 +121,9 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
   while(true){
    const loaded=[...initialIds].filter(id=>resident.has(id)).length,settled=loaded+[...initialIds].filter(id=>failed.has(id)).length;
    progress({loaded,total,settled,atlas:impostors.size});
-   if(settled===total||(!running&&!queue.length)||performance.now()-start>45000)return {loaded,total,atlas:impostors.size};
+   if(settled===total||(!running&&!queue.length)||performance.now()-start>45000){prepareBase().catch(console.warn);return {loaded,total,atlas:impostors.size};}
    await new Promise(r=>setTimeout(r,100));
   }
  }
- return {update,initial,setTolerance:(value)=>{tolerance={...tolerance,...value};dirty=true;},stats:()=>({resident:resident.size,pending:pending.size,bytes:used(),limit,eligible:lastRank.filter(r=>r.eligible).length,impostors:impostors.size}),has:id=>resident.has(id)||impostors.has(id)};
+ return {update,initial,setTolerance:(value)=>{tolerance={...tolerance,...value};dirty=true;},stats:()=>({resident:resident.size,pending:pending.size,bytes:used(),limit,eligible:lastRank.filter(r=>r.eligible).length,impostors:impostors.size,baseReady,basePending,hasLOD,evictions,upgrades}),has:id=>resident.has(id)||impostors.has(id)};
 }
