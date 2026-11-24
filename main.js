@@ -380,7 +380,7 @@ async function showVisualTests(){
  const start=button('Run 10 products × 5 angles',async()=>{
   if(visualRunController)return;
   visualRunController=new AbortController();start.disabled=true;cancel.disabled=false;
-  try{const run=await runViews({displays:visualDisplays,capture:captureProductView,signal:visualRunController.signal,revision:'visual-qa-v2',onProgress:(r,d,v)=>{status.textContent=(r.shots.length+r.errors.length)+' / '+r.planned+' · '+d.product.name+' · '+v.id;progress.max=r.planned||1;progress.value=r.shots.length+r.errors.length;}});
+  try{const run=await runViews({displays:visualDisplays,capture:captureProductView,signal:visualRunController.signal,revision:'visual-qa-v3',onProgress:(r,d,v)=>{status.textContent=(r.shots.length+r.errors.length)+' / '+r.planned+' · '+d.product.name+' · '+v.id;progress.max=r.planned||1;progress.value=r.shots.length+r.errors.length;}});
    status.textContent=run.status+' · '+run.shots.length+' screenshots saved locally · '+run.errors.length+' errors';
   }catch(e){status.textContent='Test run failed: '+e.message;}
   finally{visualCamera=null;visualRunController=null;start.disabled=false;cancel.disabled=true;await refresh();}
@@ -488,27 +488,35 @@ async function expandWarehouse(){
   // Shared silhouettes; no exact-model claim for inferred forms.
   const neckGeo=new T.CylinderGeometry(.26,.42,1,12), shoulderGeo=new T.CylinderGeometry(.26,.5,1,12), capGeo=new T.CylinderGeometry(.5,.5,1,12);
   function palette(ctx,x,y,w,h){const data=ctx.getImageData(x,y,w,h).data;let r=0,g=0,b=0,n=0;for(let i=0;i<data.length;i+=16){const a=data[i],c=data[i+1],d=data[i+2];if(data[i+3]<128||Math.min(a,c,d)>225||Math.max(a,c,d)<25)continue;r+=a;g+=c;b+=d;n++;}return n?new T.Color(r/n/255,g/n/255,b/n/255).convertSRGBToLinear():new T.Color('#c9c3b6');}
+  // Shared rounded package geometry; artwork follows the curved front instead of a floating poster.
+  const softGeo=new T.BoxGeometry(1,1,1,8,8,4);
+  {const p=softGeo.attributes.position;for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i),r=.14,ix=T.MathUtils.clamp(x,-.5+r,.5-r),iy=T.MathUtils.clamp(y,-.5+r,.5-r),iz=T.MathUtils.clamp(z,-.5+r,.5-r),v=new T.Vector3(x-ix,y-iy,z-iz).normalize().multiplyScalar(r);p.setXYZ(i,ix+v.x,iy+v.y,iz+v.z);}softGeo.computeVertexNormals();}
+  const jugHandle=new T.TorusGeometry(.36,.095,6,16);
   function placePhoto(e,w,h){
-   const type=packageType(e.p),hero=heroSet.has(e.p.id),fit=packageLayout(type,e.size,Math.max(.12,e.depth*.56),hero),round=['wine','bottle','jar','can','tub'].includes(type),bottle=type==='wine'||type==='bottle',tray=type==='tray';
+   const type=packageType(e.p),hero=heroSet.has(e.p.id),fit=packageLayout(type,e.size,Math.max(.12,e.depth*.56),hero),round=['wine','bottle','jar','can','tub'].includes(type),bottle=type==='wine'||type==='bottle',tray=type==='tray',bag=type==='bag',jug=type==='jug';
    e.group.position.set(e.x+e.face.nx*(e.depth*.46-fit.d/2),e.y,e.z+e.face.nz*(e.depth*.46-fit.d/2));e.group.rotation.y=e.face.rot;
-   const color=e.local?new T.Color(e.local.color):palette(e.page.ctx,e.cell.x,e.cell.y,w,h),bodyColor=type==='wine'?new T.Color('#35442b'):color.clone().lerp(new T.Color('#ded8cd'),.23);
-   // Quantized palette keeps shared materials bounded.
+   const color=e.local?new T.Color(e.local.color):palette(e.page.ctx,e.cell.x,e.cell.y,w,h);
+   const bodyColor=type==='wine'?new T.Color('#35442b'):jug?new T.Color('#f0efe7'):color.clone().lerp(new T.Color('#ded8cd'),.12);
    const quant=c=>'#'+[c.r,c.g,c.b].map(v=>Math.round(Math.max(0,Math.min(1,v))*7)*36).map(v=>Math.min(255,v).toString(16).padStart(2,'0')).join('');
    const body=material(quant(bodyColor)),cap=material(type==='wine'?'#423b35':quant(color)),offsets=fit.offsets;
-   const pieces=new Map();function part(geo,mat,u,y,z,ww,hh,dd){const key=geo.uuid+'|'+mat.uuid;if(!pieces.has(key))pieces.set(key,{geo,mat,matrices:[]});dummy.position.set(u,y,z);dummy.rotation.set(0,0,0);dummy.scale.set(ww,hh,dd);dummy.updateMatrix();pieces.get(key).matrices.push(dummy.matrix.clone());}
-   const labelW=fit.w*(round?.88:.97),labelH=fit.h*(bottle?.63:tray?.78:.93);
-   const frontGeo=new T.PlaneGeometry(labelW,labelH),uv=frontGeo.attributes.uv;
-   for(let k=0;k<uv.count;k++)uv.setXY(k,(e.cell.x+.5+uv.getX(k)*Math.max(0,w-1))/e.page.width,1-(e.cell.y+.5+(1-uv.getY(k))*Math.max(0,h-1))/e.page.height);
+   const pieces=new Map();function part(geo,mat,u,y,z,ww,hh,dd,rx=0){const key=geo.uuid+'|'+mat.uuid;if(!pieces.has(key))pieces.set(key,{geo,mat,matrices:[]});dummy.position.set(u,y,z);dummy.rotation.set(rx,0,0);dummy.scale.set(ww,hh,dd);dummy.updateMatrix();pieces.get(key).matrices.push(dummy.matrix.clone());}
+   const maxW=fit.w*(round?.82:.94),maxH=fit.h*(bottle?.61:jug?.63:.93);
+   const aspect=w/h,labelW=tray?Math.min(fit.w*.94,fit.d*.94*aspect):Math.min(maxW,maxH*aspect),labelH=labelW/aspect;
+   const frontGeo=new T.PlaneGeometry(labelW,labelH,8,4),uv=frontGeo.attributes.uv,verts=frontGeo.attributes.position;
+   for(let k=0;k<uv.count;k++){const u=uv.getX(k),v=uv.getY(k);uv.setXY(k,(e.cell.x+.5+u*Math.max(0,w-1))/e.page.width,1-(e.cell.y+.5+(1-v)*Math.max(0,h-1))/e.page.height);if(round){const x=verts.getX(k);verts.setZ(k,fit.d*.5*(Math.sqrt(Math.max(0,1-(x/(fit.w*.5))**2))-1)+.004);}}
+   frontGeo.computeVertexNormals();
    for(const u of offsets){
     if(bottle){part(cylGeo,body,u,fit.h*.32,0,fit.w,fit.h*.64,fit.d);part(shoulderGeo,body,u,fit.h*.70,0,fit.w,fit.h*.12,fit.d);part(neckGeo,body,u,fit.h*.84,0,fit.w,fit.h*.17,fit.d);part(capGeo,cap,u,fit.h*.97,0,fit.w*.32,fit.h*.06,fit.d*.32);}
+    else if(jug){part(softGeo,body,u,fit.h*.37,0,fit.w,fit.h*.74,fit.d);part(softGeo,body,u-fit.w*.10,fit.h*.79,0,fit.w*.65,fit.h*.27,fit.d*.85);part(capGeo,cap,u-fit.w*.12,fit.h*.96,0,fit.w*.28,fit.h*.08,fit.d*.28);part(jugHandle,body,u+fit.w*.27,fit.h*.74,0,fit.w*.42,fit.h*.50,fit.d*.3);}
     else if(round){part(cylGeo,body,u,fit.h*.46,0,fit.w,fit.h*.92,fit.d);part(capGeo,cap,u,fit.h*.95,0,fit.w*1.01,fit.h*.10,fit.d*1.01);}
-    else if(tray){part(boxGeo,body,u,fit.h*.40,0,fit.w,fit.h*.80,fit.d);part(boxGeo,material('#c2c7c5',.05,.32),u,fit.h*.88,0,fit.w*.98,fit.h*.20,fit.d*.98);}
-    else {part(boxGeo,body,u,fit.h*.5,0,fit.w,fit.h,fit.d);if(type==='bag')part(boxGeo,cap,u,fit.h*.97,0,fit.w*.94,fit.h*.035,fit.d*.82);}
-    part(frontGeo,e.page.mat,u,bottle?fit.h*.36:fit.h*.5,fit.d*.5+.003,1,1,1);
+    else if(tray){part(softGeo,body,u,fit.h*.40,0,fit.w,fit.h*.80,fit.d);part(softGeo,material('#c2c7c5'),u,fit.h*.88,0,fit.w*.98,fit.h*.20,fit.d*.98);}
+    else if(bag){part(softGeo,body,u,fit.h*.5,0,fit.w,fit.h,fit.d);for(const yy of [.035,.965])part(boxGeo,cap,u,fit.h*yy,0,fit.w*.88,fit.h*.035,fit.d*.35);}
+    else part(type==='bale'?softGeo:boxGeo,body,u,fit.h*.5,0,fit.w,fit.h,fit.d);
+    if(tray)part(frontGeo,e.page.mat,u,fit.h+.004,0,1,1,1,-Math.PI/2);
+    else part(frontGeo,e.page.mat,u,bottle?fit.h*.32:jug?fit.h*.36:fit.h*.48,fit.d*.5+.004,1,1,1);
     part(boxGeo,shadowMat,u,.006,0,fit.w*1.07,.008,fit.d*1.12);
    }
-   // Shallow merchandising tray grounds bottle rows and small jars without obscuring labels.
-   if(['wine','bottle','jar','can'].includes(type)){const span=offsets.at(-1)-offsets[0]+fit.w;part(boxGeo,kraft,0,.025,0,span+.025,.05,fit.d*1.12);}
+   if(['wine','bottle','jar','can'].includes(type)){const span=offsets.at(-1)-offsets[0]+fit.w;part(boxGeo,kraft,0,.025,0,span+.025,.05,fit.d*1.12);part(boxGeo,kraft,0,.065,-fit.d*.54,span+.025,.12,.025);}
    for(const {geo,mat,matrices} of pieces.values()){const mesh=new T.InstancedMesh(geo,mat,matrices.length);matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));mesh.instanceMatrix.needsUpdate=true;e.group.add(mesh);}
    visualDisplays.push({product:e.p,type,group:e.group,fit,face:e.face,zone:e.zone||merchDepartment(e.p),ready:true});
   }
@@ -524,9 +532,9 @@ async function expandWarehouse(){
     c.fillStyle='#faf9f3';c.fillRect(tx,ty,tileW,tileH);c.fillStyle='#182b37';c.font='bold 17px sans-serif';
     lines(c,p.name.toUpperCase(),240).slice(0,3).forEach((v,j)=>c.fillText(v,tx+8,ty+20+j*19));c.font='12px sans-serif';c.fillText((p.item?'ITEM '+p.item:p.upc?'UPC '+p.upc:'ORLANDO LISTING'),tx+8,ty+82);
     c.font='bold 22px sans-serif';c.fillText(p.price==null?'PRICE UNKNOWN':priceLabel(p),tx+8,ty+111);c.fillStyle=p.regionalListing?'#176a53':'#a82f35';c.fillRect(tx,ty+124,tileW,4);
-    const geo=new T.PlaneGeometry(Math.min(size,.75),.37),uv=geo.attributes.uv;
+    const geo=new T.PlaneGeometry(Math.min(size,.55),.22),uv=geo.attributes.uv;
     for(let k=0;k<uv.count;k++)uv.setXY(k,(tx+uv.getX(k)*tileW)/2048,1-(ty+(1-uv.getY(k))*tileH)/2048);
-    const sign=new T.Mesh(geo,atlas.mat);sign.position.set(x+face.nx*depth*.49,y-.06,z+face.nz*depth*.49);sign.rotation.y=rot;scene.add(sign);shelfCards.push(sign);
+    const sign=new T.Mesh(geo,atlas.mat);sign.position.set(x+face.nx*depth*.49,y-.10,z+face.nz*depth*.49);sign.rotation.y=rot;scene.add(sign);shelfCards.push(sign);
     proxy(p,x+face.nx*depth*.40,y+.42,z+face.nz*depth*.40,alongX?size:.30,.84,alongX?.30:size,f.zone,f);displayed.add(p.id);
     if(p.model){models[p.id]={...p.model};modelSlots.push({id:p.id,assetId:p.assetId,x,y,z,w:size,h:.85,d:size,rot,bulk:false});}
     else if(p.image){const group=new T.Group();scene.add(group);const a=localArt?.entries?.[p.id];if(a&&a.image===p.image&&a.license===p.imageLicense&&localPages[a.page]&&a.x>=0&&a.y>=0&&a.w>0&&a.h>0&&a.x+a.w<=2048&&a.y+a.h<=2048){placePhoto({p,x,y,z,size,depth,face,zone:f.zone.name,cell:a,page:localPages[a.page],group,local:a},a.w,a.h);}else{const cell=atlasCell(photoQueue.length),page=photoPage(cell.page);photoQueue.push({p,x,y,z,size,depth,face,zone:f.zone.name,cell,page,group});}}
