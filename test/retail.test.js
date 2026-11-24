@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {validateRecord,buildCatalogue,validGTIN,priceLabel} from '../retail.js';
+const valid={upc:'0096619189281',name:'Organic Whole Brazil Nuts',brand:'Kirkland Signature',source:'https://world.openfoodfacts.org/product/0096619189281',sourceLicense:'ODbL-1.0'};
+test('barcode validation rejects modified checksum',()=>{assert.equal(validGTIN(valid.upc),true);assert.equal(validGTIN('0096619189282'),false);});
+test('reject untrusted source and invented identity',()=>{assert.equal(validateRecord({...valid,source:'https://example.com/product'}),null);assert.equal(validateRecord({...valid,upc:'0096619189282'}),null);});
+test('no invented stock or price',()=>{const p=validateRecord({...valid,price:9.99,priceType:'warehouse',stockQuantity:50});assert.equal(p.stock,null);assert.equal(p.price,null);assert.equal(p.availability,'unknown');assert.equal(priceLabel(p),'Price unknown');});
+test('asset must be explicitly approved',()=>{const asset={id:'a',license:'CC-BY-4.0',sha256:'x'};assert.equal(buildCatalogue([valid],[asset])[0].model,undefined);assert.equal(buildCatalogue([valid],[asset],[{productId:'upc-'+valid.upc,assetId:'a',verified:true,evidence:'Exact identity documented'}])[0].model.id,'a');});
+test('actual published database yields sourced products only',()=>{const read=p=>JSON.parse(fs.readFile(new URL(p,import.meta.url)));const data=read('../data/open-food-facts.json'),manual=read('../data/warehouse-products.json');const rows=buildCatalogue([...data.products,...manual.products],[]);assert.ok(rows.length>0);assert.equal(new Set(rows.map(p=>p.id)).size,rows.length);assert.ok(rows.every(p=>p.kind==='retail'&&p.source&&p.price===null&&p.stock===null));});
