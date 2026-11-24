@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - .github/workflows/retail-originals.yml
+      - tools/acquire-retail-originals.py
 permissions:
   contents: write
 concurrency:
