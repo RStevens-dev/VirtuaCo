@@ -43,7 +43,7 @@ import {rankSlots,residentPlan} from './sections.js';
 export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
  const low=matchMedia('(pointer:coarse)').matches||(navigator.deviceMemory||4)<=4;
  const limit=low?24:48,byteLimit=low?9_000_000:20_000_000,gpuLimit=low?64*1024*1024:144*1024*1024,workers=low?2:3;
- const resident=new Map(),pending=new Set(),failed=new Set(),impostors=new Map();let desired=new Set(),running=0,queue=[],lastRank=[],atlas=null,tolerance={forward:36,side:18};
+ const resident=new Map(),pending=new Set(),failed=new Set(),impostors=new Map();let desired=new Set(),running=0,queue=[],lastRank=[],atlas=null,tolerance={forward:36,side:18},anchor=null,dirty=true,blockedUntil=new Map();
  // One shared atlas, per-product UVs; the billboard is an actual scan render, never a fabricated carton.
  try{
   const response=await fetch('./assets/merch-atlas.json');if(!response.ok)throw Error('Atlas not published');
@@ -56,7 +56,8 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
    let w=slot.w,h=slot.h;if(Array.isArray(dims)&&dims.length===3&&dims.every(x=>x>0)){const k=Math.min(slot.w/dims[0],slot.h/dims[1],slot.d/dims[2]);w=Math.max(dims[0],dims[2])*k;h=dims[1]*k;}
    mesh.position.set(slot.x,slot.y+h/2,slot.z);mesh.scale.set(w,h,1);mesh.rotation.y=slot.rot||0;scene.add(mesh);impostors.set(slot.id,mesh);
   }
- }catch(e){console.warn('Scan render atlas unavailable',e);}
+ if(impostors.size!==slots.length)throw Error('Incomplete merchandise atlas: '+impostors.size+' / '+slots.length);
+ }catch(e){throw Error('Merchandise atlas required for stable streaming: '+e.message);}
  function dispose(root){
   const geos=new Set(),mats=new Set(),textures=new Set(),images=new Set();root.traverse(o=>{if(!o.isMesh)return;geos.add(o.geometry);for(const m of Array.isArray(o.material)?o.material:[o.material]){mats.add(m);for(const v of Object.values(m))if(v?.isTexture){textures.add(v);if(v.image?.close)images.add(v.image);}}});
   for(const t of textures)t.dispose();for(const m of mats)m.dispose();for(const g of geos)g.dispose();for(const im of images)im.close();
@@ -68,7 +69,7 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
  function used(){return [...resident.values()].reduce((a,r)=>a+r.bytes,0);}
  function pump(){
   while(running<workers&&queue.length){
-   const slot=queue.shift(),id=slot.id;if(!desired.has(id)||resident.has(id)||pending.has(id)||failed.has(id))continue;
+   const slot=queue.shift(),id=slot.id;if(!desired.has(id)||resident.has(id)||pending.has(id)||failed.has(id)||(blockedUntil.get(id)||0)>performance.now())continue;
    pending.add(id);running++;status(id,'Loading local model…');
    // Do not use the old promise cache: it retains decoded meshes indefinitely.
    loader.loadAsync(models[id].url).then(gltf=>{
@@ -77,18 +78,23 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
     if(!desired.has(id)){dispose(root);return;}
     const bytes=estimate(root);
     // Avoid evicting a closer product to admit a farther one.
-    const priority=lastRank.findIndex(r=>r.slot.id===id);
-    for(const r of [...lastRank].reverse()){if(used()+bytes<=gpuLimit&&resident.size<limit)break;if(lastRank.indexOf(r)<=priority)continue;evict(r.slot.id);}
-    if(used()+bytes>gpuLimit||resident.size>=limit){dispose(root);return;}
+    // Never evict an established model to admit another during a stationary look.
+    if(used()+bytes>gpuLimit||resident.size>=limit){dispose(root);blockedUntil.set(id,performance.now()+15000);status(id,'Scan image · memory budget');return;}
     const holder=new T.Group();root.position.sub(new T.Vector3(center.x,bounds.min.y,center.z));holder.add(root);holder.scale.setScalar(Math.min(slot.w/size.x,slot.h/size.y,slot.d/size.z));holder.position.set(slot.x,slot.y,slot.z);holder.rotation.y=slot.rot||0;
     scene.add(holder);resident.set(id,{holder,bytes});const sprite=impostors.get(id);if(sprite)sprite.visible=false;status(id,'3D model loaded');
    }).catch(e=>{failed.add(id);status(id,impostors.has(id)?'Scan image · model failed':'Model failed to load');console.warn(id,e);}).finally(()=>{pending.delete(id);running--;pump();});
   }
  }
  function update(pos,yaw,velocity={x:0,z:0}){
-  lastRank=rankSlots(slots,pos,yaw,velocity,tolerance);desired=residentPlan(lastRank,resident,{limit,byteLimit,bytesOf:id=>models[id]?.bytes||250000});
-  for(const id of resident.keys())if(!desired.has(id))evict(id);
-  queue=lastRank.filter(r=>desired.has(r.slot.id)&&!resident.has(r.slot.id)&&!pending.has(r.slot.id)&&!failed.has(r.slot.id)).map(r=>r.slot);
+  // Residency changes only after meaningful translation, never from camera rotation.
+  const moved=!anchor||Math.hypot(pos.x-anchor.x,pos.z-anchor.z)>=4;
+  if(moved||dirty){
+   anchor={x:pos.x,z:pos.z};dirty=false;lastRank=rankSlots(slots,pos,yaw,velocity,tolerance);
+   const retention=Math.max(16,Math.min(32,Math.max(tolerance.side,tolerance.forward*.5)));
+   desired=residentPlan(lastRank,resident,{limit,byteLimit,keepRadius:retention,bytesOf:id=>models[id]?.bytes||250000});
+   for(const id of resident.keys())if(!desired.has(id))evict(id);
+   queue=lastRank.filter(r=>desired.has(r.slot.id)&&!resident.has(r.slot.id)&&!pending.has(r.slot.id)&&!failed.has(r.slot.id)&&(blockedUntil.get(r.slot.id)||0)<=performance.now()).map(r=>r.slot);
+  }
   // Rotate only distant scan images toward the viewer, never full meshes.
   for(const [id,sprite] of impostors)if(sprite.visible)sprite.rotation.y=Math.atan2(pos.x-sprite.position.x,pos.z-sprite.position.z);
   pump();
@@ -104,5 +110,5 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
    await new Promise(r=>setTimeout(r,100));
   }
  }
- return {update,initial,setTolerance:(value)=>{tolerance={...tolerance,...value};},stats:()=>({resident:resident.size,pending:pending.size,bytes:used(),limit,eligible:lastRank.filter(r=>r.eligible).length,impostors:impostors.size}),has:id=>resident.has(id)||impostors.has(id)};
+ return {update,initial,setTolerance:(value)=>{tolerance={...tolerance,...value};dirty=true;},stats:()=>({resident:resident.size,pending:pending.size,bytes:used(),limit,eligible:lastRank.filter(r=>r.eligible).length,impostors:impostors.size}),has:id=>resident.has(id)||impostors.has(id)};
 }
