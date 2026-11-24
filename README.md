@@ -40,11 +40,11 @@ Pallet racks are procedural modules:
 - **Second level:** customer-facing hero products and white price placards. These are interactive.
 - **Upper levels:** deterministic assorted surplus cartons, legacy-style products and fictional archive finds. These are decorative rather than shoppable.
 
-Cold cases, flat display tables, furniture, electronics and service counters have their own geometry. The warehouse uses instanced rendering for repeated parts, generated textures, an industrial shell and simple warehouse lighting. Package art is procedural placeholder artwork. Optional CC0 models add a reusable water bottle and cut avocado to select displays. See ASSET_CREDITS.md.
+Cold cases, flat display tables, furniture, electronics and service counters have their own geometry. The warehouse uses instanced rendering for repeated parts, generated textures, an industrial shell and simple warehouse lighting. Package art is procedural placeholder artwork. Optional CC0 models add a reusable water bottle and cut avocado. Ten CC BY 4.0 Google Research scans add real merchandise displays and thumbnail textures; prices and stock remain fictional. See ASSET_CREDITS.md.
 
 ## Inventory signals
 
-The catalog has 81 fictional SKUs. The in-memory stock map is the single source of truth for the visualizer. Product details expose a 0–120 unit slider. Adjusting a rack SKU rebuilds its bottom displays across the warehouse, not its hero shelf or decorative surplus.
+The catalog has 91 demo SKUs (including ten real-product scan references). The in-memory stock map is the single source of truth for the visualizer. Product details expose a 0–120 unit slider. Adjusting a rack SKU rebuilds its bottom displays across the warehouse, not its hero shelf or decorative surplus.
 
 | Units | Bottom display |
 | --- | --- |
@@ -75,3 +75,7 @@ There are no npm dependencies to install. The checks verify the fixture bounds, 
 
 ## Roadmap
 Real product photography and licensed product data; finer environmental detailing and audio; accessibility and mobile performance testing; multiple warehouse layouts; authorized inventory adapter; optional WebXR.
+
+## Merchandise assets
+
+The scanned catalog in `world.js` identifies ten real-product scans. `assets.js` uses Meshopt decoding, shared models, up to eight 3D instances per scanned SKU, and asynchronous thumbnail textures for repeated stock. Failed downloads retain procedural packaging. `photos.js` supports individually reviewed Open Food Facts photographs; the manifest starts empty because no photo rights or exact matches were verified. `tools/curate.py` is an optional barcode-by-barcode curator (requires your contact address for the API User-Agent); run without `--approve` to preview. Review product identity, rights, and license before approval. No visitor API calls are made by the curator.
