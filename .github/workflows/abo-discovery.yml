@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - .github/workflows/abo-discovery.yml
+      - tools/discover-abo.py
 permissions:
   contents: write
 jobs:
