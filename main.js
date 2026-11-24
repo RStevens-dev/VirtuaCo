@@ -103,6 +103,39 @@ function rebuildProductStock(id){
 function setStock(id,n){stock.set(id,Math.max(0,Math.min(120,Math.round(n))));rebuildProductStock(id);sectionStreamer?.setStock(id,stock.get(id));}
 function local(f,u,v){return f.alongX?[f.x+f.w/2+u,f.z+f.d/2+v]:[f.x+f.w/2+v,f.z+f.d/2+u];}
 function lb(f,u,y,v,w,h,d,c){let [x,z]=local(f,u,v);B(x,y,z,f.alongX?w:d,h,f.alongX?d:w,c);}
+// Permanent reserve stock: opaque cartons block sightlines, cheap film highlights suggest cling wrap.
+// All pieces are batched with the structural fixtures; no imported assets or inventory coupling.
+const reserveColors=['#b49a77','#aa8d65','#c6b28f','#d4d0c4','#a4aca5','#b7b9ac'];
+const film=new T.MeshStandardMaterial({color:0xe9f2f5,transparent:true,opacity:.17,roughness:.24,metalness:.04,depthWrite:false,side:T.FrontSide});
+const filmBand=new T.MeshBasicMaterial({color:0xe8f2fa,transparent:true,opacity:.24,depthWrite:false});
+const filmGlint=new T.MeshBasicMaterial({color:0xf2f8fa,transparent:true,opacity:.43,depthWrite:false});
+function reservePallets(f,w,d){
+ const r=rng(81173+Math.round(f.x*127)+Math.round(f.z*313)+f.index*19);
+ // Fill the two upper storage tiers, including the top deck, with narrow clearance.
+ for(const deck of [3.80,5.60]){
+  const bays=Math.max(1,Math.round((w-.16)/1.25)),bayW=(w-.16)/bays;
+  const faces=d>1.65?2:1,faceD=(d-.19)/faces;
+  for(let b=0;b<bays;b++)for(let face=0;face<faces;face++){
+   const u=-w/2+.08+(b+.5)*bayW,v=-d/2+.095+(face+.5)*faceD;
+   const pw=bayW*(.96+r()*.02),pd=faceD*(.94+r()*.035);
+   for(let j=0;j<4;j++)lb(f,u+(j-1.5)*pw/4,deck+.07,v,pw*.21,.07,pd,wood);
+   for(let j=0;j<3;j++)lb(f,u,deck+.025,v+(j-1)*pd*.33,pw,.05,pd*.13,darkKraft);
+   const h=deck<5?1.42+r()*.08:1.46+r()*.32;
+   const color=reserveColors[Math.floor(r()*reserveColors.length)], rows=r()>.65?3:2,cols=pw>.78?2:1, cw=pw*.95/cols,rh=h/rows;
+   for(let row=0;row<rows;row++)for(let col=0;col<cols;col++){
+    const a=u+(col-(cols-1)/2)*cw,y=deck+.105+(row+.5)*rh;
+    lb(f,a,y,v,cw*.994,rh*.986,pd*.96,color);
+    // Dark seams and pale tape on exposed carton faces.
+    for(const side of [-1,1]){lb(f,a,y+.03,v+side*pd*.482,cw*.105,rh*.89,.009,'#cbb797');if((row+col+b)%3===0)lb(f,a-cw*.24,y-rh*.23,v+side*pd*.484,cw*.23,rh*.22,.008,'#dddcd2');}
+   }
+   const base=deck+.105;
+   lb(f,u,base+h*.5,v,pw*.974,h+.018,pd*.987,film);
+   const bands=5+Math.floor(r()*3);
+   for(let j=0;j<bands;j++){const y=base+h*(.08+.85*j/(bands-1));const thick=.018+r()*.026;for(const side of [-1,1]){lb(f,u,y,v+side*pd*.496,pw*.98,thick,.008,filmBand);lb(f,u+side*pw*.49,y,v,.008,thick,pd*.99,filmBand);}}
+   for(const side of [-1,1])lb(f,u+side*pw*.37,base+h*.51,v+pd*.497,.017,h*.88,.008,filmGlint);
+  }
+ }
+}
 function emptyRack(f){
  const w=f.alongX?f.w:f.d,d=f.alongX?f.d:f.w;
  for(const u of [-w/2+.065,w/2-.065])for(const v of [-d/2+.065,d/2-.065]){
@@ -115,6 +148,7 @@ function emptyRack(f){
  let [x,z]=local(f,u,0),len=Math.hypot(d-.15,1.55),a=Math.atan2(d-.15,1.55);B(x,yy,z,.055,len,.055,steel,0,f.alongX?0:a,f.alongX?a:0);}
  // Empty shipping pallets are fixtures, not merchandise.
  let [x,z]=local(f,0,0);pallet(x,z,f.w*.84,f.d*.78);
+ reservePallets(f,w,d);
 }
 function rack(f){
  const w=f.alongX?f.w:f.d,d=f.alongX?f.d:f.w, height=5.85, products=byCategory[f.zone.category]||byCategory.misc, faces=f.narrow?1:2;
