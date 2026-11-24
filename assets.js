@@ -31,28 +31,42 @@ export async function installProductModels(scene,slots,status=()=>{}){
 }
 export function applyScanThumbnail(p,texture){
  const asset=models[p.id];if(!asset?.thumb)return;
- if(asset.expansion){thumbnailQueue.set(p.id,{p,texture});return;}
+ if(asset.expansion)return;
  const image=new Image();image.crossOrigin='anonymous';image.onload=()=>{
   try{const c=texture.image,ctx=c.getContext('2d'),w=c.width,h=c.height;ctx.fillStyle=p.color;ctx.fillRect(0,0,w,h);const k=Math.min(w*.95/image.width,h*.95/image.height);ctx.drawImage(image,(w-image.width*k)/2,(h-image.height*k)/2,image.width*k,image.height*k);texture.needsUpdate=true;}catch{}
  };image.src=asset.thumb;
 }
 
-const thumbnailQueue=new Map(),active=new Map(),failed=new Set();let loading=0,photoLoading=0;
-export function streamExpansion(scene,slots,pos,status=()=>{}){
- const nearby=slots.filter(s=>s.expansion).map(s=>({s,d:Math.hypot(s.x-pos.x,s.z-pos.z)})).sort((a,b)=>a.d-b.d);
- const desired=new Set(nearby.filter(q=>q.d<18).slice(0,36).map(q=>q.s.id));
- for(const [id,holder] of active)if(!desired.has(id)){scene.remove(holder);holder.userData.slot.fallback.visible=!holder.userData.slot.strict;status(id,'Local model · not currently rendered');holder.traverse(o=>{if(o.isMesh){o.geometry.dispose();for(const m of Array.isArray(o.material)?o.material:[o.material]){m.map?.dispose();m.dispose();}}});active.delete(id);}
- for(const {s,d} of nearby){
-  if(d>22||photoLoading>=3)break;const q=thumbnailQueue.get(s.id);if(!q)continue;thumbnailQueue.delete(s.id);photoLoading++;
-  const img=new Image();img.crossOrigin='anonymous';let done=false;const finish=()=>{if(!done){done=true;photoLoading--;}};img.onload=()=>{try{const c=q.texture.image,ctx=c.getContext('2d'),k=Math.min(c.width/img.width,c.height/img.height);ctx.fillStyle=q.p.color;ctx.fillRect(0,0,c.width,c.height);ctx.drawImage(img,(c.width-img.width*k)/2,(c.height-img.height*k)/2,img.width*k,img.height*k);q.texture.needsUpdate=true;}finally{finish();}};img.onerror=finish;setTimeout(finish,15000);img.src=models[s.id].thumb;
+
+// Persistent scene residency: no distance-based loading, removal or replacement.
+export async function preloadWarehouse(scene,slots,{progress=()=>{},status=()=>{},concurrency=6}={}){
+ const grouped=new Map();for(const slot of slots){if(!grouped.has(slot.id))grouped.set(slot.id,[]);grouped.get(slot.id).push(slot);}
+ const tasks=[...grouped],errors=[];let next=0,completed=0,loaded=0,bytes=0;
+ const totalBytes=tasks.reduce((n,[id])=>n+(models[id]?.bytes||0),0);
+ progress({completed,loaded,total:tasks.length,bytes,totalBytes,errors:0});
+ async function worker(){
+  while(next<tasks.length){
+   const [id,placements]=tasks[next++],asset=models[id];status(id,'Loading local model…');
+   try{
+    if(!asset?.url)throw Error('Missing asset URL');
+    const gltf=await load(asset),root=gltf.scene;
+    const bounds=new T.Box3().setFromObject(root),size=bounds.getSize(new T.Vector3()),center=bounds.getCenter(new T.Vector3());
+    if(![size.x,size.y,size.z].every(v=>Number.isFinite(v)&&v>0))throw Error('Invalid bounds');
+    const holders=[];
+    for(const slot of placements){
+     const clone=root.clone(true),holder=new T.Group();
+     clone.position.sub(new T.Vector3(center.x,bounds.min.y,center.z));holder.add(clone);
+     holder.scale.setScalar(Math.min(slot.w/size.x,slot.h/size.y,slot.d/size.z));
+     holder.position.set(slot.x,slot.y,slot.z);holder.rotation.y=slot.rot||0;
+     holders.push(holder);
+    }
+    for(const holder of holders)scene.add(holder);
+    for(const slot of placements)if(slot.fallback)slot.fallback.visible=false;
+    loaded++;bytes+=asset.bytes||0;status(id,'3D model loaded');
+   }catch(e){errors.push({id,message:String(e)});status(id,'Model failed to load');cache.delete(asset?.url);}
+   finally{completed++;progress({completed,loaded,total:tasks.length,bytes,totalBytes,errors:errors.length});}
+  }
  }
- for(const {s} of nearby){
-  if(!desired.has(s.id)||active.has(s.id)||failed.has(s.id)||loading>=2)continue;
-  failed.add(s.id);loading++;status(s.id,'Downloading 3D model…');
-  loader.loadAsync(models[s.id].url).then(gltf=>{
-   const root=gltf.scene,box=new T.Box3().setFromObject(root),size=box.getSize(new T.Vector3()),center=box.getCenter(new T.Vector3());
-   if(!size.x||!size.y||!size.z)throw Error('Invalid dimensions');
-   const holder=new T.Group();root.position.set(-center.x,-box.min.y,-center.z);holder.add(root);holder.scale.setScalar(Math.min(s.w/size.x,s.h/size.y,s.d/size.z));holder.position.set(s.x,s.y,s.z);holder.rotation.y=s.rot;holder.userData.slot=s;scene.add(holder);active.set(s.id,holder);s.fallback.visible=false;failed.delete(s.id);status(s.id,'3D model loaded');
-  }).catch(()=>status(s.id,s.strict?'Model failed to render · shelf left empty':'Download failed · fallback visible')).finally(()=>loading--);
- }
+ await Promise.all(Array.from({length:Math.min(concurrency,tasks.length)},worker));
+ return {loaded,total:tasks.length,errors};
 }
