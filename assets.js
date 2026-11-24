@@ -43,7 +43,7 @@ import {rankSlots,residentPlan} from './sections.js';
 export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
  const low=matchMedia('(pointer:coarse)').matches||(navigator.deviceMemory||4)<=4;
  const limit=low?24:48,byteLimit=low?9_000_000:20_000_000,gpuLimit=low?64*1024*1024:144*1024*1024,workers=low?2:3;
- const resident=new Map(),pending=new Set(),failed=new Set(),impostors=new Map();let desired=new Set(),running=0,queue=[],lastRank=[],atlas=null;
+ const resident=new Map(),pending=new Set(),failed=new Set(),impostors=new Map();let desired=new Set(),running=0,queue=[],lastRank=[],atlas=null,tolerance={forward:36,side:18};
  // One shared atlas, per-product UVs; the billboard is an actual scan render, never a fabricated carton.
  try{
   const response=await fetch('./assets/merch-atlas.json');if(!response.ok)throw Error('Atlas not published');
@@ -86,7 +86,7 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
   }
  }
  function update(pos,yaw,velocity={x:0,z:0}){
-  lastRank=rankSlots(slots,pos,yaw,velocity);desired=residentPlan(lastRank,resident,{limit,byteLimit,bytesOf:id=>models[id]?.bytes||250000});
+  lastRank=rankSlots(slots,pos,yaw,velocity,tolerance);desired=residentPlan(lastRank,resident,{limit,byteLimit,bytesOf:id=>models[id]?.bytes||250000});
   for(const id of resident.keys())if(!desired.has(id))evict(id);
   queue=lastRank.filter(r=>desired.has(r.slot.id)&&!resident.has(r.slot.id)&&!pending.has(r.slot.id)&&!failed.has(r.slot.id)).map(r=>r.slot);
   // Rotate only distant scan images toward the viewer, never full meshes.
@@ -104,5 +104,5 @@ export async function createSectionStreamer(scene,slots,renderer,status=()=>{}){
    await new Promise(r=>setTimeout(r,100));
   }
  }
- return {update,initial,stats:()=>({resident:resident.size,pending:pending.size,bytes:used(),limit,impostors:impostors.size}),has:id=>resident.has(id)||impostors.has(id)};
+ return {update,initial,setTolerance:(value)=>{tolerance={...tolerance,...value};},stats:()=>({resident:resident.size,pending:pending.size,bytes:used(),limit,eligible:lastRank.filter(r=>r.eligible).length,impostors:impostors.size}),has:id=>resident.has(id)||impostors.has(id)};
 }
