@@ -66,7 +66,7 @@ function crate(x,y,z,w,h,d,open=false){
 function pallet(x,z,w,d){for(let i=0;i<5;i++)B(x-w/2+w*(i+.5)/5,.115,z,w*.17,.075,d,wood);for(let i=0;i<3;i++)B(x,.045,z-d/2+d*(i+.5)/3,w,.09,d*.15,darkKraft);}
 const stockGroups=new Map(),stockMeshes=new Map();
 const modelSlots=[];
-let expansionState='Loading 500 additional scans…';
+let expansionState='Checking locally imported GLB assets…';
 const modelStatus=new Map();
 function makeStock(p,x,z,w,d,seed){
  const slot={p,x,z,w,d,seed};if(!stockGroups.has(p.id))stockGroups.set(p.id,[]);stockGroups.get(p.id).push(slot);
@@ -100,6 +100,19 @@ function rebuildProductStock(id){
 function setStock(id,n){stock.set(id,Math.max(0,Math.min(120,Math.round(n))));rebuildProductStock(id);}
 function local(f,u,v){return f.alongX?[f.x+f.w/2+u,f.z+f.d/2+v]:[f.x+f.w/2+v,f.z+f.d/2+u];}
 function lb(f,u,y,v,w,h,d,c){let [x,z]=local(f,u,v);B(x,y,z,f.alongX?w:d,h,f.alongX?d:w,c);}
+function emptyRack(f){
+ const w=f.alongX?f.w:f.d,d=f.alongX?f.d:f.w;
+ for(const u of [-w/2+.065,w/2-.065])for(const v of [-d/2+.065,d/2-.065]){
+  lb(f,u,2.925,v,.13,5.85,.13,steel);lb(f,u,.035,v,.25,.07,.25,gray);
+  for(let i=0;i<11;i++)lb(f,u,.45+i*.48,v+(v<0?-.072:.072),.042,.09,.012,black);
+ }
+ for(const y of [1.65,3.65,5.45]){for(const v of [-d/2+.07,d/2-.07])lb(f,0,y,v,w,.19,.14,beam);lb(f,0,y+.11,0,w-.14,.075,d-.2,gray);}
+ for(const u of [-w/2+.07,w/2-.07])for(const y of [.38,2,3.85,5.55])lb(f,u,y,0,.07,.07,d-.2,steel);
+ for(const u of [-w/2+.075,w/2-.075])for(const yy of [1.15,3,4.75]){
+ let [x,z]=local(f,u,0),len=Math.hypot(d-.15,1.55),a=Math.atan2(d-.15,1.55);B(x,yy,z,.055,len,.055,steel,0,f.alongX?0:a,f.alongX?a:0);}
+ // Empty shipping pallets are fixtures, not merchandise.
+ let [x,z]=local(f,0,0);pallet(x,z,f.w*.84,f.d*.78);
+}
 function rack(f){
  const w=f.alongX?f.w:f.d,d=f.alongX?f.d:f.w, height=5.85, products=byCategory[f.zone.category]||byCategory.misc, faces=f.narrow?1:2;
  // Teardrop-style green uprights, orange box beams, steel decking, braces and base plates.
@@ -186,7 +199,7 @@ function shell(){
  B(112,3.0,1.0,5,.35,.28,steel);
 }
 shell();
-for(const f of fixtures){colliders.push(f);B(f.x+f.w/2,.008,f.z+f.d/2,f.w+.12,.012,f.d+.12,contactMat);if(f.type==='rack')rack(f);else if(f.type==='display')display(f);else if(f.type==='cold')cold(f);else if(f.type==='service')service(f);else counter(f);}
+for(const f of fixtures){colliders.push(f);B(f.x+f.w/2,.008,f.z+f.d/2,f.w+.12,.012,f.d+.12,contactMat);if(f.type==='rack')emptyRack(f);else if(f.type==='display'){B(f.x+f.w/2,.46,f.z+f.d/2,f.w*.88,.80,f.d*.85,'#b4a08b');B(f.x+f.w/2,.89,f.z+f.d/2,f.w*.9,.06,f.d*.87,'#e3ddd3');}else if(f.type==='cold'){B(f.x+f.w/2,.37,f.z+f.d/2,f.w,.74,f.d,gray);B(f.x+f.w/2,.78,f.z+f.d/2,f.w,.07,f.d,'#d9e5e8');}else if(f.type==='service')service(f);else{B(f.x+f.w/2,.55,f.z+f.d/2,f.w,1.10,f.d,'#aab3b5');if(f.type==='checkout')B(f.x+f.w/2,1.13,f.z+f.d/2,f.w*.75,.06,f.d*.7,'#30383e');}}
 for(const q of zones){
  const x=q.x+q.w/2,z=q.z+q.d/2,y=q.kind==='rack'?6.72:4.2,sign=signMat(q.name,q.id+' / '+(q.kind==='rack'?'BULK GOODS':'WAREHOUSE DEPARTMENT'));
  B(x,y,z,Math.min(4.9,Math.max(2.3,q.w)),.88,.1,sign);
@@ -194,7 +207,7 @@ for(const q of zones){
 }
 for(const {geo,mat,matrices} of batches.values()){let mesh=new T.InstancedMesh(geo,mat,matrices.length);matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));mesh.instanceMatrix.needsUpdate=true;scene.add(mesh);}
 batches.clear();
-installProductModels(scene,modelSlots,(id,state)=>{modelStatus.set(id,state);if(mode==='models')renderModelList();}).catch(console.warn);
+// External fallback catalog disabled; local manifest is the only merchandise source.
 for(const id of stockGroups.keys())rebuildProductStock(id);
 let pos=new T.Vector3(SPAWN.x,1.68,SPAWN.z),yaw=SPAWN.yaw,pitch=0,started=false,open=false,mode='',selected=null,hit=null,keys=new Set(),drag=null,toastTimer;
 const radius=.36;
@@ -230,18 +243,18 @@ saveBasket();
 function addBasket(p){if(stock.get(p.id)===0){toast('This demo item is out of stock');return;}let n=basket[p.id]||0;if(n>=Math.min(stock.get(p.id),99)){toast('Simulated stock limit reached');return;}basket[p.id]=n+1;saveBasket();toast('Added '+p.name);}
 function showProduct(p,zone){
  selected=p;let body=showPanel(p.name,zone?.name||'PRODUCT / SAMPLE CATALOG','product');selected=p;
- let art=el('div','product-art');art.style.background=p.color;let canvas=label(p).map.image;let img=el('img');img.src=canvas.toDataURL();img.alt='Illustrative packaging for '+p.name;art.append(img);
+ let art=el('div','product-art');art.style.background=p.color;art.append(info(modelStatus.get(p.id)||'Verified local model · approach its display to render'));
  let amount=el('div','price',money(p.price)),status=el('div','stock-status'),quantity=el('input');quantity.type='range';quantity.min=0;quantity.max=120;quantity.value=stock.get(p.id);quantity.setAttribute('aria-label','Simulated inventory units');
  let add=button('Add to basket',()=>addBasket(p),'primary');
  function update(){let n=stock.get(p.id);status.textContent=n+' demo units · '+stockState(n);status.dataset.state=stockState(n);add.disabled=n===0;}
  quantity.oninput=()=>{setStock(p.id,Number(quantity.value));update();};update();
  append(body,art,el('div','eyebrow',p.size+' / '+p.id.toUpperCase()),amount,status,info(nativeVisible.has(p.id)?'Locally generated 3D product geometry. Demo price and stock.':'Illustrative bulk product. Price and inventory are fictional and not connected to a retailer.'),...(p.scan?[info('3D scan: '+p.credit+' · '+p.license),(()=>{const a=el('a','text-button','Original scan and attribution');a.href=p.source;a.target='_blank';a.rel='noopener noreferrer';return a;})()]:photoManifest[p.id]?[info('Photo: '+photoManifest[p.id].credit+' · '+photoManifest[p.id].license),(()=>{const a=el('a','text-button','Original product photo record');a.href=photoManifest[p.id].source;a.target='_blank';a.rel='noopener noreferrer';return a;})()]:[]),add,el('hr'),el('h3','','Inventory visualizer'),info('Move the slider to update the bottom pallet displays for this product throughout the warehouse. The second-level hero products and upper archival stock remain unchanged.'),quantity,button('Reset simulated stock',()=>{setStock(p.id,p.stock);quantity.value=p.stock;update();}));
 }
-function inspect(){if(hit&&!open)showProduct(hit.p,hit.zone);else if(!open)toast('Look at a product or price sign to inspect it');}
+function inspect(){if(hit&&!open&&modelStatus.get(hit.p.id)==='3D model loaded')showProduct(hit.p,hit.zone);else if(!open)toast('Look at a product or price sign to inspect it');}
 function productRow(p,fn){let row=el('button','product-row'),sw=el('span','swatch');sw.style.background=p.color;let left=append(el('span','product-text'),el('b','',p.name),el('small','',p.size+' · '+stockState(stock.get(p.id))));append(row,sw,left,el('strong','',money(p.price)));row.onclick=fn;return row;}
-function renderModelList(){const body=$('panelBody');body.replaceChildren(info('Locally rendered product shapes: '+nativeVisible.size+' unique SKUs. External models are counted only when successfully loaded.'),info('Select a product to travel directly to a display.'));for(const id of nativeVisible){const p=byId[id],loc=productLocations.get(id)?.[0];body.append(productRow(p,()=>showProduct(p,loc?.zone)),info('Local 3D geometry · no external download'));if(loc)body.append(button('Go to product →',()=>{jump(loc.x,loc.z,loc.x,loc.z);pitch=Math.atan2(.6,Math.hypot(pos.x-loc.x,pos.z-loc.z));}));}for(const [id,asset] of Object.entries(models).filter(([id,a])=>!a.expansion)){const p=byId[id],slot=modelSlots.find(s=>s.id===id);if(!p)continue;body.append(productRow(p,()=>showProduct(p)));body.append(info(modelStatus.get(id)||'Waiting for download'));if(slot)body.append(button('Go to model →',()=>{jump(slot.x,slot.z,slot.x,slot.z);pitch=Math.atan2(slot.y+slot.h/2-1.68,Math.hypot(pos.x-slot.x,pos.z-slot.z));}));else body.append(info('No dedicated model placement'));}}
+function renderModelList(){const body=$('panelBody');body.replaceChildren(info('Locally rendered product shapes: '+nativeVisible.size+' unique SKUs. External models are counted only when successfully loaded.'),info('Select a product to travel directly to a display.'));for(const id of nativeVisible){const p=byId[id],loc=productLocations.get(id)?.[0];body.append(productRow(p,()=>showProduct(p,loc?.zone)),info('Local 3D geometry · no external download'));if(loc)body.append(button('Go to product →',()=>{jump(loc.x,loc.z,loc.x,loc.z);pitch=Math.atan2(.6,Math.hypot(pos.x-loc.x,pos.z-loc.z));}));}for(const [id,asset] of Object.entries(models).filter(([id,a])=>modelStatus.has(id)).slice(0,100)){const p=byId[id],slot=modelSlots.find(s=>s.id===id);if(!p)continue;body.append(productRow(p,()=>showProduct(p)));body.append(info(modelStatus.get(id)||'Waiting for download'));if(slot)body.append(button('Go to model →',()=>{jump(slot.x,slot.z,slot.x,slot.z);pitch=Math.atan2(slot.y+slot.h/2-1.68,Math.hypot(pos.x-slot.x,pos.z-slot.z));}));else body.append(info('No dedicated model placement'));}}
 function showModels(){showPanel('Real product models','ASSET STATUS / FIND A DISPLAY','models');renderModelList();}
-function showSearch(){let body=showPanel('Find a product','CATALOG / '+catalog.length+' DEMO PRODUCTS','search'),input=el('input','search-input');input.placeholder='Search products or departments';input.setAttribute('aria-label','Search products or departments');let results=el('div','results');function render(){let query=input.value.trim().toLowerCase();results.replaceChildren();let items=catalog.filter(p=>(p.name+' '+p.category+' '+p.size+' '+(productLocations.get(p.id)||[]).map(v=>v.zone.name).join(' ')).toLowerCase().includes(query));if(!items.length)results.append(info('No matching products.'));if(items.length>100)results.append(info(items.length+' matches · showing first 100. Narrow your search.'));for(const p of items.slice(0,100)){let loc=productLocations.get(p.id)?.[0];let row=productRow(p,()=>showProduct(p,loc?.zone));results.append(row);if(loc){let b=button('Go to '+loc.zone.name+' →',()=>{jump(loc.x,loc.z,loc.x,loc.z);if(p.expansion)pitch=Math.atan2(2.95-1.68,Math.hypot(pos.x-loc.x,pos.z-loc.z));},'text-button');results.append(b);}}}input.oninput=render;append(body,button('Find real 3D models / download status',showModels),info(expansionState),input,results);render();input.focus();}
+function showSearch(){let body=showPanel('Find a product','CATALOG / '+catalog.length+' DEMO PRODUCTS','search'),input=el('input','search-input');input.placeholder='Search products or departments';input.setAttribute('aria-label','Search products or departments');let results=el('div','results');function render(){let query=input.value.trim().toLowerCase();results.replaceChildren();let items=catalog.filter(p=>(p.name+' '+p.category+' '+p.size+' '+(productLocations.get(p.id)||[]).map(v=>v.zone.name).join(' ')).toLowerCase().includes(query));if(!items.length)results.append(info('No matching products.'));if(items.length>100)results.append(info(items.length+' matches · showing first 100. Narrow your search.'));for(const p of items.slice(0,100)){let loc=productLocations.get(p.id)?.[0];let row=productRow(p,()=>showProduct(p,loc?.zone));results.append(row);if(loc){let b=button('Go to '+loc.zone.name+' →',()=>{jump(loc.x,loc.z,loc.x,loc.z);if(p.expansion){const slot=modelSlots.find(s=>s.id===p.id);if(slot)pitch=Math.atan2(slot.y+.42-1.68,Math.hypot(pos.x-slot.x,pos.z-slot.z));}},'text-button');results.append(b);}}}input.oninput=render;append(body,button('Find real 3D models / download status',showModels),info(expansionState),input,results);render();input.focus();}
 function showBasket(){let body=showPanel('Your basket','DEMO SHOPPING / NO CHECKOUT','basket');let ids=Object.keys(basket);if(!ids.length)body.append(info('Your basket is empty. Find a product and add it while exploring.'));let total=0;for(let id of ids){let p=byId[id],n=basket[id];total+=p.price*n;let row=productRow(p,()=>showProduct(p));let controls=el('div','qty');append(controls,button('−',()=>{if(--basket[id]<=0)delete basket[id];saveBasket();showBasket();}),el('span','',String(n)),button('+',()=>{addBasket(p);showBasket();}),button('Remove',()=>{delete basket[id];saveBasket();showBasket();},'text-button'));append(body,row,controls);}append(body,el('hr'),el('div','price',money(total)),info('Estimated demo total before tax. Items are not available for purchase. Basket is saved on this device.'),button('Empty basket',()=>{basket={};saveBasket();showBasket();}));}
 function drawMap(canvas,full=false){let c=canvas.getContext('2d'),w=canvas.width,h=canvas.height,sx=w/WIDTH,sz=h/DEPTH;c.fillStyle='#172733';c.fillRect(0,0,w,h);for(let q of zones){c.fillStyle=colors[q.kind]+'bb';c.fillRect(q.x*sx,q.z*sz,q.w*sx,q.d*sz);c.strokeStyle='#111c25';c.lineWidth=full?2:1;c.strokeRect(q.x*sx,q.z*sz,q.w*sx,q.d*sz);if(full&&q.w*sx>56&&q.d*sz>23){c.fillStyle='#fff';c.font='bold 11px sans-serif';let ls=lines(c,q.name,q.w*sx-6).slice(0,2);ls.forEach((s,i)=>c.fillText(s,q.x*sx+3,q.z*sz+12+12*i));}}
  if(full){c.fillStyle='#fff';c.font='bold 12px sans-serif';c.fillText('ENTRANCE',w-85,12);}
@@ -272,28 +285,30 @@ requestAnimationFrame(frame);
 // Add unique scan displays to existing rack shelves without moving fixtures.
 // Each scan gets an independently searchable location, its own price and stock signal.
 async function expandWarehouse(){
+ catalog.splice(0);for(const key of Object.keys(byId))delete byId[key];for(const key of Object.keys(byCategory))byCategory[key]=[];for(const key of Object.keys(models))delete models[key];stock.clear();basket={};saveBasket();
  try{
-  const items=await fetchExpansion(catalog);registerExpansion(items,catalog,byCategory,byId,models);
-  const racks=fixtures.filter(f=>f.type==='rack'), assignments=new Map();
+  const response=await fetch('./assets/catalog.json',{cache:'no-cache'});if(!response.ok)throw Error('Local catalog not published');
+  const manifest=await response.json();const items=manifest.products;
+  if(!Array.isArray(items)||manifest.count!==items.length||items.some(p=>!/^\.\/assets\/models\/[A-Za-z0-9_.-]+\.glb$/.test(p.url)||!p.sha256||p.license!=='CC-BY-4.0'))throw Error('Invalid local manifest');
+  const racks=fixtures.filter(f=>f.type==='rack'||f.type==='display'||f.type==='cold'), assignments=new Map();
   for(const p of items){
-   stock.set(p.id,p.stock);
-   const matching=racks.filter(f=>f.zone.category===p.category), pool=matching.length?matching:racks;
-   const f=pool.reduce((a,b)=>(assignments.get(a)?.length||0)<=(assignments.get(b)?.length||0)?a:b);
-   if(!assignments.has(f))assignments.set(f,[]);assignments.get(f).push(p);
+   p.expansion=true;catalog.push(p);byId[p.id]=p;(byCategory[p.category]??=[]).push(p);stock.set(p.id,p.stock);models[p.id]={...p,expansion:true};
+   const matching=racks.filter(f=>f.zone.category===p.category),pool=matching.length?matching:racks;
+   const f=pool.reduce((a,b)=>(assignments.get(a)?.length||0)<=(assignments.get(b)?.length||0)?a:b);if(!assignments.has(f))assignments.set(f,[]);assignments.get(f).push(p);
   }
   for(const [f,products] of assignments){
-   const width=f.alongX?f.w:f.d, depth=f.alongX?f.d:f.w;
-   const side=f.zone.face==='left'?-1:f.zone.face==='right'?1:1;
+   const rack=f.type==='rack',alongX=f.alongX??f.w>=f.d, width=alongX?f.w:f.d,depth=alongX?f.d:f.w;
+   const cols=Math.min(5,products.length),rows=Math.ceil(products.length/cols);
    for(let i=0;i<products.length;i++){
-    const p=products[i],col=i%5,row=Math.floor(i/5),u=(col-2)*width*.17,v=side*(depth/2-.13),[x,z]=local(f,u,v),y=2.83+row*.25;
-    const mat=label(p),mesh=new T.Mesh(boxGeo,mat);mesh.position.set(x,y+.10,z);mesh.scale.set(Math.min(.29,width*.15),.23,.20);mesh.rotation.y=f.alongX?0:Math.PI/2;scene.add(mesh);
-    const slot={id:p.id,x,y,z,w:.30,h:.25,d:.20,rot:f.alongX?0:Math.PI/2,fallback:mesh,expansion:true};
-    modelSlots.push(slot);
-    proxy(p,x,y+.10,z,.31,.25,.25,f.zone,f);
+    const p=products[i],col=i%cols,row=Math.floor(i/cols),u=(col-(cols-1)/2)*width*.78/cols,v=(row-(rows-1)/2)*depth*.70/rows,
+    x=f.x+f.w/2+(alongX?u:v),z=f.z+f.d/2+(alongX?v:u),y=rack?1.80:f.type==='cold'?.82:.92;
+    const size=Math.min(width*.73/cols,depth*.73/rows,.72),rot=alongX?0:(f.zone.face==='left'?-Math.PI/2:Math.PI/2);
+    const slot={id:p.id,x,y,z,w:size,h:.85,d:size,rot,expansion:true,fallback:{visible:false},strict:true};
+    modelSlots.push(slot);proxy(p,x,y+.42,z,size,.84,size,f.zone,f);
    }
   }
-  expansionState=items.length+' additional scanned products available · '+catalog.length+' total';
+  expansionState=items.length+' validated local product files · models load as you approach';
   if(mode==='search')showSearch();
- }catch(error){expansionState='Additional scan catalog unavailable: '+error.message;console.warn(error);if(mode==='search')showSearch();}
+ }catch(error){expansionState='No verified merchandise imported yet · '+error.message;if(mode==='search')showSearch();console.warn(error);}
 }
 expandWarehouse();
