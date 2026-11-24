@@ -1,4 +1,5 @@
 import * as T from 'three';
+import {fitProduct,shelfFace,productFacings,atlasCell} from './product-render.js';
 import {warehouse,loadRetailCatalogue,priceLabel,availabilityLabel} from './retail.js';
 import {routeGrid,analog,orderStops,ambientAudio} from './experience.js';
 import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/GLTFLoader.js';
@@ -432,25 +433,34 @@ async function expandWarehouse(){
    }
   }
   for(const {geo,mat,matrices} of batches.values()){const mesh=new T.InstancedMesh(geo,mat,matrices.length);matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));mesh.instanceMatrix.needsUpdate=true;scene.add(mesh);}batches.clear();
-  const photoQueue=[],shelfCards=[]; const baseCanvas=document.createElement('canvas');baseCanvas.width=2048;baseCanvas.height=2048;const baseCtx=baseCanvas.getContext('2d'),baseTex=new T.CanvasTexture(baseCanvas);baseTex.colorSpace=T.SRGBColorSpace;baseTex.generateMipmaps=false;baseTex.minFilter=T.LinearFilter;const baseMat=new T.MeshBasicMaterial({map:baseTex,side:T.DoubleSide});
+  const photoQueue=[],shelfCards=[],photoPages=[];
+  function photoPage(index){if(!photoPages[index]){const canvas=document.createElement('canvas');canvas.width=1920;canvas.height=1920;const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;texture.generateMipmaps=false;texture.minFilter=T.LinearFilter;photoPages[index]={ctx:canvas.getContext('2d'),texture,mat:new T.MeshBasicMaterial({map:texture,toneMapped:false}),dirty:false};}return photoPages[index];}
+  const packageSide=material('#ddd8cb'),shadowMat=new T.MeshBasicMaterial({color:0x2c2925,transparent:true,opacity:.15,depthWrite:false});
+  function placePhoto(e,w,h){const fit=fitProduct(w,h,e.size*.82,.76),offsets=productFacings(e.size,fit.w);e.group.clear();e.group.position.set(e.x+e.face.nx*(e.depth*.47-fit.d/2),e.y,e.z+e.face.nz*(e.depth*.47-fit.d/2));e.group.rotation.y=e.face.rot;
+   // Real front photo on shallow neutral packaging; sides are intentionally not invented labels.
+   const uvGeo=new T.PlaneGeometry(fit.w,fit.h),uv=uvGeo.attributes.uv;for(let k=0;k<uv.count;k++)uv.setXY(k,(e.cell.x+uv.getX(k)*e.cell.size)/1920,1-(e.cell.y+(1-uv.getY(k))*e.cell.size)/1920);
+   const fronts=new T.InstancedMesh(uvGeo,e.page.mat,offsets.length),bodies=new T.InstancedMesh(boxGeo,packageSide,offsets.length),shadows=new T.InstancedMesh(boxGeo,shadowMat,offsets.length);
+   offsets.forEach((u,i)=>{dummy.rotation.set(0,0,0);dummy.position.set(u,fit.h/2,fit.d/2+.002);dummy.scale.set(1,1,1);dummy.updateMatrix();fronts.setMatrixAt(i,dummy.matrix);dummy.position.set(u,fit.h/2,0);dummy.scale.set(fit.w,fit.h,fit.d);dummy.updateMatrix();bodies.setMatrixAt(i,dummy.matrix);dummy.position.set(u,.006,0);dummy.scale.set(fit.w*1.08,.008,fit.d*1.2);dummy.updateMatrix();shadows.setMatrixAt(i,dummy.matrix);});e.group.add(bodies,fronts,shadows);e.fronts=fronts;e.fit=fit;
+  }
   // One atlas for all sourced shelf signs; avoid hundreds of individual GPU textures.
   const tileW=256,tileH=128,columns=8,perAtlas=128,atlasCanvases=[];
   for(const [f,products] of assignments){
    const rack=f.type==='rack',alongX=f.alongX??f.w>=f.d,width=alongX?f.w:f.d,depth=alongX?f.d:f.w;
    for(let i=0;i<products.length;i++){
-    const p=products[i],u=(i-(products.length-1)/2)*width*.82/products.length,x=f.x+f.w/2+(alongX?u:0),z=f.z+f.d/2+(alongX?0:u),y=rack?1.8:f.type==='cold'?.82:.92,size=Math.min(width*.75/products.length,depth*.75,.85),rot=alongX?0:(f.zone.face==='left'?-Math.PI/2:Math.PI/2);
+    const p=products[i],u=(i-(products.length-1)/2)*width*.82/products.length,x=f.x+f.w/2+(alongX?u:0),z=f.z+f.d/2+(alongX?0:u),y=rack?1.8:f.type==='cold'?.82:.92,size=Math.min(width*.75/products.length,depth*.75,.85),face=shelfFace(alongX,f.zone.face),rot=face.rot;
     const idx=shelfCards.length,atlasIndex=Math.floor(idx/perAtlas),tile=idx%perAtlas;
-    if(!atlasCanvases[atlasIndex]){const canvas=document.createElement('canvas');canvas.width=2048;canvas.height=2048;const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;texture.generateMipmaps=false;texture.minFilter=T.LinearFilter;atlasCanvases.push({canvas,ctx:canvas.getContext('2d'),texture,mat:new T.MeshBasicMaterial({map:texture,side:T.DoubleSide})});}
+    if(!atlasCanvases[atlasIndex]){const canvas=document.createElement('canvas');canvas.width=2048;canvas.height=2048;const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;texture.generateMipmaps=false;texture.minFilter=T.LinearFilter;atlasCanvases.push({canvas,ctx:canvas.getContext('2d'),texture,mat:new T.MeshBasicMaterial({map:texture,side:T.DoubleSide,toneMapped:false})});}
     const atlas=atlasCanvases[atlasIndex],tx=(tile%columns)*tileW,ty=Math.floor(tile/columns)*tileH,c=atlas.ctx;
     c.fillStyle='#faf9f3';c.fillRect(tx,ty,tileW,tileH);c.fillStyle='#182b37';c.font='bold 17px sans-serif';
     lines(c,p.name.toUpperCase(),240).slice(0,3).forEach((v,j)=>c.fillText(v,tx+8,ty+20+j*19));c.font='12px sans-serif';c.fillText((p.item?'ITEM '+p.item:'UPC '+p.upc),tx+8,ty+82);
     c.font='bold 22px sans-serif';c.fillText(p.price==null?'PRICE UNKNOWN':priceLabel(p),tx+8,ty+111);c.fillStyle=p.regionalListing?'#176a53':'#a82f35';c.fillRect(tx,ty+124,tileW,4);
     const geo=new T.PlaneGeometry(Math.min(size,.75),.37),uv=geo.attributes.uv;
     for(let k=0;k<uv.count;k++)uv.setXY(k,(tx+uv.getX(k)*tileW)/2048,1-(ty+(1-uv.getY(k))*tileH)/2048);
-    const sign=new T.Mesh(geo,atlas.mat);sign.position.set(x+Math.sin(rot)*depth*.43,y+.12,z+Math.cos(rot)*depth*.43);sign.rotation.y=rot;scene.add(sign);shelfCards.push(sign);
+    const sign=new T.Mesh(geo,atlas.mat);sign.position.set(x+face.nx*depth*.49,y-.06,z+face.nz*depth*.49);sign.rotation.y=rot;scene.add(sign);shelfCards.push(sign);
     proxy(p,x,y+.42,z,size,.84,size,f.zone,f);displayed.add(p.id);
     if(p.model){models[p.id]={...p.model};modelSlots.push({id:p.id,assetId:p.assetId,x,y,z,w:size,h:.85,d:size,rot,bulk:false});}
-    else if(p.image){const mat=new T.MeshBasicMaterial({color:0xffffff,side:T.DoubleSide});const photo=new T.Mesh(new T.PlaneGeometry(size,.70),mat);photo.position.set(x+Math.sin(rot)*depth*.45,y+.62,z+Math.cos(rot)*depth*.45);photo.rotation.y=rot;photo.visible=false;scene.add(photo);const back=new T.Mesh(boxGeo,material('#e4e1db'));back.scale.set(size*.94,.72,.045);back.position.copy(photo.position);back.position.x-=Math.sin(rot)*.03;back.position.z-=Math.cos(rot)*.03;back.rotation.y=rot;back.visible=false;scene.add(back);const idx=photoQueue.length,cell=96,ax=(idx%21)*cell,ay=Math.floor(idx/21)*cell;const g=new T.PlaneGeometry(size,.70),uv2=g.attributes.uv;for(let k=0;k<uv2.count;k++)uv2.setXY(k,(ax+uv2.getX(k)*cell)/2048,1-(ay+(1-uv2.getY(k))*cell)/2048);const low=new T.Mesh(g,baseMat);low.position.copy(photo.position);low.position.x-=Math.sin(rot)*.006;low.position.z-=Math.cos(rot)*.006;low.rotation.y=rot;low.visible=false;scene.add(low);photoQueue.push({p,photo,mat,x,z,back,size,low,ax,ay,cell});}
+    else if(p.image){const cell=atlasCell(photoQueue.length),page=photoPage(cell.page),group=new T.Group();scene.add(group);photoQueue.push({p,x,y,z,size,depth,face,cell,page,group});}
+
    }
   }
   for(const a of atlasCanvases)a.texture.needsUpdate=true;
@@ -458,27 +468,21 @@ async function expandWarehouse(){
   $('loadError').textContent='';$('preloadStatus').textContent='Preparing sourced catalogue';
   if(modelSlots.length){sectionStreamer=await createSectionStreamer(scene,modelSlots,renderer,(id,state)=>modelStatus.set(id,state));sectionStreamer.setTolerance(loadingTolerance);await sectionStreamer.initial(SPAWN,SPAWN.yaw,()=>{});}
   else sectionStreamer={update(){},setTolerance(){},setStock(){},has:id=>displayed.has(id),stats:()=>({resident:0,limit:0,eligible:0,bytes:0,baseReady:0,pending:0,evictions:0,hasLOD:false})};
-  // Keep product identity visible before optional remote photos finish loading.
-  // Photographs are distance-prioritized and bounded; decoded images never fill all GPU memory.
-  const photoLimit=touchDevice?48:96,photoResidents=new Map(),photoFailed=new Set();let photoBusy=false;
-  async function photos(){if(photoBusy||!warehouseReady)return;photoBusy=true;try{
-   const ranked=photoQueue.map(e=>({...e,d:Math.hypot(e.x-pos.x,e.z-pos.z)})).sort((a,b)=>a.d-b.d),near=ranked.filter(e=>e.d<=30&&!photoFailed.has(e.p.id)).slice(0,photoLimit);
-   for(const e of near){if(photoResidents.has(e.p.id))continue;const distant=[...photoResidents.values()].sort((a,b)=>Math.hypot(b.x-pos.x,b.z-pos.z)-Math.hypot(a.x-pos.x,a.z-pos.z))[0];if(photoResidents.size>=photoLimit&&(!distant||Math.hypot(distant.x-pos.x,distant.z-pos.z)<e.d+10))continue;
-    try{const img=new Image();img.crossOrigin='anonymous';img.src=e.p.image;await img.decode();const c=document.createElement('canvas');const scale=Math.min(1,192/Math.max(img.naturalWidth,img.naturalHeight));c.width=Math.max(1,Math.round(img.naturalWidth*scale));c.height=Math.max(1,Math.round(img.naturalHeight*scale));c.getContext('2d').drawImage(img,0,0,c.width,c.height);const tx=new T.CanvasTexture(c);tx.colorSpace=T.SRGBColorSpace;tx.generateMipmaps=false;tx.minFilter=T.LinearFilter;
-    if(photoResidents.size>=photoLimit&&distant){distant.photo.visible=false;distant.back.visible=false;if(distant.low)distant.low.visible=true;distant.mat.map.dispose();distant.mat.map=null;distant.mat.needsUpdate=true;photoResidents.delete(distant.p.id);}
-    e.mat.map=tx;e.mat.needsUpdate=true;const aspect=c.width/c.height;const fitW=Math.min(e.size,.70*aspect),fitH=fitW/aspect;e.photo.scale.set(fitW/e.size,fitH/.70,1);e.back.scale.set(fitW,fitH,.045);e.photo.visible=true;e.back.visible=true;if(e.low)e.low.visible=false;photoResidents.set(e.p.id,e);
-    }catch{photoFailed.add(e.p.id);}await new Promise(r=>setTimeout(r,40));}
-  }finally{photoBusy=false;}}
-  const photoTimer=setInterval(photos,1500);
-  // Persistent low-resolution thumbnails populate the whole warehouse in distance order.
-  // One 16 MiB atlas, rather than hundreds of standalone textures.
-  let baseDirty=false;setInterval(()=>{if(baseDirty){baseTex.needsUpdate=true;baseDirty=false;}},500);
-  const baseQueue=[...photoQueue].sort((a,b)=>Math.hypot(a.x-SPAWN.x,a.z-SPAWN.z)-Math.hypot(b.x-SPAWN.x,b.z-SPAWN.z));let baseCursor=0;
-  async function loadBase(){while(baseCursor<baseQueue.length){const e=baseQueue[baseCursor++];if(e.ay+e.cell>2048)continue;try{const img=new Image();img.crossOrigin='anonymous';img.src=e.p.image;await img.decode();const ratio=img.naturalWidth/img.naturalHeight,w=ratio>=1?e.cell:e.cell*ratio,h=ratio>=1?e.cell/ratio:e.cell;baseCtx.fillStyle='#faf9f3';baseCtx.fillRect(e.ax,e.ay,e.cell,e.cell);baseCtx.drawImage(img,e.ax+(e.cell-w)/2,e.ay+(e.cell-h)/2,w,h);e.low.visible=!photoResidents.has(e.p.id);baseDirty=true;}catch{}await new Promise(r=>setTimeout(r,60));}}
-  loadBase();loadBase();
+  // Load each genuine photo once. Persistent atlas fronts remove near/far geometry popping.
+  // Low-resolution thumbnails are shared; no separate high-resolution texture per SKU.
+  let photoCursor=0,photoLoaded=0,photoFailed=0;
+  const queue=[...photoQueue].sort((a,b)=>Math.hypot(a.x-SPAWN.x,a.z-SPAWN.z)-Math.hypot(b.x-SPAWN.x,b.z-SPAWN.z));
+  async function photos(){while(photoCursor<queue.length){const e=queue[photoCursor++];try{const img=new Image();img.crossOrigin='anonymous';const decoded=new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject;});img.src=e.p.image;await Promise.race([decoded,new Promise((_,reject)=>setTimeout(()=>reject(Error('Photo timeout')),12000))]);const {x,y,size}=e.cell,c=e.page.ctx;
+   // Letterbox within the atlas cell; map only the actual source image region.
+   const scale=Math.min(size/img.naturalWidth,size/img.naturalHeight),w=Math.max(1,Math.round(img.naturalWidth*scale)),h=Math.max(1,Math.round(img.naturalHeight*scale));
+   c.fillStyle='#faf9f3';c.fillRect(x-2,y-2,size+4,size+4);c.drawImage(img,x,y,w,h);e.cell={...e.cell,size};placePhoto(e,img.naturalWidth,img.naturalHeight);
+   const uv=e.fronts.geometry.attributes.uv;for(let k=0;k<uv.count;k++)uv.setXY(k,(x+(k%2)*w)/1920,1-(y+(k<2?0:h))/1920);uv.needsUpdate=true;
+   e.page.dirty=true;photoLoaded++;
+  }catch{photoFailed++;}await new Promise(r=>setTimeout(r,35));}}
+  const photoFlush=setInterval(()=>{for(const page of photoPages)if(page.dirty){page.texture.needsUpdate=true;page.dirty=false;}if(photoLoaded+photoFailed===queue.length){clearInterval(photoFlush);}},250);
   expansionState=retail.length.toLocaleString()+' sourced US products · '+modelSlots.length+' exact model displays · '+displayed.size+' physical listings. Decorative carton fullness is simulated; South Orlando stock is not implied.';
   $('preloadBar').value=100;$('preloadPercent').textContent='100%';$('preloadStatus').textContent='Warehouse ready';$('preloadDetail').textContent=expansionState;$('preloader').dataset.ready='true';warehouseReady=true;$('start').disabled=false;$('start').textContent='Enter the warehouse →';
-  photos();if(mode==='search')showSearch();
+  photos();photos();photos();if(mode==='search')showSearch();
  }catch(error){expansionState='Warehouse preload failed · '+error.message;$('preloadStatus').textContent='Loading unsuccessful';$('loadError').textContent=error.message;$('start').disabled=false;$('start').textContent='Retry loading';$('start').onclick=()=>location.reload();console.warn(error);}
 }
 expandWarehouse();
