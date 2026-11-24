@@ -1,7 +1,7 @@
 import * as T from 'three';
 import {zones,WIDTH,DEPTH,SPAWN,colors,catalog,byCategory,byId,money,stockState,rng,archive,planFixtures} from './world.js';
 const $=id=>document.getElementById(id);
-import {installProductModels,models,applyScanThumbnail,streamExpansion} from './assets.js';
+import {installProductModels,models,applyScanThumbnail,preloadWarehouse} from './assets.js';
 import {applyProductPhoto,photoManifest} from './photos.js';
 import {fetchExpansion,registerExpansion} from './expansion.js';
 import {nativeIds,sculpt} from './native-models.js';
@@ -217,8 +217,9 @@ function jump(x,z,lookX=x,lookZ=z){const a=nearestFree(x,z);pos.set(a.x,1.68,a.z
 function look(dx,dy){yaw-=dx*.0024;pitch=Math.max(-1.35,Math.min(1.35,pitch-dy*.0024));}
 function lock(){if(!matchMedia('(pointer: coarse)').matches&&renderer.domElement.requestPointerLock)try{const p=renderer.domElement.requestPointerLock();p?.catch?.(()=>{});}catch{}}
 function unlock(){if(document.pointerLockElement)document.exitPointerLock();}
-$('start').disabled=false;$('start').textContent='Enter the warehouse →';
-$('start').onclick=()=>{started=true;$('welcome').hidden=true;document.activeElement?.blur();lock();};
+let warehouseReady=false;
+$('start').disabled=true;$('start').textContent='Loading warehouse…';
+$('start').onclick=()=>{if(!warehouseReady)return;started=true;$('welcome').hidden=true;document.activeElement?.blur();lock();};
 document.addEventListener('mousemove',e=>{if(started&&!open&&document.pointerLockElement===renderer.domElement)look(e.movementX,e.movementY);});
 renderer.domElement.addEventListener('pointerdown',e=>{if(!started||open)return;if(document.pointerLockElement===renderer.domElement){inspect();return;}drag={x:e.clientX,y:e.clientY,moved:false};renderer.domElement.setPointerCapture(e.pointerId);});
 renderer.domElement.addEventListener('pointermove',e=>{if(!drag||open||document.pointerLockElement)return;let dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.moved||=Math.abs(dx)+Math.abs(dy)>2;look(dx,dy);drag.x=e.clientX;drag.y=e.clientY;});
@@ -243,7 +244,7 @@ saveBasket();
 function addBasket(p){if(stock.get(p.id)===0){toast('This demo item is out of stock');return;}let n=basket[p.id]||0;if(n>=Math.min(stock.get(p.id),99)){toast('Simulated stock limit reached');return;}basket[p.id]=n+1;saveBasket();toast('Added '+p.name);}
 function showProduct(p,zone){
  selected=p;let body=showPanel(p.name,zone?.name||'PRODUCT / SAMPLE CATALOG','product');selected=p;
- let art=el('div','product-art');art.style.background=p.color;art.append(info(modelStatus.get(p.id)||'Verified local model · approach its display to render'));
+ let art=el('div','product-art');art.style.background=p.color;art.append(info(modelStatus.get(p.id)||'Verified local model'));
  let amount=el('div','price',money(p.price)),status=el('div','stock-status'),quantity=el('input');quantity.type='range';quantity.min=0;quantity.max=120;quantity.value=stock.get(p.id);quantity.setAttribute('aria-label','Simulated inventory units');
  let add=button('Add to basket',()=>addBasket(p),'primary');
  function update(){let n=stock.get(p.id);status.textContent=n+' demo units · '+stockState(n);status.dataset.state=stockState(n);add.disabled=n===0;}
@@ -276,8 +277,8 @@ function frame(now){
  $('reticle').classList.toggle('active',!!hit);$('hint').textContent=hit?hit.p.name+' · '+money(hit.p.price)+'  /  E or click to inspect':'';
  }
  if(now-lastMap>220){lastMap=now;let q=zones.reduce((best,q)=>{let d=Math.hypot(Math.max(q.x-pos.x,0,pos.x-q.x-q.w),Math.max(q.z-pos.z,0,pos.z-q.z-q.d));return d<best.d?{q,d}:best;},{d:Infinity,q:null});$('where').textContent=q.d<4?q.q.name:'Main aisle';$('coords').textContent=Math.round(pos.x)+' / '+Math.round(pos.z);drawMap($('mini'));}
- if(now-lastStream>500){lastStream=now;streamExpansion(scene,modelSlots,pos,(id,state)=>modelStatus.set(id,state));}
- renderer.render(scene,camera);
+ // Models stay in the scene for the entire visit; normal GPU frustum culling only.
+ if(warehouseReady)renderer.render(scene,camera);
 }
 window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
 requestAnimationFrame(frame);
@@ -308,8 +309,18 @@ async function expandWarehouse(){
    }
   }
   for(const id of Object.keys(basket))if(!byId[id])delete basket[id];saveBasket();
-  expansionState=items.length+' validated local product files · models load as you approach';
+  $('loadError').textContent='';
+  const report=await preloadWarehouse(scene,modelSlots,{progress:({completed,loaded,total,bytes,totalBytes,errors})=>{const percent=Math.floor(95*completed/Math.max(1,total));$('preloadBar').value=percent;$('preloadPercent').textContent=percent+'%';$('preloadStatus').textContent='Loading merchandise';$('preloadDetail').textContent=loaded+' / '+total+' models ready · '+(bytes/1e6).toFixed(1)+' / '+(totalBytes/1e6).toFixed(1)+' MB'+(errors?' · '+errors+' failed':'');},status:(id,state)=>modelStatus.set(id,state)});
+  if(report.errors.length||!report.total||report.loaded!==report.total)throw Error(report.errors.length+' models failed. Reload to retry.');
+  $('preloadStatus').textContent='Preparing graphics…';$('preloadDetail').textContent=report.loaded+' models loaded. Preparing GPU materials.';$('preloadBar').value=96;$('preloadPercent').textContent='96%';
+  await new Promise(resolve=>requestAnimationFrame(resolve));
+  camera.position.set(SPAWN.x,1.68,SPAWN.z);camera.rotation.set(0,SPAWN.yaw,0,'YXZ');camera.updateMatrixWorld();
+  if(renderer.compileAsync)await renderer.compileAsync(scene,camera);else renderer.compile(scene,camera);
+  const warmed=new Set();scene.traverse(o=>{if(!o.isMesh)return;for(const material of Array.isArray(o.material)?o.material:[o.material])for(const value of Object.values(material)){if(value?.isTexture)warmed.add(value);}});
+  let done=0;for(const texture of warmed){renderer.initTexture(texture);if(++done%20===0)await new Promise(resolve=>requestAnimationFrame(resolve));}
+  renderer.render(scene,camera);
+  expansionState=report.loaded+' verified local models · all preloaded';$('preloadBar').value=100;$('preloadPercent').textContent='100%';$('preloadStatus').textContent='Warehouse ready';$('preloadDetail').textContent=report.loaded+' / '+report.total+' models loaded. Merchandise remains visible throughout your visit.';$('preloader').dataset.ready='true';warehouseReady=true;$('start').disabled=false;$('start').textContent='Enter the warehouse →';
   if(mode==='search')showSearch();
- }catch(error){expansionState='No verified merchandise imported yet · '+error.message;if(mode==='search')showSearch();console.warn(error);}
+ }catch(error){expansionState='Warehouse preload failed · '+error.message;$('preloadStatus').textContent='Loading unsuccessful';$('loadError').textContent=error.message;$('preloadDetail').textContent='Entry is disabled to avoid missing merchandise.';$('start').disabled=false;$('start').textContent='Retry loading';$('start').onclick=()=>location.reload();if(mode==='search')showSearch();console.warn(error);}
 }
 expandWarehouse();
