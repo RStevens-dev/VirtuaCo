@@ -1,35 +1,825 @@
-// Floor plan: map top = z 0, entrance at lower right; north points left on the reference map. Units are meters.
-// [name, x, z, width, depth, kind, product category]
+// Coomera reference map, diagram-relative orientation. Units are illustrative meters.
 export const zones = [
- ['Water',10,1.5,4.5,5,'rack','water'],['Paper goods',5.5,7.5,9,8,'rack','paper'],
- ['Baby goods',16,1,2.4,15,'rack','baby'],['Laundry / cleaning',19,2.5,10.5,13,'rack','clean'],
- ['Beverages',31.5,2.5,11,13,'rack','drinks'],['Frozen',44.5,2.5,19,13,'cold','frozen'],
- ['Pantry goods · Rear',65.5,2.5,24,13.5,'rack','pantry'],['Medicine / bath',92,2.5,15.5,14,'rack','health'],
- ['Soda',19,0.2,24,1.5,'rack','drinks'],['Sports drinks',44,0.2,19,1.5,'rack','drinks'],
- ['Snacks',64,0.2,25,1.5,'rack','snacks'],['Pharmacy',90,0.2,14,1.5,'counter','health'],
- ['Hearing',105,0.2,6,1.5,'counter','health'],['Restrooms',112,1,9.5,8,'service',''],
- ['Merch pickup',114,11,7,7.5,'counter',''],['Pet supplies',4,17,10.5,1.5,'rack','pet'],
- ['Sushi',16,17.5,6,1.6,'counter','fresh'],['Household',22.5,17.5,20.5,1.6,'rack','home'],
- ['Miscellaneous',44.5,17.5,19,1.6,'rack','misc'],['Treasure finds',65.5,18,24,1.6,'rack','season'],
- ['Skincare',92,19,15,1.6,'rack','health'],['Deli counter',2,19.5,11,10,'counter','fresh'],
- ['Rotisserie',2,30.5,11,6,'counter','fresh'],['Meat counter',2,37.5,10,18,'counter','meat'],
- ['Bakery counter',1.5,56.5,10,9,'counter','bakery'],['Team area',1,67,10,8,'service',''],
- ['Refrigerated foods',15,21,19,14,'cold','fresh'],['Meat',15,37,19,11,'cold','meat'],
- ['Household essentials',36,21,12,12,'rack','home'],['Plants',36,35,2,13,'display','plants'],
- ['Seasonal',49.5,21,18,13,'display','season'],['Seasonal · Discovery',39.5,35,28,13,'display','season'],
- ['Clothing',69,21.5,5.5,26.5,'display','clothing'],['Pantry goods · Checkout-side',76,22,24.5,10.5,'rack','pantry'],
- ['Furniture · Checkout-side',76,34,24.5,14,'display','furniture'],['Self checkout',104,22,5,5,'checkout',''],
- ['Checkout',104,28,5,19,'checkout',''],['Food court',115,20,6,9,'counter','food'],
- ['Tire sales',115,48,6,6,'counter',''],['Member service',115,55,6,8,'counter',''],
- ['Baked goods',14,50.5,8.5,13,'display','bakery'],['Produce',24,50.5,10,13,'display','produce'],
- ['Adult beverages',35.5,50.5,6,22,'rack','wine'],['Refrigerated produce',12.5,65,11,10,'cold','produce'],
- ['Dairy',25,65,9,10,'cold','dairy'],['Furniture',43,50.5,33,22,'display','furniture'],
- ['Electronics',78,50.5,19,22,'display','electronics'],['Clothing · Front',99,51,9,12,'display','clothing'],
- ['TVs',99,64.5,9,4.5,'display','electronics'],['Optical',99,70.5,9,4.5,'counter','health'],
- ['Appliances',43,74,54,1.4,'rack','appliances'],['Misc. · Front',99,48.5,13,1.5,'rack','misc'],
- ['Misc. · Side',110,51,2,18,'rack','misc'],['Misc. · South',35,74,7,1.4,'rack','misc']
-].map(([name,x,z,w,d,kind,category],i)=>({id:'D'+(i+1),name,x,z,w,d,kind,category}));
-export const WIDTH=123, DEPTH=77, SPAWN={x:116,z:72,yaw:Math.PI/2};
+ [
+  "100 · Security cameras / accessories",
+  86,
+  4,
+  0.94,
+  19,
+  "rack",
+  "electronics",
+  "100",
+  "right"
+ ],
+ [
+  "101 · Luggage / bins",
+  85.02,
+  4,
+  0.94,
+  19,
+  "rack",
+  "misc",
+  "101",
+  "left"
+ ],
+ [
+  "102 · Vacuums / sewing",
+  81.55,
+  4,
+  0.94,
+  19,
+  "rack",
+  "appliances",
+  "102",
+  "right"
+ ],
+ [
+  "103 · Decor / personal electronics",
+  80.57,
+  4,
+  0.94,
+  19,
+  "rack",
+  "home",
+  "103",
+  "left"
+ ],
+ [
+  "104 · Coffee machines",
+  77.1,
+  4,
+  0.94,
+  19,
+  "rack",
+  "appliances",
+  "104",
+  "right"
+ ],
+ [
+  "105 · Air fryers / mixers",
+  76.11999999999999,
+  4,
+  0.94,
+  19,
+  "rack",
+  "appliances",
+  "105",
+  "left"
+ ],
+ [
+  "106 · Blenders / microwaves",
+  72.65,
+  4,
+  0.94,
+  19,
+  "rack",
+  "appliances",
+  "106",
+  "right"
+ ],
+ [
+  "107 · Cookware",
+  71.67,
+  4,
+  0.94,
+  19,
+  "rack",
+  "home",
+  "107",
+  "left"
+ ],
+ [
+  "108 · Glassware / food storage",
+  68.2,
+  4,
+  0.94,
+  19,
+  "rack",
+  "home",
+  "108",
+  "right"
+ ],
+ [
+  "109 · Bakeware / organization",
+  67.22,
+  4,
+  0.94,
+  19,
+  "rack",
+  "home",
+  "109",
+  "left"
+ ],
+ [
+  "110 · Stationery / office",
+  63.75,
+  4,
+  0.94,
+  19,
+  "rack",
+  "misc",
+  "110",
+  "right"
+ ],
+ [
+  "111 · Reading glasses / office furniture",
+  62.77,
+  4,
+  0.94,
+  19,
+  "rack",
+  "furniture",
+  "111",
+  "left"
+ ],
+ [
+  "112 · Flooring / bathroom fixtures",
+  59.3,
+  4,
+  0.94,
+  19,
+  "rack",
+  "home",
+  "112",
+  "right"
+ ],
+ [
+  "113 · Batteries / lighting",
+  58.32,
+  4,
+  0.94,
+  19,
+  "rack",
+  "home",
+  "113",
+  "left"
+ ],
+ [
+  "114 · Automotive / tools",
+  54.849999999999994,
+  4,
+  0.94,
+  19,
+  "rack",
+  "misc",
+  "114",
+  "right"
+ ],
+ [
+  "115 · Bread / wraps / buns",
+  53.87,
+  4,
+  0.94,
+  19,
+  "rack",
+  "bakery",
+  "115",
+  "left"
+ ],
+ [
+  "300 · Oral care / shaving",
+  101,
+  53,
+  0.94,
+  20,
+  "rack",
+  "health",
+  "300",
+  "right"
+ ],
+ [
+  "301 · Protein / snack bars",
+  100.02,
+  53,
+  0.94,
+  20,
+  "rack",
+  "snacks",
+  "301",
+  "left"
+ ],
+ [
+  "302 · Flowers / cookies / crackers",
+  96.35,
+  53,
+  0.94,
+  20,
+  "rack",
+  "snacks",
+  "302",
+  "right"
+ ],
+ [
+  "303 · Condiments",
+  95.36999999999999,
+  53,
+  0.94,
+  20,
+  "rack",
+  "pantry",
+  "303",
+  "left"
+ ],
+ [
+  "304 · Canned fish / vegetables",
+  91.7,
+  53,
+  0.94,
+  20,
+  "rack",
+  "pantry",
+  "304",
+  "right"
+ ],
+ [
+  "305 · Noodles / pasta sauce",
+  90.72,
+  53,
+  0.94,
+  20,
+  "rack",
+  "pantry",
+  "305",
+  "left"
+ ],
+ [
+  "306 · Rice / beans / pasta",
+  87.05,
+  53,
+  0.94,
+  20,
+  "rack",
+  "pantry",
+  "306",
+  "right"
+ ],
+ [
+  "307 · Oils / baking ingredients",
+  86.07,
+  53,
+  0.94,
+  20,
+  "rack",
+  "pantry",
+  "307",
+  "left"
+ ],
+ [
+  "308 · Spices / gravy",
+  82.4,
+  53,
+  0.94,
+  20,
+  "rack",
+  "pantry",
+  "308",
+  "right"
+ ],
+ [
+  "309 · Dried fruit / nuts",
+  81.42,
+  53,
+  0.94,
+  20,
+  "rack",
+  "pantry",
+  "309",
+  "left"
+ ],
+ [
+  "310 · Granola / cereal",
+  77.75,
+  53,
+  0.94,
+  20,
+  "rack",
+  "pantry",
+  "310",
+  "right"
+ ],
+ [
+  "311 · Spreads / syrups",
+  76.77,
+  53,
+  0.94,
+  20,
+  "rack",
+  "pantry",
+  "311",
+  "left"
+ ],
+ [
+  "312 · Long-life milk",
+  73.1,
+  53,
+  0.94,
+  20,
+  "rack",
+  "dairy",
+  "312",
+  "right"
+ ],
+ [
+  "313 · Coffee / tea",
+  72.11999999999999,
+  53,
+  0.94,
+  20,
+  "rack",
+  "drinks",
+  "313",
+  "left"
+ ],
+ [
+  "314 · Soft drinks",
+  34,
+  55,
+  0.94,
+  18,
+  "rack",
+  "drinks",
+  "314",
+  "right"
+ ],
+ [
+  "315 · Disposable tableware",
+  33.02,
+  55,
+  0.94,
+  18,
+  "rack",
+  "home",
+  "315",
+  "left"
+ ],
+ [
+  "316 · Bags / foil / wrap",
+  29.45,
+  55,
+  0.94,
+  18,
+  "rack",
+  "home",
+  "316",
+  "right"
+ ],
+ [
+  "317 · Pet food / beds",
+  28.47,
+  55,
+  0.94,
+  18,
+  "rack",
+  "pet",
+  "317",
+  "left"
+ ],
+ [
+  "318 · Pet supplies / treats",
+  24.9,
+  55,
+  0.94,
+  18,
+  "rack",
+  "pet",
+  "318",
+  "right"
+ ],
+ [
+  "319 · Laundry",
+  23.919999999999998,
+  55,
+  0.94,
+  18,
+  "rack",
+  "clean",
+  "319",
+  "left"
+ ],
+ [
+  "320 · Laundry",
+  20.35,
+  55,
+  0.94,
+  18,
+  "rack",
+  "clean",
+  "320",
+  "right"
+ ],
+ [
+  "321 · Dishwashing",
+  19.37,
+  55,
+  0.94,
+  18,
+  "rack",
+  "clean",
+  "321",
+  "left"
+ ],
+ [
+  "322 · Cleaning supplies",
+  15.8,
+  55,
+  0.94,
+  18,
+  "rack",
+  "clean",
+  "322",
+  "right"
+ ],
+ [
+  "323 · Water",
+  14.82,
+  55,
+  0.94,
+  18,
+  "rack",
+  "water",
+  "323",
+  "left"
+ ],
+ [
+  "Produce fridge",
+  28,
+  2,
+  11,
+  8,
+  "cold",
+  "produce"
+ ],
+ [
+  "Bakery",
+  27,
+  12,
+  6,
+  11,
+  "display",
+  "bakery"
+ ],
+ [
+  "Produce",
+  35,
+  12,
+  10,
+  11,
+  "display",
+  "produce"
+ ],
+ [
+  "Cakes / dips",
+  28,
+  10.4,
+  10,
+  1.2,
+  "counter",
+  "fresh"
+ ],
+ [
+  "Seafood",
+  32,
+  26,
+  10,
+  2.6,
+  "cold",
+  "meat"
+ ],
+ [
+  "Pork",
+  32,
+  30,
+  10,
+  2.6,
+  "cold",
+  "meat"
+ ],
+ [
+  "Poultry",
+  32,
+  34,
+  10,
+  2.6,
+  "cold",
+  "meat"
+ ],
+ [
+  "Take & bake",
+  32,
+  38,
+  10,
+  2.6,
+  "cold",
+  "fresh"
+ ],
+ [
+  "Deli",
+  32,
+  42,
+  10,
+  5,
+  "cold",
+  "fresh"
+ ],
+ [
+  "Meat / beef counter",
+  24,
+  25,
+  5,
+  12,
+  "counter",
+  "meat"
+ ],
+ [
+  "Rotisserie chickens",
+  24,
+  38,
+  5,
+  4,
+  "counter",
+  "fresh"
+ ],
+ [
+  "Salads / sushi",
+  24,
+  43,
+  5,
+  5,
+  "counter",
+  "fresh"
+ ],
+ [
+  "Dairy fridge",
+  12,
+  45,
+  9,
+  5,
+  "cold",
+  "dairy"
+ ],
+ [
+  "Seasonal items",
+  45,
+  26,
+  13,
+  21,
+  "rack",
+  "season"
+ ],
+ [
+  "Books / toys",
+  60,
+  26,
+  4,
+  21,
+  "rack",
+  "misc"
+ ],
+ [
+  "Clothing",
+  66,
+  26,
+  19,
+  21,
+  "display",
+  "clothing"
+ ],
+ [
+  "Manchester / linens",
+  87,
+  26,
+  3,
+  21,
+  "rack",
+  "home"
+ ],
+ [
+  "Nuts / confectionery",
+  92,
+  26,
+  10,
+  21,
+  "rack",
+  "snacks"
+ ],
+ [
+  "Electronics / jewellery",
+  91,
+  4,
+  15,
+  19,
+  "display",
+  "electronics"
+ ],
+ [
+  "Major appliances",
+  91,
+  1,
+  15,
+  1.6,
+  "display",
+  "appliances"
+ ],
+ [
+  "Shelving / ladders",
+  51,
+  1,
+  14,
+  1.6,
+  "rack",
+  "home"
+ ],
+ [
+  "Appliances",
+  67,
+  1,
+  21,
+  1.6,
+  "rack",
+  "appliances"
+ ],
+ [
+  "Fence wall / current sales",
+  108,
+  4,
+  2,
+  19,
+  "rack",
+  "season"
+ ],
+ [
+  "Membership",
+  114,
+  2,
+  7,
+  8,
+  "counter",
+  ""
+ ],
+ [
+  "Checkouts",
+  109,
+  27,
+  5,
+  23,
+  "checkout",
+  ""
+ ],
+ [
+  "Food court tables",
+  116,
+  26,
+  5,
+  13,
+  "display",
+  "food"
+ ],
+ [
+  "Food court",
+  116,
+  41,
+  5,
+  9,
+  "counter",
+  "food"
+ ],
+ [
+  "Tyre centre",
+  124,
+  24,
+  5,
+  17,
+  "service",
+  ""
+ ],
+ [
+  "Freezer 2",
+  38,
+  54,
+  6,
+  19,
+  "cold",
+  "frozen"
+ ],
+ [
+  "Freezer 1",
+  46,
+  54,
+  6,
+  19,
+  "cold",
+  "frozen"
+ ],
+ [
+  "Fridge",
+  54,
+  54,
+  6,
+  19,
+  "cold",
+  "fresh"
+ ],
+ [
+  "Health / beauty",
+  106,
+  56,
+  8,
+  17,
+  "rack",
+  "health"
+ ],
+ [
+  "Hearing",
+  116,
+  54,
+  5,
+  7,
+  "counter",
+  "health"
+ ],
+ [
+  "Optical",
+  116,
+  63,
+  5,
+  10,
+  "counter",
+  "health"
+ ],
+ [
+  "Bathrooms",
+  123,
+  54,
+  7,
+  19,
+  "service",
+  ""
+ ],
+ [
+  "Paper products",
+  5,
+  54,
+  2,
+  19,
+  "rack",
+  "paper"
+ ],
+ [
+  "Nappies / wipes",
+  10,
+  74,
+  23,
+  1.4,
+  "rack",
+  "baby"
+ ],
+ [
+  "Energy drinks / chips",
+  38,
+  74,
+  22,
+  1.4,
+  "rack",
+  "snacks"
+ ],
+ [
+  "Drinks",
+  63,
+  74,
+  39,
+  1.4,
+  "rack",
+  "drinks"
+ ],
+ [
+  "Beauty / baby",
+  105,
+  74,
+  15,
+  1.4,
+  "rack",
+  "baby"
+ ],
+ [
+  "Back of house",
+  13,
+  3,
+  12,
+  20,
+  "service",
+  ""
+ ],
+ [
+  "Preparation / staff",
+  12,
+  26,
+  10,
+  16,
+  "service",
+  ""
+ ]
+].map(([name,x,z,w,d,kind,category,aisle,face],i)=>({id:aisle||'D'+(i+1),name,x,z,w,d,kind,category,aisle,face}));
+export const WIDTH=132, DEPTH=77, SPAWN={x:111.5,z:3,yaw:0};
 export const colors={rack:'#df923b',cold:'#62b8ce',display:'#62a581',counter:'#d76558',checkout:'#d76558',service:'#8797a5'};
 const groups={
  water:[['Spring water','40 × 500 mL',5.49,'#3c92c6','bottle'],['Sparkling mineral water','24 × 330 mL',14.99,'#357e67','can']],
@@ -42,7 +832,7 @@ const groups={
  snacks:[['Trail mix','4 lb',15.99,'#d9a234','bag'],['Sea salt chips','30 oz',6.99,'#32a2b0','bag'],['Chocolate snack bars','48 count',17.99,'#773e51'],['Popcorn variety','32 bags',15.49,'#dd7551']],
  health:[['Daily multivitamins','365 tablets',18.99,'#517b42','bottle'],['Moisturizing lotion','2 × 20 oz',15.99,'#73a2b9','bottle'],['Toothpaste bundle','5 tubes',13.99,'#d74745'],['Shampoo duo','2 × 1 L',16.49,'#8e71ae','bottle']],
  pet:[['Adult dog food','40 lb',39.99,'#b37442','bag'],['Cat litter','42 lb',17.99,'#6d7eaa']],
- home:[['Storage tote','27 gallon',9.99,'#e7b729','tub'],['Microfiber cloths','36 pack',14.99,'#6a9da1'],['Kitchen utensil set','12 pieces',22.99,'#626e7b'],['LED light bulbs','12 pack',15.99,'#e4bb46']],
+ home:[['Reusable water bottle','1 litre',14.99,'#497c8e','bottle'],['Storage tote','27 gallon',9.99,'#e7b729','tub'],['Microfiber cloths','36 pack',14.99,'#6a9da1'],['Kitchen utensil set','12 pieces',22.99,'#626e7b'],['LED light bulbs','12 pack',15.99,'#e4bb46']],
  misc:[['Adventure lantern','2 pack',19.99,'#e08f32'],['Travel organizer set','6 pieces',17.99,'#557b9f'],['Mystery warehouse find','Limited edition',9.97,'#a3689c']],
  season:[['Patio string lights','48 ft',29.99,'#485b66'],['Inflatable holiday dinosaur','8 ft',69.97,'#70a64c'],['Giant plush bear','53 in',39.99,'#b48c66'],['Retro arcade console','12 games',149.99,'#8e4a9c'],['Garden solar lanterns','6 pack',24.99,'#e5b55a']],
  fresh:[['Rotisserie chicken','3 lb',4.99,'#bd7641','tub'],['Fresh sushi sampler','24 pieces',16.99,'#355c59','tub'],['Greek yogurt cups','18 count',12.99,'#4d7bab','tub'],['Deli salad','2 lb',10.99,'#6d9b51','tub']],
