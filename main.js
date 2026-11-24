@@ -398,12 +398,21 @@ async function expandWarehouse(){
   const retail=await loadRetailCatalogue(library);
   if(!retail.length)throw Error('No sourced retail products available');
   const racks=fixtures.filter(f=>f.type==='rack'||f.type==='display'||f.type==='cold'),assignments=assignMerchandise(retail,racks),displayed=new Set();
+  // The entrance promotion wall can legitimately feature any department.
+  // Use distinct photo-backed products, not empty dummy boxes.
+  const featurePool=retail.filter(p=>p.image&&!p.model).sort((a,b)=>Number(!!b.regionalListing)-Number(!!a.regionalListing));
+  const featureBays=racks.filter(f=>/Fence wall \/ current sales/i.test(f.zone.name)).sort((a,b)=>a.z-b.z);
+  const featured=[];const seen=new Set();
+  for(const p of featurePool){const key=merchDepartment(p);if(!seen.has(key)){seen.add(key);featured.push(p);}}
+  for(const p of featurePool)if(!featured.includes(p))featured.push(p);
+  for(let i=0;i<featureBays.length;i++){const picks=featured.slice(i*3,i*3+3);if(picks.length)assignments.set(featureBays[i],picks);}
+
   for(const p of retail){catalog.push(p);byId[p.id]=p;(byCategory[p.category]??=[]).push(p);stock.set(p.id,p.stockQuantity);}
   // Fill every physical merchandising fixture with unbranded shipping cartons.
   // This is simulated display density, never a claim about Costco inventory.
   const cartonColors=['#ba9466','#c4a47c','#ad8961','#d0b99b','#e1ded1','#aaa99e'];
   for(const f of racks){
-   const alongX=f.alongX??f.w>=f.d,w=alongX?f.w:f.d,d=alongX?f.d:f.w,r=rng(8371+Math.round(f.x*197+f.z*311)),rack=f.type==='rack';
+   const alongX=f.alongX??f.w>=f.d,w=alongX?f.w:f.d,d=alongX?f.d:f.w,r=rng(8371+Math.round(f.x*197+f.z*311)),rack=f.type==='rack';if(!rack)continue;
    const bays=Math.max(1,Math.round(w/1.05)),bw=(w-.17)/bays,depth=d-.18;
    if(depth<=.08||bw<=.08)continue;
    for(let j=0;j<bays;j++){
@@ -421,15 +430,13 @@ async function expandWarehouse(){
      lb({...f,alongX},x,y+h*.493,z,cw*.17,.006,cd*.96,'#e0c69e');
      for(const side of [-1,1])lb({...f,alongX},x-cw*.19,y+h*.12,z+side*cd*.49,cw*.29,h*.21,.006,'#eee8db');
     }
-    // Middle display stock behind the genuine product image/placard, without invented branding.
-    if(rack&&!(assignments.get(f)||[]).some(p=>p.image||p.model)){const midH=.47+r()*.27;lb({...f,alongX},u,1.80+midH/2,0,bw*.90,midH,depth*.78,color);lb({...f,alongX},u,1.80+midH+.004,0,bw*.13,.008,depth*.78,'#e0c69e');}
    }
   }
   for(const {geo,mat,matrices} of batches.values()){const mesh=new T.InstancedMesh(geo,mat,matrices.length);matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));mesh.instanceMatrix.needsUpdate=true;scene.add(mesh);}batches.clear();
   const photoQueue=[],shelfCards=[],photoPages=[];
   function photoPage(index){if(!photoPages[index]){const canvas=document.createElement('canvas');canvas.width=1920;canvas.height=1920;const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;texture.generateMipmaps=false;texture.minFilter=T.LinearFilter;photoPages[index]={ctx:canvas.getContext('2d'),texture,mat:new T.MeshBasicMaterial({map:texture,toneMapped:false}),dirty:false};}return photoPages[index];}
   const shadowMat=new T.MeshBasicMaterial({color:0x2c2925,transparent:true,opacity:.14,depthWrite:false});
-  const heroSet=new Set([...retail].filter(p=>p.image).sort((a,b)=>Number(!!b.regionalListing)-Number(!!a.regionalListing)).slice(0,20).map(p=>p.id));
+  const heroSet=new Set(featured.slice(0,20).map(p=>p.id));
   // Shared silhouettes; no exact-model claim for inferred forms.
   const neckGeo=new T.CylinderGeometry(.26,.42,1,12), shoulderGeo=new T.CylinderGeometry(.26,.5,1,12), capGeo=new T.CylinderGeometry(.5,.5,1,12);
   function palette(ctx,x,y,w,h){const data=ctx.getImageData(x,y,w,h).data;let r=0,g=0,b=0,n=0;for(let i=0;i<data.length;i+=16){const a=data[i],c=data[i+1],d=data[i+2];if(data[i+3]<128||Math.min(a,c,d)>225||Math.max(a,c,d)<25)continue;r+=a;g+=c;b+=d;n++;}return n?new T.Color(r/n/255,g/n/255,b/n/255).convertSRGBToLinear():new T.Color('#c9c3b6');}
