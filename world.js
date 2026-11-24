@@ -74,7 +74,7 @@ export function planFixtures(){
   const narrow=Math.min(q.w,q.d)<3.5;
   if(q.kind==='checkout'||q.kind==='counter'){
    const alongX=q.w>=q.d; const length=alongX?q.w:q.d;
-   const count=q.kind==='checkout'?Math.max(1,Math.floor(length/3.2)):Math.max(1,Math.floor(length/4.5));
+   const count=q.kind==='checkout'?Math.max(1,Math.floor(length/3.2)):Math.max(1,Math.floor(length/(q.category==='food'?3:4.5)));
    for(let i=0;i<count;i++){let l=length/count;out.push({zone:q,type:q.kind,x:alongX?q.x+i*l+.22:q.x+.2,z:alongX?q.z+.2:q.z+i*l+.22,w:alongX?l-.44:Math.min(2,q.w-.4),d:alongX?Math.min(2,q.d-.4):l-.44,index:i});}continue;
   }
   const alongX=q.w>=q.d;
