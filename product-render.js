@@ -10,6 +10,7 @@ export function atlasCell(index){const cell=96,cols=20,capacity=400,tile=index%c
 export function packageType(p){
  const n=(p.name||'').toLowerCase(),s=(p.size||'').toLowerCase();
  if(/paper towels|toilet paper|bath tissue/.test(n))return 'bale';
+ if(/popsicle|ice pop|freezer pop/.test(n))return 'box';
  if(/sauvignon|chardonnay|cabernet|pinot|merlot|prosecco|wine|vodka|whiskey|whisky|tequila|bourbon|sangria|champagne/.test(n))return 'wine';
  if(/ahi tuna.*poke|spicy poke|roller tray|clamshell|deli tray|muffin|croissant|pie|sliced.*(turkey|ham)|chicken wings|ground.*beef|cheese.*pack/.test(n))return 'tray';
  if(/water|agua|soda|sparkling|energy drink/.test(n)&&/\b(?:[2-9]\d)\s*(?:x|×|pack|count|pk)/.test(s+' '+n))return 'case';
@@ -27,6 +28,7 @@ export function merchDepartment(p){
  if(/paper towels|toilet paper|bath tissue/.test(n))return 'paper';
  if(/purified water|bottled water|agua purificada/.test(n))return 'water';
  if(/sauvignon|chardonnay|cabernet|pinot|merlot|prosecco|wine|vodka|whiskey|whisky|tequila|bourbon|sangria|champagne|orange juice|sparkling|soda/.test(n))return 'drinks';
+ if(/popsicle|ice pop|freezer pop|hummus/.test(n))return /hummus/.test(n)?'dairy':'frozen';
  if(/honey roasted.*nuts|macadamia nuts/.test(n))return 'snacks';
  if(/breaded chicken.*chunks|breaded cod/.test(n))return 'frozen';
  if(/olive oil|avocado oil|honey|spread|jam|rice|flour|vinegar/.test(n))return 'pantry';
