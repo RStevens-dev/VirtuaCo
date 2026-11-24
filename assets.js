@@ -11,21 +11,22 @@ export const models={
 };
 const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder),cache=new Map();
 function load(asset){if(!cache.has(asset.url))cache.set(asset.url,loader.loadAsync(asset.url));return cache.get(asset.url);}
-export async function installProductModels(scene,slots){
+export async function installProductModels(scene,slots,status=()=>{}){
  // Shared geometry/materials; limit repetitions to keep GPU memory and draw calls bounded.
  const entries=Object.entries(models);
  for(let i=0;i<entries.length;i+=3)await Promise.allSettled(entries.slice(i,i+3).map(async ([id,asset])=>{
-  const selected=slots.filter(s=>s.id===id).slice(0,8);if(!selected.length)return;
+  const selected=slots.filter(s=>s.id===id).slice(0,8);if(!selected.length){status(id,'No model placement');return;}status(id,'Downloading 3D model…');
   try{
    const gltf=await load(asset),root=gltf.scene,box=new T.Box3().setFromObject(root),size=box.getSize(new T.Vector3()),center=box.getCenter(new T.Vector3());
-   if(!size.x||!size.y||!size.z)return;
+   if(!size.x||!size.y||!size.z)throw Error('Invalid model dimensions');
    for(const slot of selected){
     const clone=root.clone(true),holder=new T.Group(),scale=Math.min(slot.w/size.x,slot.h/size.y,slot.d/size.z);
     clone.position.set(-center.x,-box.min.y,-center.z);holder.add(clone);holder.scale.setScalar(scale);holder.position.set(slot.x,slot.y,slot.z);holder.rotation.y=slot.rot||0;scene.add(holder);
     // Dedicated fallback mesh is removed only after the actual model is present.
     if(slot.fallback)slot.fallback.visible=false;
    }
-  }catch(error){console.warn('Optional model unavailable; procedural merchandise remains:',asset.name,error);}
+  status(id,'3D model loaded · '+selected.length+' displays');
+  }catch(error){status(id,'Download failed · fallback packaging visible');console.warn('Optional model unavailable; procedural merchandise remains:',asset.name,error);}
  }));
 }
 export function applyScanThumbnail(p,texture){
