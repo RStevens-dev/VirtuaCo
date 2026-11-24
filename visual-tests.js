@@ -23,7 +23,8 @@ export const listRuns=async()=> (await transact('runs','readonly',s=>s.getAll())
 const getShot=id=>transact('shots','readonly',s=>s.get(id));
 export async function deleteRun(run){for(const id of run.shots)await transact('shots','readwrite',s=>s.delete(id));await transact('runs','readwrite',s=>s.delete(run.id));}
 export async function runViews({displays,capture,onProgress,signal,revision='unknown'}){
- const cases=selectCases(displays),created=new Date().toISOString(),run={id:created+'-'+Math.random().toString(36).slice(2,8),created,revision,status:'running',planned:cases.length*views.length,requested:50,cases:cases.map(d=>({id:d.product.id,name:d.product.name,type:d.type,source:d.product.source,image:d.product.image||null,zone:d.zone})),shots:[],errors:[]};
+ const prior=(await listRuns()).find(r=>r.status==='complete'&&r.cases.length===10), baseline=prior?.cases.map(c=>c.id)||[];
+ const cases=baseline.length?baseline.map(id=>displays.find(d=>d.ready&&d.product.id===id)).filter(Boolean):selectCases(displays),created=new Date().toISOString(),run={id:created+'-'+Math.random().toString(36).slice(2,8),created,revision,status:'running',planned:cases.length*views.length,requested:50,baseline:prior?.id||null,missingProducts:baseline.filter(id=>!cases.some(d=>d.product.id===id)),cases:cases.map(d=>({id:d.product.id,name:d.product.name,type:d.type,source:d.product.source,image:d.product.image||null,zone:d.zone})),shots:[],errors:[]};
  await save('runs',run);
  try{
   for(const d of cases)for(const v of views){
