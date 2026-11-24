@@ -32,7 +32,7 @@ test('every fixture is adjacent to the entrance-connected aisle network',()=>{
 });
 test('all unique catalog SKUs are displayed in at least one fixture',()=>{
  const seen=new Set();
- assert.equal(catalog.length,81);
+ assert.equal(catalog.length,91);
  for(const p of catalog){assert.equal(byId[p.id],p);assert.ok(p.price>=0&&p.stock>=0);}
  for(const f of fixtures){const items=byCategory[f.zone.category];if(!items||f.type==='service')continue;
   const n=f.type==='rack'&&!f.narrow?2:1;
@@ -50,3 +50,5 @@ test('all JavaScript HUD references exist in HTML',()=>{
  const js=readFileSync(new URL('../main.js',import.meta.url),'utf8');
  for(const [,id] of js.matchAll(/\$\('([^']+)'\)/g))assert.ok(html.includes('id="'+id+'"'),'Missing #'+id);
 });
+
+test('scan records preserve source and license',()=>{const scans=catalog.filter(p=>p.scan);assert.equal(scans.length,10);for(const p of scans){assert.equal(p.license,'CC-BY-4.0');assert.ok(p.source.endsWith('/'+p.scan));assert.ok(p.credit.includes('Google Research'));}});
