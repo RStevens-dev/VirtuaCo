@@ -1,7 +1,8 @@
 import * as T from 'three';
 import {zones,WIDTH,DEPTH,SPAWN,colors,catalog,byCategory,byId,money,stockState,rng,archive,planFixtures} from './world.js';
 const $=id=>document.getElementById(id);
-import {installProductModels} from './assets.js';
+import {installProductModels,models,applyScanThumbnail} from './assets.js';
+import {applyProductPhoto,photoManifest} from './photos.js';
 const random=rng(32701), scene=new T.Scene(), camera=new T.PerspectiveCamera(73,innerWidth/innerHeight,.06,160);
 scene.background=new T.Color('#bfc8cf');scene.fog=new T.Fog('#bfc8cf',75,155);
 const renderer=new T.WebGLRenderer({antialias:true,powerPreference:'high-performance'});
@@ -31,7 +32,7 @@ function label(p){if(packaging.has(p.id))return packaging.get(p.id);
  c.fillStyle='#17242d';c.fillRect(0,0,w,47);c.fillStyle='#fff';c.font='bold 22px sans-serif';c.fillText('V / SELECT',15,31);
  c.fillStyle='#f5f1e5';c.fillRect(12,59,232,111);c.fillStyle='#192a34';c.font='bold 28px sans-serif';let ls=lines(c,p.name.toUpperCase(),216).slice(0,3);ls.forEach((l,i)=>c.fillText(l,20,84+i*29));c.font='bold 19px sans-serif';c.fillStyle='#fff';c.fillText(p.size,15,201);
  c.fillStyle='#f7f3e9';c.fillRect(153,214,90,30);c.fillStyle='#282828';for(let i=0;i<24;i++)c.fillRect(157+i*3.4,218,(i%3===0?2.4:1.1),20);
- });packaging.set(p.id,mat);return mat;
+ });packaging.set(p.id,mat);if(p.scan)applyScanThumbnail(p,mat.map);else applyProductPhoto(p,mat.map);return mat;
 }
 function priceMat(p){if(priceMats.has(p.id))return priceMats.get(p.id);let mat=canvasMat(384,192,(c,w,h)=>{c.fillStyle='#fffef5';c.fillRect(0,0,w,h);c.fillStyle='#202526';c.font='bold 25px sans-serif';let ls=lines(c,p.name.toUpperCase(),355).slice(0,2);ls.forEach((s,i)=>c.fillText(s,13,30+i*27));c.font='19px sans-serif';c.fillText(p.size+' · DEMO',13,87);c.font='bold 78px sans-serif';c.fillText(money(p.price),12,165);c.fillStyle='#b8252b';c.fillRect(344,99,27,70);},false);priceMats.set(p.id,mat);return mat;}
 function signMat(text,sub='',bg='#164369'){return canvasMat(768,192,(c,w,h)=>{c.fillStyle=bg;c.fillRect(0,0,w,h);c.fillStyle='#ffffff';c.font='bold 52px sans-serif';let ls=lines(c,text.toUpperCase(),720).slice(0,2);ls.forEach((s,i)=>c.fillText(s,24,62+i*56));if(sub){c.font='25px sans-serif';c.fillStyle='#d8e5ee';c.fillText(sub,24,169);}},false);}
@@ -41,6 +42,13 @@ const steel=material('#245d50',.55,.5),beam=material('#d86a22',.45,.52),wood=mat
 function proxy(p,x,y,z,w,h,d,zone,slot){const obj=new T.Mesh(boxGeo,invisible);obj.position.set(x,y,z);obj.scale.set(w,h,d);obj.updateMatrixWorld(true);obj.userData={p,zone,slot};targets.push(obj);if(!productLocations.has(p.id))productLocations.set(p.id,[]);productLocations.get(p.id).push({x,z,zone});}
 function packageItem(p,x,y,z,w,h,d,rot=0){
  const mat=label(p);
+ if(p.scan){
+  // Cap expensive scanned instances; remaining units are textured packaging proxies.
+  if(modelSlots.filter(s=>s.id===p.id).length<8){
+   const fallback=new T.Mesh(boxGeo,mat);fallback.position.set(x,y+h/2,z);fallback.scale.set(w,h,d);fallback.rotation.y=rot;scene.add(fallback);
+   modelSlots.push({id:p.id,x,y,z,w,h,d,rot,fallback});return;
+  }
+ }
  if(p.shape==='bottle'||p.shape==='can'||p.shape==='tub'){
   batch(cylGeo,mat,x,y+h*.45,z,w,h*.9,d,rot);
   C(x,y+h*.93,z,w*.76,h*.12,d*.76,p.shape==='bottle'?'#e2e4dc':p.color);
@@ -219,7 +227,7 @@ function showProduct(p,zone){
  let add=button('Add to basket',()=>addBasket(p),'primary');
  function update(){let n=stock.get(p.id);status.textContent=n+' demo units · '+stockState(n);status.dataset.state=stockState(n);add.disabled=n===0;}
  quantity.oninput=()=>{setStock(p.id,Number(quantity.value));update();};update();
- append(body,art,el('div','eyebrow',p.size+' / '+p.id.toUpperCase()),amount,status,info('Illustrative bulk product. Price and inventory are fictional and not connected to a retailer.'),add,el('hr'),el('h3','','Inventory visualizer'),info('Move the slider to update the bottom pallet displays for this product throughout the warehouse. The second-level hero products and upper archival stock remain unchanged.'),quantity,button('Reset simulated stock',()=>{setStock(p.id,p.stock);quantity.value=p.stock;update();}));
+ append(body,art,el('div','eyebrow',p.size+' / '+p.id.toUpperCase()),amount,status,info('Illustrative bulk product. Price and inventory are fictional and not connected to a retailer.'),...(p.scan?[info('3D scan: '+p.credit+' · '+p.license),(()=>{const a=el('a','text-button','Original scan and attribution');a.href=p.source;a.target='_blank';a.rel='noopener noreferrer';return a;})()]:photoManifest[p.id]?[info('Photo: '+photoManifest[p.id].credit+' · '+photoManifest[p.id].license),(()=>{const a=el('a','text-button','Original product photo record');a.href=photoManifest[p.id].source;a.target='_blank';a.rel='noopener noreferrer';return a;})()]:[]),add,el('hr'),el('h3','','Inventory visualizer'),info('Move the slider to update the bottom pallet displays for this product throughout the warehouse. The second-level hero products and upper archival stock remain unchanged.'),quantity,button('Reset simulated stock',()=>{setStock(p.id,p.stock);quantity.value=p.stock;update();}));
 }
 function inspect(){if(hit&&!open)showProduct(hit.p,hit.zone);else if(!open)toast('Look at a product or price sign to inspect it');}
 function productRow(p,fn){let row=el('button','product-row'),sw=el('span','swatch');sw.style.background=p.color;let left=append(el('span','product-text'),el('b','',p.name),el('small','',p.size+' · '+stockState(stock.get(p.id))));append(row,sw,left,el('strong','',money(p.price)));row.onclick=fn;return row;}
