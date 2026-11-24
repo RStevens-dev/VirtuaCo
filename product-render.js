@@ -11,14 +11,15 @@ export function packageType(p){
  const n=(p.name||'').toLowerCase(),s=(p.size||'').toLowerCase();
  if(/paper towels|toilet paper|bath tissue/.test(n))return 'bale';
  if(/sauvignon|chardonnay|cabernet|pinot|merlot|prosecco|wine|vodka|whiskey|whisky|tequila|bourbon|sangria|champagne/.test(n))return 'wine';
- if(/roller tray|clamshell|deli tray|muffin|croissant|pie|sliced.*(turkey|ham)|chicken wings|ground.*beef|cheese.*pack/.test(n))return 'tray';
+ if(/ahi tuna.*poke|spicy poke|roller tray|clamshell|deli tray|muffin|croissant|pie|sliced.*(turkey|ham)|chicken wings|ground.*beef|cheese.*pack/.test(n))return 'tray';
  if(/water|agua|soda|sparkling|energy drink/.test(n)&&/\b(?:[2-9]\d)\s*(?:x|×|pack|count|pk)/.test(s+' '+n))return 'case';
- if(/pretzel|peanut butter|almond butter|spread|jam|jelly|pickles|mayonnaise|gummies/.test(n))return 'jar';
+ if(/honey roasted.*nuts|macadamia nuts|pretzel|peanut butter|almond butter|spread|jam|jelly|pickles|mayonnaise|gummies/.test(n))return 'jar';
+ if(/lowfat milk|whole milk|reduced fat milk/.test(n)&&!/powder|dry|chocolate/.test(n))return 'jug';
  if(/milk|orange juice|almond beverage|oat beverage|broth/.test(n))return 'carton';
  if(/olive oil|avocado oil|honey|water|agua|juice|vinegar|syrup|shampoo|detergent|sauce/.test(n))return 'bottle';
  if(/tuna|canned|sardines|canned beans/.test(n))return 'can';
  if(/yogurt|ice cream|cream cheese|hummus|protein powder/.test(n))return 'tub';
- if(/nuts|almonds|cashews|chips|seeds|rice|flour|coffee|granola|frozen|chocolate chips|trail mix|popcorn/.test(n))return 'bag';
+ if(/breaded chicken.*chunks|whey protein|nuts|almonds|cashews|chips|seeds|rice|flour|coffee|granola|frozen|chocolate chips|trail mix|popcorn/.test(n))return 'bag';
  return 'box';
 }
 export function merchDepartment(p){
@@ -28,7 +29,8 @@ export function merchDepartment(p){
  if(/sauvignon|chardonnay|cabernet|pinot|merlot|prosecco|wine|vodka|whiskey|whisky|tequila|bourbon|sangria|champagne|orange juice|sparkling|soda/.test(n))return 'drinks';
  if(/olive oil|avocado oil|honey|spread|jam|rice|flour|vinegar/.test(n))return 'pantry';
  if(/muffin|croissant|pecan pie|bread|bagel|cake/.test(n))return 'bakery';
- if(/roller tray|sliced.*(turkey|ham)|ground.*beef|chicken wings|salmon/.test(n))return 'meat';
+ if(/ahi tuna.*poke|spicy poke|breaded chicken.*chunks|roller tray|sliced.*(turkey|ham)|ground.*beef|chicken wings|salmon/.test(n))return 'meat';
+ if(/whey protein|protein powder/.test(n))return 'health';
  if(/nuts|almonds|cashews|pretzel|chips|chocolate|popcorn|trail mix/.test(n))return 'snacks';
  if(/milk|butter|cheese|yogurt/.test(n))return 'dairy';
  if(/gummies|vitamin|supplement/.test(n))return 'health';
@@ -46,7 +48,7 @@ export function assignMerchandise(products,fixtures){
  }
  return output;
 }
-const dimensions={wine:[.14,.43,.14],bottle:[.18,.37,.18],jar:[.24,.29,.24],tray:[.38,.16,.29],case:[.49,.27,.36],bale:[.54,.43,.36],box:[.36,.48,.24],bag:[.29,.41,.17],can:[.14,.19,.14],tub:[.25,.18,.25],carton:[.19,.32,.19]};
+const dimensions={jug:[.26,.32,.22],wine:[.14,.43,.14],bottle:[.18,.37,.18],jar:[.24,.29,.24],tray:[.38,.16,.29],case:[.49,.27,.36],bale:[.54,.43,.36],box:[.36,.48,.24],bag:[.29,.41,.17],can:[.14,.19,.14],tub:[.25,.18,.25],carton:[.19,.32,.19]};
 export function packageLayout(type,width,depth,hero=false){
  const [a,b,c]=dimensions[type]||dimensions.box,scale=Math.min(1.4,width/a,depth/c);
  const w=a*scale,h=b*scale,d=c*scale,n=Math.max(1,Math.min(hero?4:3,Math.floor((width+.00001)/(w*1.05))));
