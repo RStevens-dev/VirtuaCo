@@ -381,8 +381,8 @@ function frame(now){
  }}
  $('reticle').classList.toggle('active',!!hit);$('hint').textContent=hit?hit.p.name+' · '+priceLabel(hit.p)+'  /  E or click to inspect':'';
  }
- if(now-lastMap>220){lastMap=now;let q=zones.reduce((best,q)=>{let d=Math.hypot(Math.max(q.x-pos.x,0,pos.x-q.x-q.w),Math.max(q.z-pos.z,0,pos.z-q.z-q.d));return d<best.d?{q,d}:best;},{d:Infinity,q:null});$('where').textContent=q.d<4?q.q.name:'Main aisle';audio.update(q.q?.kind==='cold');$('coords').textContent=Math.round(pos.x)+' / '+Math.round(pos.z);drawMap($('mini'));}
- if(warehouseReady&&sectionStreamer&&now-lastStream>250){const elapsed=Math.max(.25,(now-lastStream)/1000);sectionStreamer.update(pos,yaw,{x:(pos.x-streamX)/elapsed,z:(pos.z-streamZ)/elapsed});streamX=pos.x;streamZ=pos.z;lastStream=now;const stats=sectionStreamer.stats();$('coords').textContent=stats.resident+' / '+stats.limit+' 3D · '+stats.eligible+' eligible · '+Math.round(stats.bytes/1048576)+' MB';}
+ if(now-lastMap>220){lastMap=now;let q=zones.reduce((best,q)=>{let d=Math.hypot(Math.max(q.x-pos.x,0,pos.x-q.x-q.w),Math.max(q.z-pos.z,0,pos.z-q.z-q.d));return d<best.d?{q,d}:best;},{d:Infinity,q:null});$('where').textContent=q.d<4?q.q.name:'Main aisle';audio.update(q.q?.kind==='cold');const coords=Math.round(pos.x)+' / '+Math.round(pos.z);if($('coords').textContent!==coords)$('coords').textContent=coords;drawMap($('mini'));}
+ if(warehouseReady&&sectionStreamer&&now-lastStream>250){const elapsed=Math.max(.25,(now-lastStream)/1000);sectionStreamer.update(pos,yaw,{x:(pos.x-streamX)/elapsed,z:(pos.z-streamZ)/elapsed});streamX=pos.x;streamZ=pos.z;lastStream=now;}
  if(warehouseReady&&(!battery||now-lastBatteryFrame>=33)){lastBatteryFrame=now;renderer.render(scene,camera);frameCount++;if(now-fpsStart>=2000){fps=frameCount*1000/(now-fpsStart);frameCount=0;fpsStart=now;if(now-lastQuality>8000){let target=pixelRatio;if(battery)target=Math.min(.85,pixelRatio);else if(fps<28)target=Math.max(.65,pixelRatio-.15);else if(fps>55)target=Math.min(1.6,devicePixelRatio,pixelRatio+.05);if(target!==pixelRatio){pixelRatio=target;renderer.setPixelRatio(pixelRatio);lastQuality=now;}}if(performanceLine?.isConnected){const st=sectionStreamer.stats(),r=renderer.info;performanceLine.textContent=Math.round(fps)+' FPS · '+r.render.calls+' draw calls · '+r.render.triangles.toLocaleString()+' triangles · '+r.memory.textures+' textures · '+st.resident+' detailed / '+st.baseReady+' low-detail models · '+st.pending+' loading · '+st.evictions+' evictions · '+Math.round(st.bytes/1048576)+' MiB detailed estimate · '+(st.hasLOD?'Optimized assets active':'Original assets active');}}}
 }
 window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
@@ -497,10 +497,10 @@ async function expandWarehouse(){
   const queue=[...photoQueue].sort((a,b)=>Math.hypot(a.x-SPAWN.x,a.z-SPAWN.z)-Math.hypot(b.x-SPAWN.x,b.z-SPAWN.z));
   async function photos(){while(photoCursor<queue.length){const e=queue[photoCursor++];try{const img=new Image();img.crossOrigin='anonymous';const decoded=new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject;});img.src=e.p.image;await Promise.race([decoded,new Promise((_,reject)=>setTimeout(()=>reject(Error('Photo timeout')),12000))]);const {x,y,size}=e.cell,c=e.page.ctx;
    // Letterbox within the atlas cell; map only the actual source image region.
-   const scale=Math.min(size/img.naturalWidth,size/img.naturalHeight),w=Math.max(1,Math.round(img.naturalWidth*scale)),h=Math.max(1,Math.round(img.naturalHeight*scale));
-   c.fillStyle='#faf9f3';c.fillRect(x-2,y-2,size+4,size+4);c.drawImage(img,x,y,w,h);e.cell={...e.cell,size};placePhoto(e,img.naturalWidth,img.naturalHeight);
+   const scale=Math.min(1,size/img.naturalWidth,size/img.naturalHeight),w=Math.max(1,Math.round(img.naturalWidth*scale)),h=Math.max(1,Math.round(img.naturalHeight*scale));
+   c.fillStyle='#faf9f3';c.fillRect(x-2,y-2,size+4,size+4);c.drawImage(img,x,y,w,h);e.cell={...e.cell,size};placePhoto(e,w,h);
    
-   e.page.dirty=true;photoLoaded++;
+   e.page.dirty=true;photoLoaded++;$('preloadDetail').textContent=expansionState+' · fallback photos '+photoLoaded+'/'+queue.length;
   }catch{photoFailed++;}await new Promise(r=>setTimeout(r,35));}}
   const photoFlush=setInterval(()=>{for(const page of photoPages)if(page.dirty){page.texture.needsUpdate=true;page.dirty=false;}if(photoLoaded+photoFailed===queue.length){clearInterval(photoFlush);}},250);
   expansionState=retail.length.toLocaleString()+' sourced US products · '+modelSlots.length+' exact model displays · '+displayed.size+' physical listings · inferred packaging forms. Decorative carton fullness is simulated; South Orlando stock is not implied.';
