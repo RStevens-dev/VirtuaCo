@@ -440,7 +440,7 @@ async function expandWarehouse(){
    // Real front photo on shallow neutral packaging; sides are intentionally not invented labels.
    const uvGeo=new T.PlaneGeometry(fit.w,fit.h),uv=uvGeo.attributes.uv;for(let k=0;k<uv.count;k++)uv.setXY(k,(e.cell.x+uv.getX(k)*e.cell.size)/1920,1-(e.cell.y+(1-uv.getY(k))*e.cell.size)/1920);
    const fronts=new T.InstancedMesh(uvGeo,e.page.mat,offsets.length),bodies=new T.InstancedMesh(boxGeo,packageSide,offsets.length),shadows=new T.InstancedMesh(boxGeo,shadowMat,offsets.length);
-   offsets.forEach((u,i)=>{dummy.rotation.set(0,0,0);dummy.position.set(u,fit.h/2,fit.d/2+.002);dummy.scale.set(1,1,1);dummy.updateMatrix();fronts.setMatrixAt(i,dummy.matrix);dummy.position.set(u,fit.h/2,0);dummy.scale.set(fit.w,fit.h,fit.d);dummy.updateMatrix();bodies.setMatrixAt(i,dummy.matrix);dummy.position.set(u,.006,0);dummy.scale.set(fit.w*1.08,.008,fit.d*1.2);dummy.updateMatrix();shadows.setMatrixAt(i,dummy.matrix);});e.group.add(bodies,fronts,shadows);e.fronts=fronts;e.fit=fit;
+   offsets.forEach((u,i)=>{dummy.rotation.set(0,0,0);dummy.position.set(u,fit.h/2,fit.d/2+.002);dummy.scale.set(1,1,1);dummy.updateMatrix();fronts.setMatrixAt(i,dummy.matrix);dummy.position.set(u,fit.h/2,0);dummy.scale.set(fit.w,fit.h,fit.d);dummy.updateMatrix();bodies.setMatrixAt(i,dummy.matrix);dummy.position.set(u,.006,0);dummy.scale.set(fit.w*1.08,.008,fit.d*1.2);dummy.updateMatrix();shadows.setMatrixAt(i,dummy.matrix);});fronts.instanceMatrix.needsUpdate=true;bodies.instanceMatrix.needsUpdate=true;shadows.instanceMatrix.needsUpdate=true;e.group.add(bodies,fronts,shadows);e.fronts=fronts;e.fit=fit;
   }
   // One atlas for all sourced shelf signs; avoid hundreds of individual GPU textures.
   const tileW=256,tileH=128,columns=8,perAtlas=128,atlasCanvases=[];
@@ -476,7 +476,7 @@ async function expandWarehouse(){
    // Letterbox within the atlas cell; map only the actual source image region.
    const scale=Math.min(size/img.naturalWidth,size/img.naturalHeight),w=Math.max(1,Math.round(img.naturalWidth*scale)),h=Math.max(1,Math.round(img.naturalHeight*scale));
    c.fillStyle='#faf9f3';c.fillRect(x-2,y-2,size+4,size+4);c.drawImage(img,x,y,w,h);e.cell={...e.cell,size};placePhoto(e,img.naturalWidth,img.naturalHeight);
-   const uv=e.fronts.geometry.attributes.uv;for(let k=0;k<uv.count;k++)uv.setXY(k,(x+(k%2)*w)/1920,1-(y+(k<2?0:h))/1920);uv.needsUpdate=true;
+   const uv=e.fronts.geometry.attributes.uv;for(let k=0;k<uv.count;k++)uv.setXY(k,(x+.5+(k%2)*Math.max(0,w-1))/1920,1-(y+.5+(k<2?0:Math.max(0,h-1)))/1920);uv.needsUpdate=true;
    e.page.dirty=true;photoLoaded++;
   }catch{photoFailed++;}await new Promise(r=>setTimeout(r,35));}}
   const photoFlush=setInterval(()=>{for(const page of photoPages)if(page.dirty){page.texture.needsUpdate=true;page.dirty=false;}if(photoLoaded+photoFailed===queue.length){clearInterval(photoFlush);}},250);
