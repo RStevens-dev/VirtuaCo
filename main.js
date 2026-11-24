@@ -1,5 +1,5 @@
 import * as T from 'three';
-import {fitProduct,shelfFace,productFacings,atlasCell} from './product-render.js';
+import {fitProduct,shelfFace,productFacings,atlasCell,packageType,merchDepartment,assignMerchandise,packageLayout} from './product-render.js';
 import {warehouse,loadRetailCatalogue,priceLabel,availabilityLabel} from './retail.js';
 import {routeGrid,analog,orderStops,ambientAudio} from './experience.js';
 import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/GLTFLoader.js';
@@ -397,15 +397,8 @@ async function expandWarehouse(){
   const library=(manifest.products||[]).filter(p=>/^\.\/assets\/models\/[A-Za-z0-9_.-]+\.glb$/.test(p.url)&&p.sha256&&['CC-BY-4.0','CC0-1.0'].includes(p.license));
   const retail=await loadRetailCatalogue(library);
   if(!retail.length)throw Error('No sourced retail products available');
-  const racks=fixtures.filter(f=>f.type==='rack'||f.type==='display'||f.type==='cold'),assignments=new Map(),displayed=new Set();
+  const racks=fixtures.filter(f=>f.type==='rack'||f.type==='display'||f.type==='cold'),assignments=assignMerchandise(retail,racks),displayed=new Set();
   for(const p of retail){catalog.push(p);byId[p.id]=p;(byCategory[p.category]??=[]).push(p);stock.set(p.id,p.stockQuantity);}
-  // Catalogue is unlimited; physical space is finite. Leave excess items searchable.
-  // Prefer exact models, then licensed images, then sourced name-only placards.
-  for(const p of [...retail].sort((a,b)=>Number(b.regionalListing)-Number(a.regionalListing)||Number(!!b.model)-Number(!!a.model)||Number(!!b.image)-Number(!!a.image))){
-   const matching=racks.filter(f=>f.zone.category===p.category&&(assignments.get(f)?.length||0)<3),pool=(matching.length?matching:racks.filter(f=>(assignments.get(f)?.length||0)<3));
-   if(!pool.length)continue;const f=pool.reduce((a,b)=>(assignments.get(a)?.length||0)<=(assignments.get(b)?.length||0)?a:b);
-   if(!assignments.has(f))assignments.set(f,[]);assignments.get(f).push(p);
-  }
   // Fill every physical merchandising fixture with unbranded shipping cartons.
   // This is simulated display density, never a claim about Costco inventory.
   const cartonColors=['#ba9466','#c4a47c','#ad8961','#d0b99b','#e1ded1','#aaa99e'];
@@ -429,35 +422,56 @@ async function expandWarehouse(){
      for(const side of [-1,1])lb({...f,alongX},x-cw*.19,y+h*.12,z+side*cd*.49,cw*.29,h*.21,.006,'#eee8db');
     }
     // Middle display stock behind the genuine product image/placard, without invented branding.
-    if(rack){const midH=.47+r()*.27;lb({...f,alongX},u,1.80+midH/2,0,bw*.90,midH,depth*.78,color);lb({...f,alongX},u,1.80+midH+.004,0,bw*.13,.008,depth*.78,'#e0c69e');}
+    if(rack&&!(assignments.get(f)||[]).some(p=>p.image||p.model)){const midH=.47+r()*.27;lb({...f,alongX},u,1.80+midH/2,0,bw*.90,midH,depth*.78,color);lb({...f,alongX},u,1.80+midH+.004,0,bw*.13,.008,depth*.78,'#e0c69e');}
    }
   }
   for(const {geo,mat,matrices} of batches.values()){const mesh=new T.InstancedMesh(geo,mat,matrices.length);matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));mesh.instanceMatrix.needsUpdate=true;scene.add(mesh);}batches.clear();
   const photoQueue=[],shelfCards=[],photoPages=[];
   function photoPage(index){if(!photoPages[index]){const canvas=document.createElement('canvas');canvas.width=1920;canvas.height=1920;const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;texture.generateMipmaps=false;texture.minFilter=T.LinearFilter;photoPages[index]={ctx:canvas.getContext('2d'),texture,mat:new T.MeshBasicMaterial({map:texture,toneMapped:false}),dirty:false};}return photoPages[index];}
-  const packageSide=material('#ddd8cb'),shadowMat=new T.MeshBasicMaterial({color:0x2c2925,transparent:true,opacity:.15,depthWrite:false});
-  function placePhoto(e,w,h){const fit=fitProduct(w,h,e.size*.82,.76),offsets=productFacings(e.size,fit.w);e.group.clear();e.group.position.set(e.x+e.face.nx*(e.depth*.47-fit.d/2),e.y,e.z+e.face.nz*(e.depth*.47-fit.d/2));e.group.rotation.y=e.face.rot;
-   // Real front photo on shallow neutral packaging; sides are intentionally not invented labels.
-   const uvGeo=new T.PlaneGeometry(fit.w,fit.h),uv=uvGeo.attributes.uv;for(let k=0;k<uv.count;k++)uv.setXY(k,(e.cell.x+uv.getX(k)*e.cell.size)/1920,1-(e.cell.y+(1-uv.getY(k))*e.cell.size)/1920);
-   const fronts=new T.InstancedMesh(uvGeo,e.page.mat,offsets.length),bodies=new T.InstancedMesh(boxGeo,packageSide,offsets.length),shadows=new T.InstancedMesh(boxGeo,shadowMat,offsets.length);
-   offsets.forEach((u,i)=>{dummy.rotation.set(0,0,0);dummy.position.set(u,fit.h/2,fit.d/2+.002);dummy.scale.set(1,1,1);dummy.updateMatrix();fronts.setMatrixAt(i,dummy.matrix);dummy.position.set(u,fit.h/2,0);dummy.scale.set(fit.w,fit.h,fit.d);dummy.updateMatrix();bodies.setMatrixAt(i,dummy.matrix);dummy.position.set(u,.006,0);dummy.scale.set(fit.w*1.08,.008,fit.d*1.2);dummy.updateMatrix();shadows.setMatrixAt(i,dummy.matrix);});fronts.instanceMatrix.needsUpdate=true;bodies.instanceMatrix.needsUpdate=true;shadows.instanceMatrix.needsUpdate=true;e.group.add(bodies,fronts,shadows);e.fronts=fronts;e.fit=fit;
+  const shadowMat=new T.MeshBasicMaterial({color:0x2c2925,transparent:true,opacity:.14,depthWrite:false});
+  const heroSet=new Set([...retail].filter(p=>p.image).sort((a,b)=>Number(!!b.regionalListing)-Number(!!a.regionalListing)).slice(0,20).map(p=>p.id));
+  // Shared silhouettes; no exact-model claim for inferred forms.
+  const neckGeo=new T.CylinderGeometry(.26,.42,1,12), shoulderGeo=new T.CylinderGeometry(.26,.5,1,12), capGeo=new T.CylinderGeometry(.5,.5,1,12);
+  function palette(ctx,x,y,w,h){const data=ctx.getImageData(x,y,w,h).data;let r=0,g=0,b=0,n=0;for(let i=0;i<data.length;i+=16){const a=data[i],c=data[i+1],d=data[i+2];if(data[i+3]<128||Math.min(a,c,d)>225||Math.max(a,c,d)<25)continue;r+=a;g+=c;b+=d;n++;}return n?new T.Color(r/n/255,g/n/255,b/n/255).convertSRGBToLinear():new T.Color('#c9c3b6');}
+  function placePhoto(e,w,h){
+   const type=packageType(e.p),hero=heroSet.has(e.p.id),fit=packageLayout(type,e.size,Math.max(.12,e.depth*.56),hero),round=['wine','bottle','jar','can','tub'].includes(type),bottle=type==='wine'||type==='bottle',tray=type==='tray';
+   e.group.position.set(e.x+e.face.nx*(e.depth*.46-fit.d/2),e.y,e.z+e.face.nz*(e.depth*.46-fit.d/2));e.group.rotation.y=e.face.rot;
+   const color=palette(e.page.ctx,e.cell.x,e.cell.y,w,h),bodyColor=type==='wine'?new T.Color('#35442b'):color.clone().lerp(new T.Color('#ded8cd'),.23);
+   // Quantized palette keeps shared materials bounded.
+   const quant=c=>'#'+[c.r,c.g,c.b].map(v=>Math.round(Math.max(0,Math.min(1,v))*7)*36).map(v=>Math.min(255,v).toString(16).padStart(2,'0')).join('');
+   const body=material(quant(bodyColor)),cap=material(type==='wine'?'#423b35':quant(color)),offsets=fit.offsets;
+   const pieces=new Map();function part(geo,mat,u,y,z,ww,hh,dd){const key=geo.uuid+'|'+mat.uuid;if(!pieces.has(key))pieces.set(key,{geo,mat,matrices:[]});dummy.position.set(u,y,z);dummy.rotation.set(0,0,0);dummy.scale.set(ww,hh,dd);dummy.updateMatrix();pieces.get(key).matrices.push(dummy.matrix.clone());}
+   const labelW=fit.w*(round?.88:.97),labelH=fit.h*(bottle?.63:tray?.78:.93);
+   const frontGeo=new T.PlaneGeometry(labelW,labelH),uv=frontGeo.attributes.uv;
+   for(let k=0;k<uv.count;k++)uv.setXY(k,(e.cell.x+.5+uv.getX(k)*Math.max(0,w-1))/1920,1-(e.cell.y+.5+(1-uv.getY(k))*Math.max(0,h-1))/1920);
+   for(const u of offsets){
+    if(bottle){part(cylGeo,body,u,fit.h*.32,0,fit.w,fit.h*.64,fit.d);part(shoulderGeo,body,u,fit.h*.70,0,fit.w,fit.h*.12,fit.d);part(neckGeo,body,u,fit.h*.84,0,fit.w,fit.h*.17,fit.d);part(capGeo,cap,u,fit.h*.97,0,fit.w*.32,fit.h*.06,fit.d*.32);}
+    else if(round){part(cylGeo,body,u,fit.h*.46,0,fit.w,fit.h*.92,fit.d);part(capGeo,cap,u,fit.h*.95,0,fit.w*1.01,fit.h*.10,fit.d*1.01);}
+    else if(tray){part(boxGeo,body,u,fit.h*.40,0,fit.w,fit.h*.80,fit.d);part(boxGeo,material('#c2c7c5',.05,.32),u,fit.h*.88,0,fit.w*.98,fit.h*.20,fit.d*.98);}
+    else {part(boxGeo,body,u,fit.h*.5,0,fit.w,fit.h,fit.d);if(type==='bag')part(boxGeo,cap,u,fit.h*.97,0,fit.w*.94,fit.h*.035,fit.d*.82);}
+    part(frontGeo,e.page.mat,u,bottle?fit.h*.36:fit.h*.5,fit.d*.5+.003,1,1,1);
+    part(boxGeo,shadowMat,u,.006,0,fit.w*1.07,.008,fit.d*1.12);
+   }
+   // Shallow merchandising tray grounds bottle rows and small jars without obscuring labels.
+   if(['wine','bottle','jar','can'].includes(type)){const span=offsets.at(-1)-offsets[0]+fit.w;part(boxGeo,kraft,0,.025,0,span+.025,.05,fit.d*1.12);}
+   for(const {geo,mat,matrices} of pieces.values()){const mesh=new T.InstancedMesh(geo,mat,matrices.length);matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));mesh.instanceMatrix.needsUpdate=true;e.group.add(mesh);}
   }
   // One atlas for all sourced shelf signs; avoid hundreds of individual GPU textures.
   const tileW=256,tileH=128,columns=8,perAtlas=128,atlasCanvases=[];
   for(const [f,products] of assignments){
    const rack=f.type==='rack',alongX=f.alongX??f.w>=f.d,width=alongX?f.w:f.d,depth=alongX?f.d:f.w;
    for(let i=0;i<products.length;i++){
-    const p=products[i],u=(i-(products.length-1)/2)*width*.82/products.length,x=f.x+f.w/2+(alongX?u:0),z=f.z+f.d/2+(alongX?0:u),y=rack?1.8:f.type==='cold'?.82:.92,size=Math.min(width*.75/products.length,depth*.75,.85),face=shelfFace(alongX,f.zone.face),rot=face.rot;
+    const p=products[i],u=(i-(products.length-1)/2)*width*.82/products.length,x=f.x+f.w/2+(alongX?u:0),z=f.z+f.d/2+(alongX?0:u),y=rack?1.8:f.type==='cold'?.82:.92,size=Math.min(width*.89/products.length,1.5),face=shelfFace(alongX,f.zone.face),rot=face.rot;
     const idx=shelfCards.length,atlasIndex=Math.floor(idx/perAtlas),tile=idx%perAtlas;
     if(!atlasCanvases[atlasIndex]){const canvas=document.createElement('canvas');canvas.width=2048;canvas.height=2048;const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;texture.generateMipmaps=false;texture.minFilter=T.LinearFilter;atlasCanvases.push({canvas,ctx:canvas.getContext('2d'),texture,mat:new T.MeshBasicMaterial({map:texture,side:T.DoubleSide,toneMapped:false})});}
     const atlas=atlasCanvases[atlasIndex],tx=(tile%columns)*tileW,ty=Math.floor(tile/columns)*tileH,c=atlas.ctx;
     c.fillStyle='#faf9f3';c.fillRect(tx,ty,tileW,tileH);c.fillStyle='#182b37';c.font='bold 17px sans-serif';
-    lines(c,p.name.toUpperCase(),240).slice(0,3).forEach((v,j)=>c.fillText(v,tx+8,ty+20+j*19));c.font='12px sans-serif';c.fillText((p.item?'ITEM '+p.item:'UPC '+p.upc),tx+8,ty+82);
+    lines(c,p.name.toUpperCase(),240).slice(0,3).forEach((v,j)=>c.fillText(v,tx+8,ty+20+j*19));c.font='12px sans-serif';c.fillText((p.item?'ITEM '+p.item:p.upc?'UPC '+p.upc:'ORLANDO LISTING'),tx+8,ty+82);
     c.font='bold 22px sans-serif';c.fillText(p.price==null?'PRICE UNKNOWN':priceLabel(p),tx+8,ty+111);c.fillStyle=p.regionalListing?'#176a53':'#a82f35';c.fillRect(tx,ty+124,tileW,4);
     const geo=new T.PlaneGeometry(Math.min(size,.75),.37),uv=geo.attributes.uv;
     for(let k=0;k<uv.count;k++)uv.setXY(k,(tx+uv.getX(k)*tileW)/2048,1-(ty+(1-uv.getY(k))*tileH)/2048);
     const sign=new T.Mesh(geo,atlas.mat);sign.position.set(x+face.nx*depth*.49,y-.06,z+face.nz*depth*.49);sign.rotation.y=rot;scene.add(sign);shelfCards.push(sign);
-    proxy(p,x,y+.42,z,size,.84,size,f.zone,f);displayed.add(p.id);
+    proxy(p,x+face.nx*depth*.40,y+.42,z+face.nz*depth*.40,alongX?size:.30,.84,alongX?.30:size,f.zone,f);displayed.add(p.id);
     if(p.model){models[p.id]={...p.model};modelSlots.push({id:p.id,assetId:p.assetId,x,y,z,w:size,h:.85,d:size,rot,bulk:false});}
     else if(p.image){const cell=atlasCell(photoQueue.length),page=photoPage(cell.page),group=new T.Group();scene.add(group);photoQueue.push({p,x,y,z,size,depth,face,cell,page,group});}
 
@@ -476,11 +490,11 @@ async function expandWarehouse(){
    // Letterbox within the atlas cell; map only the actual source image region.
    const scale=Math.min(size/img.naturalWidth,size/img.naturalHeight),w=Math.max(1,Math.round(img.naturalWidth*scale)),h=Math.max(1,Math.round(img.naturalHeight*scale));
    c.fillStyle='#faf9f3';c.fillRect(x-2,y-2,size+4,size+4);c.drawImage(img,x,y,w,h);e.cell={...e.cell,size};placePhoto(e,img.naturalWidth,img.naturalHeight);
-   const uv=e.fronts.geometry.attributes.uv;for(let k=0;k<uv.count;k++)uv.setXY(k,(x+.5+(k%2)*Math.max(0,w-1))/1920,1-(y+.5+(k<2?0:Math.max(0,h-1)))/1920);uv.needsUpdate=true;
+   
    e.page.dirty=true;photoLoaded++;
   }catch{photoFailed++;}await new Promise(r=>setTimeout(r,35));}}
   const photoFlush=setInterval(()=>{for(const page of photoPages)if(page.dirty){page.texture.needsUpdate=true;page.dirty=false;}if(photoLoaded+photoFailed===queue.length){clearInterval(photoFlush);}},250);
-  expansionState=retail.length.toLocaleString()+' sourced US products · '+modelSlots.length+' exact model displays · '+displayed.size+' physical listings. Decorative carton fullness is simulated; South Orlando stock is not implied.';
+  expansionState=retail.length.toLocaleString()+' sourced US products · '+modelSlots.length+' exact model displays · '+displayed.size+' physical listings · inferred packaging forms. Decorative carton fullness is simulated; South Orlando stock is not implied.';
   $('preloadBar').value=100;$('preloadPercent').textContent='100%';$('preloadStatus').textContent='Warehouse ready';$('preloadDetail').textContent=expansionState;$('preloader').dataset.ready='true';warehouseReady=true;$('start').disabled=false;$('start').textContent='Enter the warehouse →';
   photos();photos();photos();if(mode==='search')showSearch();
  }catch(error){expansionState='Warehouse preload failed · '+error.message;$('preloadStatus').textContent='Loading unsuccessful';$('loadError').textContent=error.message;$('start').disabled=false;$('start').textContent='Retry loading';$('start').onclick=()=>location.reload();console.warn(error);}
