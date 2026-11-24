@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "sources": {
+    "world.openproductsfacts.org": {
+      "status": "ok",
+      "records": 1,
+      "withImages": 1
+    },
+    "world.openbeautyfacts.org": {
+      "status": "ok",
+      "records": 1,
+      "withImages": 1
+    }
+  },
+  "summary": {
+    "records": 2,
+    "withImages": 2
+  },
+  "products": [
+    {
+      "upc": "0096619119509",
+      "name": "Facial Tissues",
+      "brand": "Kirkland Signature",
+      "size": null,
+      "category": "paper",
+      "source": "https://world.openproductsfacts.org/product/0096619119509",
+      "sourceLicense": "ODbL-1.0",
+      "image": "https://images.openproductsfacts.org/images/products/009/661/911/9509/front_fr.3.400.jpg",
+      "imageLicense": "CC-BY-SA-3.0",
+      "storesReported": null,
+      "scope": "US product identity; local availability unverified"
+    },
+    {
+      "upc": "0096619519828",
+      "name": "Moisture Shampoo",
+      "brand": "Kirkland Signature",
+      "size": "33.8Fl",
+      "category": "health",
+      "source": "https://world.openbeautyfacts.org/product/0096619519828",
+      "sourceLicense": "ODbL-1.0",
+      "image": "https://images.openbeautyfacts.org/images/products/009/661/951/9828/front_en.3.400.jpg",
+      "imageLicense": "CC-BY-SA-3.0",
+      "storesReported": "",
+      "scope": "US product identity; local availability unverified"
+    }
+  ]
+}
