@@ -409,6 +409,7 @@ async function captureProductView(d,v){
  function clear(p){if(blocked(p.x,p.z))return false;for(let t=.05;t<.96;t+=.05){const x=p.x+(center.x-p.x)*t,z=p.z+(center.z-p.z)*t;if(colliders.some(f=>f!==own&&x>f.x&&x<f.x+f.w&&z>f.z&&z<f.z+f.d))return false;}return true;}
  let found=false,actualAngle=v.angle;
  for(const a of [v.angle,v.angle*.65,v.angle*.35,0]){for(const factor of [1,.8,.6,.45]){const r=a*Math.PI/180,xx=d.face.nx*Math.cos(r)+d.face.nz*Math.sin(r),zz=d.face.nz*Math.cos(r)-d.face.nx*Math.sin(r),dist=distance*factor;cam.position.set(center.x+xx*dist*Math.cos(elev),center.y+dist*Math.sin(elev),center.z+zz*dist*Math.cos(elev));if(clear(cam.position)){found=true;actualAngle=a;break;}}if(found)break;}
+ if(!found){for(const a of [0,15,-15,30,-30]){for(const factor of [.65,.45,.30,.22]){const r=a*Math.PI/180,dist=distance*factor,xx=d.face.nx*Math.cos(r)+d.face.nz*Math.sin(r),zz=d.face.nz*Math.cos(r)-d.face.nx*Math.sin(r);cam.position.set(center.x+xx*dist,center.y+Math.min(.24,dist*.18),center.z+zz*dist);if(clear(cam.position)){found=true;actualAngle=a;break;}}if(found)break;}}
  if(!found)throw Error('No unobstructed camera position for '+v.id);
  cam.lookAt(center);cam.updateMatrixWorld();visualCamera=cam;
  // Keep the capture pose visible on screen before saving it.
@@ -419,7 +420,7 @@ async function captureProductView(d,v){
  canvas.getContext('2d').drawImage(source,0,0,canvas.width,canvas.height);
  const stats={drawCalls:renderer.info.render.calls,triangles:renderer.info.render.triangles,textures:renderer.info.memory.textures};
  const blob=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error('Screenshot encoding failed')),'image/jpeg',.88));
- return {blob,width:canvas.width,height:canvas.height,camera:{position:cam.position.toArray(),target:center.toArray(),angle:actualAngle,requestedAngle:v.angle,elevation:v.elevation},stats};
+ return {blob,width:canvas.width,height:canvas.height,camera:{position:cam.position.toArray(),target:center.toArray(),angle:actualAngle,requestedAngle:v.angle,elevation:Math.atan2(cam.position.y-center.y,Math.hypot(cam.position.x-center.x,cam.position.z-center.z))*180/Math.PI,requestedElevation:v.elevation,distance:cam.position.distanceTo(center)},stats};
 }
 async function showVisualTests(){
  const b=showPanel('Product view tests','VISUAL QA / LOCAL DATA','visual-tests');
@@ -427,7 +428,7 @@ async function showVisualTests(){
  const start=button('Run 10 products × 5 angles',async()=>{
   if(visualRunController)return;
   visualRunController=new AbortController();start.disabled=true;cancel.disabled=false;
-  try{const run=await runViews({displays:visualDisplays,capture:captureProductView,signal:visualRunController.signal,revision:'visual-qa-v5',onProgress:(r,d,v)=>{status.textContent=(r.shots.length+r.errors.length)+' / '+r.planned+' · '+d.product.name+' · '+v.id;progress.max=r.planned||1;progress.value=r.shots.length+r.errors.length;}});
+  try{const run=await runViews({displays:visualDisplays,capture:captureProductView,signal:visualRunController.signal,revision:'visual-qa-v6',onProgress:(r,d,v)=>{status.textContent=(r.shots.length+r.errors.length)+' / '+r.planned+' · '+d.product.name+' · '+v.id;progress.max=r.planned||1;progress.value=r.shots.length+r.errors.length;}});
    status.textContent=run.status+' · '+run.shots.length+' screenshots saved locally · '+run.errors.length+' errors';
   }catch(e){status.textContent='Test run failed: '+e.message;}
   finally{visualCamera=null;visualRunController=null;start.disabled=false;cancel.disabled=true;await refresh();}
@@ -547,6 +548,13 @@ async function expandWarehouse(){
   // Shared rounded package geometry; artwork follows the curved front instead of a floating poster.
   const softGeo=new T.BoxGeometry(1,1,1,8,8,4);
   {const p=softGeo.attributes.position;for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i),r=.14,ix=T.MathUtils.clamp(x,-.5+r,.5-r),iy=T.MathUtils.clamp(y,-.5+r,.5-r),iz=T.MathUtils.clamp(z,-.5+r,.5-r),v=new T.Vector3(x-ix,y-iy,z-iz).normalize().multiplyScalar(r);p.setXYZ(i,ix+v.x,iy+v.y,iz+v.z);}softGeo.computeVertexNormals();}
+  // Inflated flexible pouch: tapered seals, convex faces, subtle folds.
+  const bagGeo=new T.BoxGeometry(1,1,1,16,18,8);
+  function pouchPoint(x,y,z){
+   const t=Math.max(0,1-4*y*y),bulge=.16+.84*Math.pow(t,.55),edge=Math.max(0,1-4*x*x);
+   return [x*(.90+.10*t),y,z*bulge*(.30+.70*Math.pow(edge,.38))+.012*Math.sin(x*23+y*17)*t*edge];
+  }
+  {const p=bagGeo.attributes.position;for(let i=0;i<p.count;i++)p.setXYZ(i,...pouchPoint(p.getX(i),p.getY(i),p.getZ(i)));bagGeo.computeVertexNormals();}
   const jugHandle=new T.TorusGeometry(.36,.095,6,16);
   function placePhoto(e,w,h){
    const type=packageType(e.p),hero=heroSet.has(e.p.id),fit=packageLayout(type,e.size,Math.max(.12,e.depth*.56),hero),round=['wine','bottle','jar','can','tub'].includes(type),bottle=type==='wine'||type==='bottle',tray=type==='tray',bag=type==='bag',jug=type==='jug';
@@ -556,10 +564,10 @@ async function expandWarehouse(){
    const quant=c=>{const srgb=c.clone().convertLinearToSRGB();return '#'+[srgb.r,srgb.g,srgb.b].map(v=>Math.round(Math.max(0,Math.min(1,v))*7)*36).map(v=>Math.min(255,v).toString(16).padStart(2,'0')).join('');};
    const body=material(quant(bodyColor),type==='can'?.25:0,type==='wine'?.24:round||jug||tray?.36:bag?.48:.78),cap=material(type==='wine'?'#423b35':quant(color),0,.45),offsets=fit.offsets;
    const pieces=new Map();function part(geo,mat,u,y,z,ww,hh,dd,rx=0){const key=geo.uuid+'|'+mat.uuid;if(!pieces.has(key))pieces.set(key,{geo,mat,matrices:[]});dummy.position.set(u,y,z+rowZ);dummy.rotation.set(rx,0,0);dummy.scale.set(ww,hh,dd);dummy.updateMatrix();pieces.get(key).matrices.push(dummy.matrix.clone());}
-   const maxW=fit.w*(round?.82:.94),maxH=fit.h*(bottle?.61:jug?.63:.93);
+   const maxW=fit.w*(round?.82:bag?.87:.94),maxH=fit.h*(bottle?.61:jug?.63:bag?.88:.93);
    const aspect=w/h,labelW=tray?Math.min(fit.w*.94,fit.d*.94*aspect):Math.min(maxW,maxH*aspect),labelH=labelW/aspect;
-   const frontGeo=new T.PlaneGeometry(labelW,labelH,8,4),uv=frontGeo.attributes.uv,verts=frontGeo.attributes.position;
-   for(let k=0;k<uv.count;k++){const u=uv.getX(k),v=uv.getY(k);uv.setXY(k,(e.cell.x+.5+u*Math.max(0,w-1))/e.page.width,1-(e.cell.y+.5+(1-v)*Math.max(0,h-1))/e.page.height);if(round){const x=verts.getX(k);verts.setZ(k,fit.d*.5*(Math.sqrt(Math.max(0,1-(x/(fit.w*.5))**2))-1)+.004);}}
+   const frontGeo=new T.PlaneGeometry(labelW,labelH,16,16),uv=frontGeo.attributes.uv,verts=frontGeo.attributes.position;
+   for(let k=0;k<uv.count;k++){const u=uv.getX(k),v=uv.getY(k);uv.setXY(k,(e.cell.x+.5+u*Math.max(0,w-1))/e.page.width,1-(e.cell.y+.5+(1-v)*Math.max(0,h-1))/e.page.height);if(bag){const q=pouchPoint(verts.getX(k)/fit.w,(verts.getY(k)-fit.h*.02)/fit.h,.5);verts.setXYZ(k,q[0]*fit.w,q[1]*fit.h+fit.h*.02,q[2]*fit.d-fit.d*.5+.004);}else if(round){const x=verts.getX(k);verts.setZ(k,fit.d*.5*(Math.sqrt(Math.max(0,1-(x/(fit.w*.5))**2))-1)+.004);}}
    frontGeo.computeVertexNormals();
    const rows=depthRows(fit.d,Math.max(fit.d,e.depth*.46));
    let rowZ=0;
@@ -568,7 +576,7 @@ async function expandWarehouse(){
     else if(jug){part(softGeo,body,u,fit.h*.37,0,fit.w,fit.h*.74,fit.d);part(softGeo,body,u-fit.w*.10,fit.h*.79,0,fit.w*.65,fit.h*.27,fit.d*.85);part(capGeo,cap,u-fit.w*.12,fit.h*.96,0,fit.w*.28,fit.h*.08,fit.d*.28);part(jugHandle,body,u+fit.w*.27,fit.h*.74,0,fit.w*.42,fit.h*.50,fit.d*.3);}
     else if(round){part(cylGeo,body,u,fit.h*.46,0,fit.w,fit.h*.92,fit.d);part(capGeo,cap,u,fit.h*.95,0,fit.w*1.01,fit.h*.10,fit.d*1.01);}
     else if(tray){part(softGeo,body,u,fit.h*.40,0,fit.w,fit.h*.80,fit.d);part(softGeo,material('#d5dbd8',0,.22),u,fit.h*.88,0,fit.w*.98,fit.h*.20,fit.d*.98);}
-    else if(bag){part(softGeo,body,u,fit.h*.5,0,fit.w,fit.h,fit.d);for(const yy of [.035,.965])part(boxGeo,cap,u,fit.h*yy,0,fit.w*.88,fit.h*.035,fit.d*.35);}
+    else if(bag){part(bagGeo,body,u,fit.h*.5,0,fit.w,fit.h,fit.d);for(const yy of [.035,.965])part(boxGeo,cap,u,fit.h*yy,0,fit.w*.90,fit.h*.025,fit.d*.17);}
     else part(type==='bale'?softGeo:boxGeo,body,u,fit.h*.5,0,fit.w,fit.h,fit.d);
     if(tray)part(frontGeo,e.page.mat,u,fit.h+.004,0,1,1,1,-Math.PI/2);
     else part(frontGeo,e.page.mat,u,bottle?fit.h*.32:jug?fit.h*.36:fit.h*.48,fit.d*.5+.004,1,1,1);
