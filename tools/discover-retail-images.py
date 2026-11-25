@@ -63,6 +63,13 @@ def main():
         if throttles:break
         time.sleep(7)
     print('Requests this run:',attempts,flush=True)
+    # Repair historical eight-digit paths from catalogue evidence where available.
+    for p in products:
+        upc=p['upc']; entry=entries.get(upc,{})
+        if len(upc)!=8 or entry.get('status')!='ok':continue
+        match=re.fullmatch(r'(https://images\.openfoodfacts\.org/images/products/[0-9/]+/)front(?:_[a-z]{2})?\.\d+\.400\.jpg',p.get('image') or '')
+        padded=upc.zfill(13);base=match[1] if match else 'https://images.openfoodfacts.org/images/products/'+ '/'.join([padded[:3],padded[3:6],padded[6:9],padded[9:]])+'/'
+        for image in entry['images']:image['url']=base+image['url'].rsplit('/',1)[-1]
     ok=[e for e in entries.values() if e['status']=='ok']
     summary={'products':len(products),'checked':len(ok),'withImages':sum(bool(e['images']) for e in ok),'candidates':sum(len(e['images']) for e in ok),'previouslyMissingWithCandidates':sum(bool(entries.get(p['upc'],{}).get('images')) for p in products if not p.get('image'))}
     OUT.write_text(json.dumps({'version':1,'summary':summary,'entries':entries},indent=2))
