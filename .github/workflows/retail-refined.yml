@@ -5,6 +5,7 @@ on:
     paths:
       - .github/workflows/retail-refined.yml
       - tools/refine-retail-art.py
+      - assets/retail-source/index.json
 permissions:
   contents: write
 concurrency:
