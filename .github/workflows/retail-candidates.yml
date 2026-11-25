@@ -1,0 +1,39 @@
+name: Acquire alternate product image candidates
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/retail-candidates.yml
+      - data/retail-image-candidates.json
+permissions:
+  contents: write
+concurrency:
+  group: retail-candidates
+  cancel-in-progress: false
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow==11.3.0
+      - run: python tools/acquire-retail-candidates.py
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/retail-candidates
+          git diff --cached --quiet && exit 0
+          git commit -m "Publish alternate image review library"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 5
+          done
+          exit 1
