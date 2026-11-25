@@ -427,7 +427,7 @@ async function showVisualTests(){
  const start=button('Run 10 products × 5 angles',async()=>{
   if(visualRunController)return;
   visualRunController=new AbortController();start.disabled=true;cancel.disabled=false;
-  try{const run=await runViews({displays:visualDisplays,capture:captureProductView,signal:visualRunController.signal,revision:'visual-qa-v4',onProgress:(r,d,v)=>{status.textContent=(r.shots.length+r.errors.length)+' / '+r.planned+' · '+d.product.name+' · '+v.id;progress.max=r.planned||1;progress.value=r.shots.length+r.errors.length;}});
+  try{const run=await runViews({displays:visualDisplays,capture:captureProductView,signal:visualRunController.signal,revision:'visual-qa-v5',onProgress:(r,d,v)=>{status.textContent=(r.shots.length+r.errors.length)+' / '+r.planned+' · '+d.product.name+' · '+v.id;progress.max=r.planned||1;progress.value=r.shots.length+r.errors.length;}});
    status.textContent=run.status+' · '+run.shots.length+' screenshots saved locally · '+run.errors.length+' errors';
   }catch(e){status.textContent='Test run failed: '+e.message;}
   finally{visualCamera=null;visualRunController=null;start.disabled=false;cancel.disabled=true;await refresh();}
@@ -527,8 +527,17 @@ async function expandWarehouse(){
   }
   for(const {geo,mat,matrices} of batches.values()){const mesh=new T.InstancedMesh(geo,mat,matrices.length);matrices.forEach((m,i)=>mesh.setMatrixAt(i,m));mesh.instanceMatrix.needsUpdate=true;scene.add(mesh);}batches.clear();
   const photoQueue=[],shelfCards=[],photoPages=[];
-  let localArt=null;try{const res=await fetch('./assets/retail-art/index.json');if(res.ok){const candidate=await res.json();if(candidate.version===1&&candidate.width===2048&&candidate.height===2048&&Array.isArray(candidate.pages)&&candidate.pages.length<=2&&candidate.pages.every(p=>/^\.\/assets\/retail-art\/[a-f0-9]{20}\.webp$/.test(p.url)))localArt=candidate;}}catch{}
-  const localPages=[];if(localArt){const loader=new T.TextureLoader();await Promise.all(localArt.pages.map(async(p,i)=>{try{const texture=await loader.loadAsync(p.url);texture.colorSpace=T.SRGBColorSpace;texture.generateMipmaps=false;texture.minFilter=T.LinearFilter;localPages[i]={texture,mat:new T.MeshBasicMaterial({map:texture,toneMapped:false}),width:2048,height:2048};}catch{}}));}
+  let localArt=null,refinedArt=null;
+  async function readArt(folder,maxPages){try{const res=await fetch('./assets/'+folder+'/index.json');if(!res.ok)return null;const a=await res.json();if(a.version!==1||a.width!==2048||a.height!==2048||!Array.isArray(a.pages)||a.pages.length<1||a.pages.length>maxPages||!a.entries||!a.pages.every(p=>typeof p.url==='string'&&p.url.startsWith('./assets/'+folder+'/')&&/^[a-f0-9]{20}\.webp$/.test(p.url.split('/').pop())&&p.url.split('/').length===4))return null;return a;}catch{return null;}}
+  [localArt,refinedArt]=await Promise.all([readArt('retail-art',2),readArt('retail-refined',5)]);
+  const localPages=[],refinedPages=[],loader=new T.TextureLoader();
+  const mobileArt=matchMedia('(pointer: coarse)').matches||navigator.deviceMemory<=4;
+  async function loadArtPage(manifest,pages,i,limit){if(!manifest?.pages[i])return;try{const texture=await loader.loadAsync(manifest.pages[i].url);if(texture.image.width!==2048||texture.image.height!==2048){texture.dispose();return;}if(limit<2048){const c=document.createElement('canvas');c.width=c.height=limit;c.getContext('2d').drawImage(texture.image,0,0,limit,limit);texture.image=c;texture.needsUpdate=true;}texture.colorSpace=T.SRGBColorSpace;texture.generateMipmaps=false;texture.minFilter=T.LinearFilter;pages[i]={texture,mat:new T.MeshBasicMaterial({map:texture,toneMapped:false}),width:2048,height:2048};}catch{}}
+  function validArt(a,p,refined){return !!a&&(refined?a.catalogImage:a.image)===p.image&&a.license===p.imageLicense&&Number.isInteger(a.page)&&[a.x,a.y,a.w,a.h].every(Number.isFinite)&&a.x>=0&&a.y>=0&&a.w>0&&a.h>0&&a.x+a.w<=2048&&a.y+a.h<=2048&&/^#[0-9a-f]{6}$/i.test(a.color);}
+  const needed=new Set();for(const [,products] of assignments)for(const p of products){const a=refinedArt?.entries?.[p.id];if(p.image&&validArt(a,p,true)&&refinedArt.pages[a.page])needed.add(a.page);}
+  for(const i of needed)await loadArtPage(refinedArt,refinedPages,i,mobileArt?1536:2048);
+  const fallback=new Set();for(const [,products] of assignments)for(const p of products){const a=refinedArt?.entries?.[p.id],b=localArt?.entries?.[p.id];if(p.image&&!(validArt(a,p,true)&&refinedPages[a.page])&&validArt(b,p,false)&&localArt.pages[b.page])fallback.add(b.page);}
+  for(const i of fallback)await loadArtPage(localArt,localPages,i,mobileArt?1024:2048);
   function photoPage(index){if(!photoPages[index]){const canvas=document.createElement('canvas');canvas.width=1920;canvas.height=1920;const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;texture.generateMipmaps=false;texture.minFilter=T.LinearFilter;photoPages[index]={ctx:canvas.getContext('2d'),texture,mat:new T.MeshBasicMaterial({map:texture,toneMapped:false}),dirty:false,width:1920,height:1920};}return photoPages[index];}
   const shadowMat=new T.MeshBasicMaterial({color:0x2c2925,transparent:true,opacity:.14,depthWrite:false});
   const heroSet=new Set(featured.slice(0,20).map(p=>p.id));
@@ -552,7 +561,7 @@ async function expandWarehouse(){
    const frontGeo=new T.PlaneGeometry(labelW,labelH,8,4),uv=frontGeo.attributes.uv,verts=frontGeo.attributes.position;
    for(let k=0;k<uv.count;k++){const u=uv.getX(k),v=uv.getY(k);uv.setXY(k,(e.cell.x+.5+u*Math.max(0,w-1))/e.page.width,1-(e.cell.y+.5+(1-v)*Math.max(0,h-1))/e.page.height);if(round){const x=verts.getX(k);verts.setZ(k,fit.d*.5*(Math.sqrt(Math.max(0,1-(x/(fit.w*.5))**2))-1)+.004);}}
    frontGeo.computeVertexNormals();
-   const rows=depthRows(fit.d,Math.max(fit.d,e.depth*.86));
+   const rows=depthRows(fit.d,Math.max(fit.d,e.depth*.46));
    let rowZ=0;
    for(const rz of rows){rowZ=rz;for(const u of offsets){
     if(bottle){part(cylGeo,body,u,fit.h*.32,0,fit.w,fit.h*.64,fit.d);part(shoulderGeo,body,u,fit.h*.70,0,fit.w,fit.h*.12,fit.d);part(neckGeo,body,u,fit.h*.84,0,fit.w,fit.h*.17,fit.d);part(capGeo,cap,u,fit.h*.97,0,fit.w*.32,fit.h*.06,fit.d*.32);}
@@ -587,7 +596,7 @@ async function expandWarehouse(){
     const sign=new T.Mesh(geo,atlas.mat);sign.position.set(x+face.nx*depth*.49,y-.10,z+face.nz*depth*.49);sign.rotation.y=rot;scene.add(sign);shelfCards.push(sign);
     proxy(p,x+face.nx*depth*.40,y+.42,z+face.nz*depth*.40,alongX?size:.30,.84,alongX?.30:size,f.zone,f);displayed.add(p.id);
     if(p.model){models[p.id]={...p.model};modelSlots.push({id:p.id,assetId:p.assetId,x,y,z,w:size,h:.85,d:size,rot,bulk:false});}
-    else if(p.image){const group=new T.Group();scene.add(group);const a=localArt?.entries?.[p.id];if(a&&a.image===p.image&&a.license===p.imageLicense&&localPages[a.page]&&a.x>=0&&a.y>=0&&a.w>0&&a.h>0&&a.x+a.w<=2048&&a.y+a.h<=2048){placePhoto({p,x,y,z,size,depth,face,zone:f.zone.name,cell:a,page:localPages[a.page],group,local:a},a.w,a.h);}else{const cell=atlasCell(photoQueue.length),page=photoPage(cell.page);photoQueue.push({p,x,y,z,size,depth,face,zone:f.zone.name,cell,page,group});}}
+    else if(p.image){const group=new T.Group();scene.add(group);const high=refinedArt?.entries?.[p.id],low=localArt?.entries?.[p.id],useHigh=validArt(high,p,true)&&refinedPages[high.page],a=useHigh?high:low,page=useHigh?refinedPages[high.page]:validArt(low,p,false)?localPages[low.page]:null;if(page){placePhoto({p,x,y,z,size,depth,face,zone:f.zone.name,cell:a,page,group,local:a},a.w,a.h);}else{const cell=atlasCell(photoQueue.length),page=photoPage(cell.page);photoQueue.push({p,x,y,z,size,depth,face,zone:f.zone.name,cell,page,group});}}
 
    }
   }
